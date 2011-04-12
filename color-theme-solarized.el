@@ -66,7 +66,7 @@ Ported to Emacs by Greg Pfeil, http://ethanschoonover.com/solarized."
        (trailing-whitespace ((t (:foreground ,red :inverse-video t))))
        (vertical-border ((t (:foreground ,base0))))
        ;; compilation
-       (compilation-info ((t (:forground ,green :bold t))))
+       (compilation-info ((t (:foreground ,green :bold t))))
        (compilation-warning ((t (:foreground ,orange :bold t))))
        ;; customize
        (custom-button
