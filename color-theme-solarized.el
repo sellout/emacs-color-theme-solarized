@@ -13,6 +13,11 @@
 (eval-when-compile
   (require 'color-theme))
 
+(defcustom color-theme-solarized-degrade nil
+  "For test purposes only; forces Solarized to use the 256 degraded color mode to test the approximate color values for accuracy."
+  :type 'boolean
+  :group 'color-theme-solarized)
+
 (defvar color-theme-solarized-colors
   ;; name    ideal     256
   '((base03  "#002b36" "#1c1c1c")
@@ -41,7 +46,10 @@
 Ported to Emacs by Greg Pfeil, http://ethanschoonover.com/solarized."
   (interactive "Slight or dark? ")
   (flet ((find-color (name)
-           (let ((index (if (or (<= (display-color-cells) 256)) 2 1)))
+           (let ((index (if (or (<= (display-color-cells) 256)
+                                color-theme-solarized-degrade)
+                            2
+                          1)))
              (nth index (assoc name color-theme-solarized-colors)))))
     (let ((base03  (find-color 'base03))
           (base02  (find-color 'base02))
