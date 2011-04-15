@@ -86,6 +86,7 @@ Ported to Emacs by Greg Pfeil, http://ethanschoonover.com/solarized."
          (fringe ((t (:foreground ,base01 :background ,base02))))
          (header-line ((t (:foreground ,base0 :background ,base2))))
          (highlight ((t (:background ,base02))))
+         (lazy-highlight ((t (:background ,base01))))
          (isearch ((t (:foreground ,yellow :inverse-video t))))
          (menu ((t (:foreground ,base0 :background ,base02))))
          (minibuffer-prompt ((t (:foreground ,blue))))
@@ -100,6 +101,7 @@ Ported to Emacs by Greg Pfeil, http://ethanschoonover.com/solarized."
          (secondary-selection ((t (:background ,base02))))
          (trailing-whitespace ((t (:foreground ,red :inverse-video t))))
          (vertical-border ((t (:foreground ,base0))))
+         (hl-line ((t (:background ,base02))))
          ;; comint
          (comint-highlight-prompt ((t (:foreground ,blue))))
          ;; compilation
