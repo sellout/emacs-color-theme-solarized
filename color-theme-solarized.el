@@ -33,6 +33,23 @@ Ported to Emacs by Greg Pfeil, http://ethanschoonover.com/solarized."
         (blue    "#268bd2")
         (cyan    "#2aa198")
         (green   "#859900"))
+    (when (<= (display-color-cells) 256)
+      (setq base03  "#1c1c1c"
+            base02  "#262626"
+            base01  "#4e4e4e"
+            base00  "#585858"
+            base0   "#808080"
+            base1   "#8a8a8a"
+            base2   "#d7d7af"
+            base3   "#ffffd7"
+            yellow  "#af8700"
+            orange  "#d75f00"
+            red     "#af0000"
+            magenta "#af005f"
+            violet  "#5f5faf"
+            blue    "#0087ff"
+            cyan    "#00afaf"
+            green   "#5f8700"))
     (when (eq 'light mode)
       (rotatef base03 base3)
       (rotatef base02 base2)
