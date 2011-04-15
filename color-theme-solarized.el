@@ -228,6 +228,16 @@ Ported to Emacs by Greg Pfeil, http://ethanschoonover.com/solarized."
          ;; Flymake
          (flymake-errline ((t (:background ,orange))))
          (flymake-warnline ((t (:background ,violet))))
+         ;; whitespace
+         (whitespace-empty ((t (:foreground ,red))))
+         (whitespace-hspace ((t (:foreground ,orange))))
+         (whitespace-indentation ((t (:foreground ,base02))))
+         (whitespace-space ((t (:foreground ,base02))))
+         (whitespace-space-after-tab ((t (:foreground ,cyan))))
+         (whitespace-space-before-tab ((t (:foreground ,red :bold t))))
+         (whitespace-tab ((t (:foreground ,base02))))
+         (whitespace-trailing ((t (:background ,base02 :foreground ,red :bold t))))
+         (whitespace-highlight-face ((t (:background ,blue :foreground ,red))))
          ;; Message
          (message-mml ((t (:foreground ,blue))))
          (message-cited-text ((t (:foreground ,base2))))
