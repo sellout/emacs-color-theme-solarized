@@ -65,6 +65,8 @@ Ported to Emacs by Greg Pfeil, http://ethanschoonover.com/solarized."
        (secondary-selection ((t (:background ,base02))))
        (trailing-whitespace ((t (:foreground ,red :inverse-video t))))
        (vertical-border ((t (:foreground ,base0))))
+       ;; comint
+       (comint-highlight-prompt ((t (:foreground ,blue))))
        ;; compilation
        (compilation-info ((t (:foreground ,green :bold t))))
        (compilation-warning ((t (:foreground ,orange :bold t))))
@@ -114,8 +116,8 @@ Ported to Emacs by Greg Pfeil, http://ethanschoonover.com/solarized."
        ;; show-paren
        (show-paren-match-face ((t (:background ,cyan :foreground ,base3))))
        (show-paren-mismatch-face ((t (:background ,red :foreground ,base3))))
-       ;; comint
-       (comint-highlight-prompt ((t (:foreground ,blue))))
+       ;; extra modules
+       ;; -------------
        ;; gnus
        (gnus-cite-1 ((t (:foreground ,magenta))))
        (gnus-cite-2 ((t (:foreground ,base2))))
