@@ -128,6 +128,14 @@ Ported to Emacs by Greg Pfeil, http://ethanschoonover.com/solarized."
          (diff-file-header
           ((t (:background ,base1 :foreground ,base01 :bold t))))
          (diff-refine-change ((t (:background ,base1))))
+         ;; magit
+         (magit-file-header ((t (:foreground ,violet))))
+         (magit-hunk-header ((t (:foreground ,blue))))
+         (magit-header ((t (:foreground ,cyan))))
+         (magit-tag-label ((t (:background ,blue :foreground ,orange))))
+         (magit-diff-add ((t (:foreground ,blue))))
+         (magit-diff-del ((t (:foreground ,red))))
+         (magit-item-highlight ((t (:background ,base02))))
          ;; emacs-wiki
          (emacs-wiki-bad-link-face ((t (:foreground ,red :underline t))))
          (emacs-wiki-link-face ((t (:foreground ,blue :underline t))))
