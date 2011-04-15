@@ -35,6 +35,7 @@
    column is a different set, one of which will be chosen based on term
    capabilities, etc.")
 
+;;;###autoload
 (defun color-theme-solarized (mode)
   "Color theme by Ethan Schoonover, created 2011-03-24.
 Ported to Emacs by Greg Pfeil, http://ethanschoonover.com/solarized."
@@ -208,10 +209,12 @@ Ported to Emacs by Greg Pfeil, http://ethanschoonover.com/solarized."
          (message-header-cc ((t (:foreground ,green :bold t))))
          (message-header-to ((t (:foreground ,base1 :bold t)))))))))
 
+;;;###autoload
 (defun color-theme-solarized-dark ()
   (interactive)
   (color-theme-solarized 'dark))
 
+;;;###autoload
 (defun color-theme-solarized-light ()
   (interactive)
   (color-theme-solarized 'light))
