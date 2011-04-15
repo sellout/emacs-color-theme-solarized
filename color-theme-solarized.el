@@ -225,6 +225,9 @@ Ported to Emacs by Greg Pfeil, http://ethanschoonover.com/solarized."
          (gnus-summary-normal-read ((t (:foreground ,base1))))
          (gnus-summary-normal-ticked ((t (:foreground ,base3))))
          (gnus-summary-normal-undownloaded ((t (:foreground ,base2))))
+         ;; Flymake
+         (flymake-errline ((t (:background ,orange))))
+         (flymake-warnline ((t (:background ,violet))))
          ;; Message
          (message-mml ((t (:foreground ,blue))))
          (message-cited-text ((t (:foreground ,base2))))
