@@ -13,6 +13,7 @@
 (eval-when-compile
   (require 'color-theme))
 
+;;;###autoload
 (defun color-theme-solarized (mode)
   "Color theme by Ethan Schoonover, created 2011-03-24.
 Ported to Emacs by Greg Pfeil, http://ethanschoonover.com/solarized."
@@ -110,11 +111,12 @@ Ported to Emacs by Greg Pfeil, http://ethanschoonover.com/solarized."
        ;; show-paren
        (show-paren-match-face ((t (:background ,cyan :foreground ,base3))))
        (show-paren-mismatch-face ((t (:background ,red :foreground ,base3))))))))
-
+;;;###autoload
 (defun color-theme-solarized-dark ()
   (interactive)
   (color-theme-solarized 'dark))
 
+;;;###autoload
 (defun color-theme-solarized-light ()
   (interactive)
   (color-theme-solarized 'light))
