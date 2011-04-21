@@ -1,4 +1,4 @@
-;;; solarized-light-theme.el --- Custom face theme for Emacs
+;;; solarized-theme.el --- Custom face theme for Emacs
 
 ;; Copyright © 2011 Gwenhael Le Moine <gwenhael.le.moine@gmail.com>
 
@@ -64,7 +64,7 @@
    `(link-visited ((t (:foreground ,magenta :underline t))))
    `(button ((t (:background ,base1 :underline t))))
    `(header-line ((t (:background ,base2 :foreground ,base01))))
-   `(hl-line ((t (:background ,base2))))))
+   `(hl-line ((t (:background ,base2))))
    ;; from color-theme version
    `(escape-glyph-face ((t (:foreground ,red))))
    `(highlight ((t (:background ,base02))))
@@ -82,7 +82,7 @@
    `(custom-button-mouse ((t (:inherit custom-button :foreground ,base1))))
    `(custom-button-pressed
      ((t (:inherit custom-button-mouse
-                   :box (:line-width 2 :style pressed-button)))))
+		   :box (:line-width 2 :style pressed-button)))))
    `(custom-comment-tag ((t (:background ,base02))))
    `(custom-comment-tag ((t (:background ,base02))))
    `(custom-documentation ((t (:inherit default))))
