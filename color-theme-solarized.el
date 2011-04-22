@@ -147,6 +147,19 @@ Ported to Emacs by Greg Pfeil, http://ethanschoonover.com/solarized."
          (font-lock-variable-name-face ((t (:foreground ,blue))))
          (font-lock-warning-face ((t (:foreground ,red :bold t))))
          (font-lock-doc-face ((t (:foreground ,cyan :italic t))))
+         (font-lock-color-constant-face ((t (:foreground ,green))))
+         (font-lock-comment-delimiter-face ((t (:foreground ,base01 :bold t))))
+         (font-lock-doc-string-face ((t (:foreground ,green))))
+         (font-lock-preprocessor-face ((t (:foreground ,orange))))
+         (font-lock-reference-face ((t (:foreground ,cyan))))
+         (font-lock-negation-char-face ((t (:foreground ,red))))
+         (font-lock-other-type-face ((t (:foreground ,blue :italic t))))
+         (font-lock-regexp-grouping-construct    ((t (:foreground ,orange))))
+         (font-lock-special-keyword-face ((t (:foreground ,magenta))))
+         (font-lock-exit-face ((t (:foreground ,red))))
+         (font-lock-other-emphasized-face
+          ((t (:foreground ,violet :bold t :italic t))))
+         (font-lock-regexp-grouping-backslash ((t (:foreground ,yellow))))
          ;; info
          (info-xref ((t (:foreground ,blue :underline t))))
          (info-xref-visited ((t (:inherit info-xref :foreground ,magenta))))
@@ -216,6 +229,20 @@ Ported to Emacs by Greg Pfeil, http://ethanschoonover.com/solarized."
          (gnus-summary-normal-read ((t (:foreground ,base1))))
          (gnus-summary-normal-ticked ((t (:foreground ,base3))))
          (gnus-summary-normal-undownloaded ((t (:foreground ,base2))))
+         ;; Flymake
+         (flymake-errline ((t (:background ,orange))))
+         (flymake-warnline ((t (:background ,violet))))
+         ;; whitespace
+         (whitespace-empty ((t (:foreground ,red))))
+         (whitespace-hspace ((t (:foreground ,orange))))
+         (whitespace-indentation ((t (:foreground ,base02))))
+         (whitespace-space ((t (:foreground ,base02))))
+         (whitespace-space-after-tab ((t (:foreground ,cyan))))
+         (whitespace-space-before-tab ((t (:foreground ,red :bold t))))
+         (whitespace-tab ((t (:foreground ,base02))))
+         (whitespace-trailing
+          ((t (:background ,base02 :foreground ,red :bold t))))
+         (whitespace-highlight-face ((t (:background ,blue :foreground ,red))))
          ;; Message
          (message-mml ((t (:foreground ,blue))))
          (message-cited-text ((t (:foreground ,base2))))
