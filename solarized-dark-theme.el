@@ -65,7 +65,7 @@
    `(trailing-whitespace ((t (:foreground ,red :inverse-video t))))
    `(vertical-border ((t (:foreground ,base0))))
    ;; compilation
-   `(compilation-info ((t (:forground ,green :bold t))))
+   `(compilation-info ((t (:foreground ,green :bold t))))
    `(compilation-warning ((t (:foreground ,orange :bold t))))
    ;; customize
    `(custom-button
@@ -104,8 +104,16 @@
    `(info-xref-visited ((t (:inherit info-xref :foreground ,magenta))))
    ;; org
    `(org-hide ((t (:foreground ,base03))))
-   `(org-todo ((t (:foreground ,red :bold t))))
+   `(org-todo ((t (:foreground ,base03 :background ,red :bold t))))
    `(org-done ((t (:foreground ,green :bold t))))
+   `(org-todo-kwd-face ((t (:foreground ,red :background ,base03))))
+   `(org-done-kwd-face ((t (:foreground ,green :background ,base03))))
+   `(org-project-kwd-face ((t (:foreground ,violet :background ,base03))))
+   `(org-waiting-kwd-face ((t (:foreground ,orange :background ,base03))))
+   `(org-someday-kwd-face ((t (:foreground ,blue :background ,base03))))
+   `(org-started-kwd-face ((t (:foreground ,yellow :background ,base03))))
+   `(org-cancelled-kwd-face ((t (:foreground ,green :background ,base03))))
+   `(org-delegated-kwd-face ((t (:foreground ,cyan :background ,base03))))
    ;; show-paren
    `(show-paren-match-face ((t (:background ,cyan :foreground ,base3))))
    `(show-paren-mismatch-face ((t (:background ,red :foreground ,base3))))

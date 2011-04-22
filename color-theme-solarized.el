@@ -152,9 +152,8 @@ Ported to Emacs by Greg Pfeil, http://ethanschoonover.com/solarized."
          (info-xref-visited ((t (:inherit info-xref :foreground ,magenta))))
          ;; org
          (org-hide ((t (:foreground ,base03))))
-         (org-todo ((t (:foreground ,red :bold t))))
+         (org-todo ((t (:foreground ,base03 :background ,red :bold t))))
          (org-done ((t (:foreground ,green :bold t))))
-         (org-todo ((t (:weight bold :foreground ,base03 :background ,red))))
          (org-todo-kwd-face ((t (:foreground ,red :background ,base03))))
          (org-done-kwd-face ((t (:foreground ,green :background ,base03))))
          (org-project-kwd-face ((t (:foreground ,violet :background ,base03))))
