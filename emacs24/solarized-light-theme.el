@@ -43,32 +43,24 @@
   (custom-theme-set-faces
    'solarized-light
    `(default ((t (:background ,base3 :foreground ,base03))))
+   `(button ((t (:background ,base1 :underline t))))
    `(cursor ((t (:background ,base1 :foreground ,base02))))
-   `(region ((t (:background ,base2 :foreground ,base01))))
-   `(mode-line ((t (:background ,base1 :foreground ,base01))))
-   `(mode-line-inactive ((t (:background ,base2 :foreground ,base01))))
+   `(escape-glyph-face ((t (:foreground ,red))))
    `(fringe ((t (:background ,base2))))
-   `(minibuffer-prompt ((t (:background ,base3 :foreground ,blue :weight bold))))
-   `(font-lock-builtin-face ((t (:foreground ,green))))
-   `(font-lock-comment-face ((t (:slant italic :foreground ,base1))))
-   `(font-lock-constant-face ((t (:foreground ,cyan))))
-   `(font-lock-function-name-face ((t (:foreground ,blue))))
-   `(font-lock-keyword-face ((t (:foreground ,green))))
-   `(font-lock-string-face ((t (:foreground ,cyan))))
-   `(font-lock-type-face ((t (:foreground ,yellow))))
-   `(font-lock-variable-name-face ((t (:foreground ,blue))))
-   `(font-lock-warning-face ((t (:foreground ,red :weight bold))))
+   `(header-line ((t (:background ,base2 :foreground ,base01))))
+   `(highlight ((t (:background ,base02))))
+   `(hl-line ((t (:background ,base2))))
    `(isearch ((t (:background ,base2 :foreground ,base01))))
    `(lazy-highlight ((t (:background ,base2 :foreground ,base00))))
    `(link ((t (:foreground ,violet :underline t))))
    `(link-visited ((t (:foreground ,magenta :underline t))))
-   `(button ((t (:background ,base1 :underline t))))
-   `(header-line ((t (:background ,base2 :foreground ,base01))))
-   ;; from color-theme version
-   `(escape-glyph-face ((t (:foreground ,red))))
-   `(highlight ((t (:background ,base02))))
    `(menu ((t (:foreground ,base0 :background ,base02))))
+   `(minibuffer-prompt
+     ((t (:background ,base3 :foreground ,blue :weight bold))))
+   `(mode-line ((t (:background ,base1 :foreground ,base02))))
    `(mode-line-buffer-id ((t (:foreground ,base1))))
+   `(mode-line-inactive ((t (:background ,base2 :foreground ,base01))))
+   `(region ((t (:background ,base2 :foreground ,base01))))
    `(secondary-selection ((t (:background ,base02))))
    `(trailing-whitespace ((t (:foreground ,red :inverse-video t))))
    `(vertical-border ((t (:foreground ,base0))))
@@ -77,7 +69,7 @@
    `(compilation-warning ((t (:foreground ,orange :bold t))))
    ;; customize
    `(custom-button
-     ((t (:background ,base2 :box (:line-width 2 :style released-button)))))
+     ((t (:background ,base02 :box (:line-width 2 :style released-button)))))
    `(custom-button-mouse ((t (:inherit custom-button :foreground ,base1))))
    `(custom-button-pressed
      ((t (:inherit custom-button-mouse
@@ -97,6 +89,16 @@
    `(emacs-wiki-bad-link-face ((t (:foreground ,red :underline t))))
    `(emacs-wiki-link-face ((t (:foreground ,blue :underline t))))
    `(emacs-wiki-verbatim-face ((t (:foreground ,base00 :underline t))))
+   ;; font-lock
+   `(font-lock-builtin-face ((t (:foreground ,green))))
+   `(font-lock-comment-face ((t (:slant italic :foreground ,base1))))
+   `(font-lock-constant-face ((t (:foreground ,cyan))))
+   `(font-lock-function-name-face ((t (:foreground ,blue))))
+   `(font-lock-keyword-face ((t (:foreground ,green))))
+   `(font-lock-string-face ((t (:foreground ,cyan))))
+   `(font-lock-type-face ((t (:foreground ,yellow))))
+   `(font-lock-variable-name-face ((t (:foreground ,blue))))
+   `(font-lock-warning-face ((t (:foreground ,red :weight bold))))
    ;; info
    `(info-xref ((t (:foreground ,blue :underline t))))
    `(info-xref-visited ((t (:inherit info-xref :foreground ,magenta))))
