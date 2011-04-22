@@ -1,4 +1,4 @@
-;;; solarized-theme.el --- Custom face theme for Emacs
+;;; solarized-dark-theme.el --- Custom face theme for Emacs
 
 ;; Copyright © 2011 Gwenhael Le Moine <gwenhael.le.moine@gmail.com>
 
@@ -21,7 +21,7 @@
 
 ;;; Code:
 
-(deftheme solarized
+(deftheme solarized-dark
   "based on http://ethanschoonover.com/solarized")
 
 (let* ((base3   "#002b36")
@@ -41,7 +41,7 @@
        (cyan    "#2aa198")
        (green   "#859900"))
   (custom-theme-set-faces
-   'solarized
+   'solarized-dark
    `(default ((t (:background ,base3 :foreground ,base03))))
    `(button ((t (:background ,base1 :underline t))))
    `(cursor ((t (:background ,base1 :foreground ,base02))))
@@ -173,10 +173,10 @@
    `(message-header-cc ((t (:foreground ,green :bold t))))
    `(message-header-to ((t (:foreground ,base1 :bold t))))))
 
-(provide-theme 'solarized)
+(provide-theme 'solarized-dark)
 
 ;; Local Variables:
 ;; no-byte-compile: t
 ;; End:
 
-;;; solarized-theme.el  ends here
+;;; solarized-dark-theme.el  ends here
