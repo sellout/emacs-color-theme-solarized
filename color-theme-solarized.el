@@ -13,12 +13,28 @@
 (eval-when-compile
   (require 'color-theme))
 
-(defcustom color-theme-solarized-degrade nil
-  "For test purposes only; forces Solarized to use the 256 degraded color mode to test the approximate color values for accuracy."
+(defcustom solarized-degrade nil
+  "For test purposes only; forces Solarized to use the 256 degraded color mode
+to test the approximate color values for accuracy."
   :type 'boolean
-  :group 'color-theme-solarized)
+  :group 'solarized)
 
-(defvar color-theme-solarized-colors
+(defcustom solarized-bold t
+  "Stops Solarized from displaying bold when nil."
+  :type 'boolean
+  :group 'solarized)
+
+(defcustom solarized-underline t
+  "Stops Solarized from displaying underlines when nil."
+  :type 'boolean
+  :group 'solarized)
+
+(defcustom solarized-italic t
+  "Stops Solarized from displaying italics when nil."
+  :type 'boolean
+  :group 'solarized)
+
+(defvar solarized-colors
   ;; name    ideal     256
   '((base03  "#002b36" "#1c1c1c")
     (base02  "#073642" "#262626")
@@ -47,26 +63,29 @@ Ported to Emacs by Greg Pfeil, http://ethanschoonover.com/solarized."
   (interactive "Slight or dark? ")
   (flet ((find-color (name)
            (let ((index (if (or (<= (display-color-cells) 256)
-                                color-theme-solarized-degrade)
+                                solarized-degrade)
                             2
                           1)))
-             (nth index (assoc name color-theme-solarized-colors)))))
-    (let ((base03  (find-color 'base03))
-          (base02  (find-color 'base02))
-          (base01  (find-color 'base01))
-          (base00  (find-color 'base00))
-          (base0   (find-color 'base0))
-          (base1   (find-color 'base1))
-          (base2   (find-color 'base2))
-          (base3   (find-color 'base3))
-          (yellow  (find-color 'yellow))
-          (orange  (find-color 'orange))
-          (red     (find-color 'red))
-          (magenta (find-color 'magenta))
-          (violet  (find-color 'violet))
-          (blue    (find-color 'blue))
-          (cyan    (find-color 'cyan))
-          (green   (find-color 'green)))
+             (nth index (assoc name solarized-colors)))))
+    (let ((base03    (find-color 'base03))
+          (base02    (find-color 'base02))
+          (base01    (find-color 'base01))
+          (base00    (find-color 'base00))
+          (base0     (find-color 'base0))
+          (base1     (find-color 'base1))
+          (base2     (find-color 'base2))
+          (base3     (find-color 'base3))
+          (yellow    (find-color 'yellow))
+          (orange    (find-color 'orange))
+          (red       (find-color 'red))
+          (magenta   (find-color 'magenta))
+          (violet    (find-color 'violet))
+          (blue      (find-color 'blue))
+          (cyan      (find-color 'cyan))
+          (green     (find-color 'green))
+          (bold      (if solarized-bold 'bold 'normal))
+          (underline (if solarized-underline t nil))
+          (italic    (if solarized-italic 'italic 'normal)))
       (when (eq 'light mode)
         (rotatef base03 base3)
         (rotatef base02 base2)
@@ -89,8 +108,8 @@ Ported to Emacs by Greg Pfeil, http://ethanschoonover.com/solarized."
          (hl-line ((t (:background ,base2))))
          (isearch ((t (:foreground ,yellow :inverse-video t))))
          (lazy-highlight ((t (:background ,base2 :foreground ,base00))))
-         (link ((t (:foreground ,violet :underline t))))
-         (link-visited ((t (:foreground ,magenta :underline t))))
+         (link ((t (:foreground ,violet :underline ,underline))))
+         (link-visited ((t (:foreground ,magenta :underline ,underline))))
          (menu ((t (:foreground ,base0 :background ,base02))))
          (minibuffer-prompt ((t (:foreground ,blue))))
          (mode-line
@@ -107,8 +126,8 @@ Ported to Emacs by Greg Pfeil, http://ethanschoonover.com/solarized."
          ;; comint
          (comint-highlight-prompt ((t (:foreground ,blue))))
          ;; compilation
-         (compilation-info ((t (:foreground ,green :bold t))))
-         (compilation-warning ((t (:foreground ,orange :bold t))))
+         (compilation-info ((t (:foreground ,green :weight ,bold))))
+         (compilation-warning ((t (:foreground ,orange :weight ,bold))))
          ;; customize
          (custom-button
           ((t (:background ,base02
@@ -120,53 +139,56 @@ Ported to Emacs by Greg Pfeil, http://ethanschoonover.com/solarized."
          (custom-comment-tag ((t (:background ,base02))))
          (custom-comment-tag ((t (:background ,base02))))
          (custom-documentation ((t (:inherit default))))
-         (custom-group-tag ((t (:foreground ,orange :bold t))))
+         (custom-group-tag ((t (:foreground ,orange :weight ,bold))))
          (custom-link ((t (:foreground ,violet))))
          (custom-state ((t (:foreground ,green))))
-         (custom-variable-tag ((t (:foreground ,orange :bold t))))
+         (custom-variable-tag ((t (:foreground ,orange :weight ,bold))))
          ;; diff
          (diff-added ((t (:foreground ,green :inverse-video t))))
          (diff-changed ((t (:foreground ,yellow :inverse-video t))))
          (diff-removed ((t (:foreground ,red :inverse-video t))))
          (diff-header ((t (:background ,base01))))
          (diff-file-header
-          ((t (:background ,base1 :foreground ,base01 :bold t))))
+          ((t (:background ,base1 :foreground ,base01 :weight ,bold))))
          (diff-refine-change ((t (:background ,base1))))
          ;; emacs-wiki
-         (emacs-wiki-bad-link-face ((t (:foreground ,red :underline t))))
-         (emacs-wiki-link-face ((t (:foreground ,blue :underline t))))
-         (emacs-wiki-verbatim-face ((t (:foreground ,base00 :underline t))))
+         (emacs-wiki-bad-link-face
+          ((t (:foreground ,red :underline ,underline))))
+         (emacs-wiki-link-face ((t (:foreground ,blue :underline ,underline))))
+         (emacs-wiki-verbatim-face
+          ((t (:foreground ,base00 :underline ,underline))))
          ;; font-lock
          (font-lock-builtin-face ((t (:foreground ,green))))
-         (font-lock-comment-face ((t (:foreground ,base01 :italic t))))
+         (font-lock-comment-face ((t (:foreground ,base01 :slant ,italic))))
          (font-lock-constant-face ((t (:foreground ,cyan))))
          (font-lock-function-name-face ((t (:foreground ,blue))))
          (font-lock-keyword-face ((t (:foreground ,green))))
          (font-lock-string-face ((t (:foreground ,cyan))))
          (font-lock-type-face ((t (:foreground ,yellow))))
          (font-lock-variable-name-face ((t (:foreground ,blue))))
-         (font-lock-warning-face ((t (:foreground ,red :bold t))))
-         (font-lock-doc-face ((t (:foreground ,cyan :italic t))))
+         (font-lock-warning-face ((t (:foreground ,red :weight ,bold))))
+         (font-lock-doc-face ((t (:foreground ,cyan :slant ,italic))))
          (font-lock-color-constant-face ((t (:foreground ,green))))
-         (font-lock-comment-delimiter-face ((t (:foreground ,base01 :bold t))))
+         (font-lock-comment-delimiter-face
+          ((t (:foreground ,base01 :weight ,bold))))
          (font-lock-doc-string-face ((t (:foreground ,green))))
          (font-lock-preprocessor-face ((t (:foreground ,orange))))
          (font-lock-reference-face ((t (:foreground ,cyan))))
          (font-lock-negation-char-face ((t (:foreground ,red))))
-         (font-lock-other-type-face ((t (:foreground ,blue :italic t))))
+         (font-lock-other-type-face ((t (:foreground ,blue :slant ,italic))))
          (font-lock-regexp-grouping-construct    ((t (:foreground ,orange))))
          (font-lock-special-keyword-face ((t (:foreground ,magenta))))
          (font-lock-exit-face ((t (:foreground ,red))))
          (font-lock-other-emphasized-face
-          ((t (:foreground ,violet :bold t :italic t))))
+          ((t (:foreground ,violet :weight ,bold :slant ,italic))))
          (font-lock-regexp-grouping-backslash ((t (:foreground ,yellow))))
          ;; info
-         (info-xref ((t (:foreground ,blue :underline t))))
+         (info-xref ((t (:foreground ,blue :underline ,underline))))
          (info-xref-visited ((t (:inherit info-xref :foreground ,magenta))))
          ;; org
          (org-hide ((t (:foreground ,base03))))
-         (org-todo ((t (:foreground ,base03 :background ,red :bold t))))
-         (org-done ((t (:foreground ,green :bold t))))
+         (org-todo ((t (:foreground ,base03 :background ,red :weight ,bold))))
+         (org-done ((t (:foreground ,green :weight ,bold))))
          (org-todo-kwd-face ((t (:foreground ,red :background ,base03))))
          (org-done-kwd-face ((t (:foreground ,green :background ,base03))))
          (org-project-kwd-face ((t (:foreground ,violet :background ,base03))))
@@ -192,39 +214,41 @@ Ported to Emacs by Greg Pfeil, http://ethanschoonover.com/solarized."
          (gnus-cite-9 ((t (:foreground ,base2))))
          (gnus-cite-10 ((t (:foreground ,base3))))
          (gnus-cite-11 ((t (:foreground ,blue))))
-         (gnus-group-mail-1 ((t (:foreground ,base3 :bold t))))
+         (gnus-group-mail-1 ((t (:foreground ,base3 :weight ,bold))))
          (gnus-group-mail-1-empty ((t (:foreground ,base3))))
-         (gnus-group-mail-2 ((t (:foreground ,base2 :bold t))))
+         (gnus-group-mail-2 ((t (:foreground ,base2 :weight ,bold))))
          (gnus-group-mail-2-empty ((t (:foreground ,base2))))
-         (gnus-group-mail-3 ((t (:foreground ,magenta :bold t))))
+         (gnus-group-mail-3 ((t (:foreground ,magenta :weight ,bold))))
          (gnus-group-mail-3-empty ((t (:foreground ,magenta))))
-         (gnus-group-mail-low ((t (:foreground ,base00 :bold t))))
+         (gnus-group-mail-low ((t (:foreground ,base00 :weight ,bold))))
          (gnus-group-mail-low-empty ((t (:foreground ,base00))))
-         (gnus-group-news-1 ((t (:foreground ,base1 :bold t))))
+         (gnus-group-news-1 ((t (:foreground ,base1 :weight ,bold))))
          (gnus-group-news-1-empty ((t (:foreground ,base1))))
-         (gnus-group-news-2 ((t (:foreground ,blue :bold t))))
+         (gnus-group-news-2 ((t (:foreground ,blue :weight ,bold))))
          (gnus-group-news-2-empty ((t (:foreground ,blue))))
-         (gnus-group-news-low ((t (:foreground ,violet :bold t))))
+         (gnus-group-news-low ((t (:foreground ,violet :weight ,bold))))
          (gnus-group-news-low-empty ((t (:foreground ,violet))))
-         (gnus-header-content ((t (:foreground ,cyan :italic t))))
+         (gnus-header-content ((t (:foreground ,cyan :slant ,italic))))
          (gnus-header-from ((t (:foreground ,base2))))
          (gnus-header-name ((t (:foreground ,blue))))
-         (gnus-header-newsgroups ((t (:foreground ,green :italic t))))
+         (gnus-header-newsgroups ((t (:foreground ,green :slant ,italic))))
          (gnus-header-subject ((t (:foreground ,base1))))
-         (gnus-server-agent ((t (:foreground ,base3 :bold t))))
-         (gnus-server-closed ((t (:foreground ,base1 :italic t))))
-         (gnus-server-denied ((t (:foreground ,base2 :bold t))))
-         (gnus-server-offline ((t (:foreground ,green :bold t))))
-         (gnus-server-opened ((t (:foreground ,cyan :bold t))))
+         (gnus-server-agent ((t (:foreground ,base3 :weight ,bold))))
+         (gnus-server-closed ((t (:foreground ,base1 :slant ,italic))))
+         (gnus-server-denied ((t (:foreground ,base2 :weight ,bold))))
+         (gnus-server-offline ((t (:foreground ,green :weight ,bold))))
+         (gnus-server-opened ((t (:foreground ,cyan :weight ,bold))))
          (gnus-splash ((t (:foreground ,base2))))
-         (gnus-summary-high-ancient ((t (:foreground ,magenta :bold t))))
-         (gnus-summary-high-read ((t (:foreground ,base1 :bold t))))
-         (gnus-summary-high-ticked ((t (:foreground ,base3 :bold t))))
-         (gnus-summary-high-undownloaded ((t (:foreground ,base2 :bold t))))
-         (gnus-summary-low-ancient ((t (:foreground ,magenta :italic t))))
-         (gnus-summary-low-read ((t (:foreground ,base1 :italic t))))
-         (gnus-summary-low-ticked ((t (:foreground ,base3 :italic t))))
-         (gnus-summary-low-undownloaded ((t (:foreground ,base2 :italic t))))
+         (gnus-summary-high-ancient ((t (:foreground ,magenta :weight ,bold))))
+         (gnus-summary-high-read ((t (:foreground ,base1 :weight ,bold))))
+         (gnus-summary-high-ticked ((t (:foreground ,base3 :weight ,bold))))
+         (gnus-summary-high-undownloaded
+          ((t (:foreground ,base2 :weight ,bold))))
+         (gnus-summary-low-ancient ((t (:foreground ,magenta :slant ,italic))))
+         (gnus-summary-low-read ((t (:foreground ,base1 :slant ,italic))))
+         (gnus-summary-low-ticked ((t (:foreground ,base3 :slant ,italic))))
+         (gnus-summary-low-undownloaded
+          ((t (:foreground ,base2 :slant ,italic))))
          (gnus-summary-normal-ancient ((t (:foreground ,magenta))))
          (gnus-summary-normal-read ((t (:foreground ,base1))))
          (gnus-summary-normal-ticked ((t (:foreground ,base3))))
@@ -238,10 +262,10 @@ Ported to Emacs by Greg Pfeil, http://ethanschoonover.com/solarized."
          (whitespace-indentation ((t (:foreground ,base02))))
          (whitespace-space ((t (:foreground ,base02))))
          (whitespace-space-after-tab ((t (:foreground ,cyan))))
-         (whitespace-space-before-tab ((t (:foreground ,red :bold t))))
+         (whitespace-space-before-tab ((t (:foreground ,red :weight ,bold))))
          (whitespace-tab ((t (:foreground ,base02))))
          (whitespace-trailing
-          ((t (:background ,base02 :foreground ,red :bold t))))
+          ((t (:background ,base02 :foreground ,red :weight ,bold))))
          (whitespace-highlight-face ((t (:background ,blue :foreground ,red))))
          ;; Message
          (message-mml ((t (:foreground ,blue))))
@@ -251,10 +275,10 @@ Ported to Emacs by Greg Pfeil, http://ethanschoonover.com/solarized."
          (message-header-name ((t (:foreground ,cyan))))
          (message-header-other ((t (:foreground ,red))))
          (message-header-newsgroups
-          ((t (:foreground ,yellow :bold t :italic t))))
+          ((t (:foreground ,yellow :weight ,bold :slant ,italic))))
          (message-header-subject ((t (:foreground ,base00))))
-         (message-header-cc ((t (:foreground ,green :bold t))))
-         (message-header-to ((t (:foreground ,base1 :bold t)))))))))
+         (message-header-cc ((t (:foreground ,green :weight ,bold))))
+         (message-header-to ((t (:foreground ,base1 :weight ,bold)))))))))
 
 ;;;###autoload
 (defun color-theme-solarized-dark ()
