@@ -36,7 +36,7 @@ Installation & Usage
 1. Add the `emacs-color-theme-solarized` directory to your Emacs `load-path`.
 2. `M-x enable-theme`, then either `solarized-light` or `solarized-dark`.
 
-### [Color Theme] (pre-Emacs 24)
+### [Color Theme] !(pre-Emacs 24)
 
 1. Download and install [color-theme].
 2. Add the `emacs-color-theme-solarized` directory to your Emacs `load-path`.
@@ -62,7 +62,6 @@ Advanced Configuration
 
 Solarized will work out of the box with just the instructions specified above but does include several other variables that can be customized.
 
-"
     variable name           default   optional
     -------------------------------------------
     solarized-degrade   =   nil   |   t
@@ -83,8 +82,7 @@ Solarized will work out of the box with just the instructions specified above bu
 *   solarized-bold | solarized-underline | solarized-italic
 
     If you wish to stop Solarized from displaying bold, underlined or 
-    italicized typefaces, simply assign a zero value to the appropriate 
-    variable, for example: `let g:solarized_italic=0`
+    italicized typefaces, simply set the appropriate variable to `nil`.
 
 *   solarized-contrast
 
