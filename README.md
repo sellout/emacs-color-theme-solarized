@@ -36,7 +36,7 @@ Installation & Usage
 1. Add the `emacs-color-theme-solarized` directory to your Emacs `load-path`.
 2. `M-x enable-theme`, then either `solarized-light` or `solarized-dark`.
 
-### [color-theme] !(pre-Emacs 24)
+### [color-theme] (pre-Emacs 24)
 
 1. Download and install [color-theme].
 2. Add the `emacs-color-theme-solarized` directory to your Emacs `load-path`.
