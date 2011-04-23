@@ -34,24 +34,27 @@ to test the approximate color values for accuracy."
   :type 'boolean
   :group 'solarized)
 
+;; FIXME: The Generic RGB colors will actually vary from device to device, but
+;;        hopefully these are closer to the intended colors than the sRGB values
+;;        that Emacs seems to dislike
 (defvar solarized-colors
-  ;; name    ideal     256
-  '((base03  "#002b36" "#1c1c1c")
-    (base02  "#073642" "#262626")
-    (base01  "#586e75" "#4e4e4e")
-    (base00  "#657b83" "#585858")
-    (base0   "#839496" "#808080")
-    (base1   "#93a1a1" "#8a8a8a")
-    (base2   "#eee8d5" "#d7d7af")
-    (base3   "#fdf6e3" "#ffffd7")
-    (yellow  "#b58900" "#af8700")
-    (orange  "#cb4b16" "#d75f00")
-    (red     "#dc322f" "#af0000")
-    (magenta "#d33682" "#af005f")
-    (violet  "#6c71c4" "#5f5faf")
-    (blue    "#268bd2" "#0087ff")
-    (cyan    "#2aa198" "#00afaf")
-    (green   "#859900" "#5f8700"))
+  ;; name    sRGB      Gen RGB   degraded
+  '((base03  "#002b36" "#042028" "#1c1c1c")
+    (base02  "#073642" "#0a2832" "#262626")
+    (base01  "#586e75" "#465a61" "#4e4e4e")
+    (base00  "#657b83" "#52676f" "#585858")
+    (base0   "#839496" "#708183" "#808080")
+    (base1   "#93a1a1" "#81908f" "#8a8a8a")
+    (base2   "#eee8d5" "#e9e2cb" "#d7d7af")
+    (base3   "#fdf6e3" "#fcf4dc" "#ffffd7")
+    (yellow  "#b58900" "#a57705" "#af8700")
+    (orange  "#cb4b16" "#bd3612" "#d75f00")
+    (red     "#dc322f" "#c60007" "#af0000")
+    (magenta "#d33682" "#c61b6e" "#af005f")
+    (violet  "#6c71c4" "#5859b7" "#5f5faf")
+    (blue    "#268bd2" "#2075c7" "#0087ff")
+    (cyan    "#2aa198" "#259185" "#00afaf")
+    (green   "#859900" "#728a05" "#5f8700"))
   "This is a table of all the colors used by the Solarized color theme. Each
    column is a different set, one of which will be chosen based on term
    capabilities, etc.")
@@ -64,8 +67,8 @@ Ported to Emacs by Greg Pfeil, http://ethanschoonover.com/solarized."
   (flet ((find-color (name)
            (let ((index (if (or (<= (display-color-cells) 256)
                                 solarized-degrade)
-                            2
-                          1)))
+                            3
+                          2)))
              (nth index (assoc name solarized-colors)))))
     (let ((base03    (find-color 'base03))
           (base02    (find-color 'base02))
