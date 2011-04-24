@@ -108,7 +108,7 @@ Ported to Emacs by Greg Pfeil, http://ethanschoonover.com/solarized."
          (fringe ((t (:foreground ,base01 :background ,base02))))
          (header-line ((t (:foreground ,base0 :background ,base2))))
          (highlight ((t (:background ,base02))))
-         (hl-line ((t (:background ,base2))))
+         (hl-line ((t (:background ,base02))))
          (isearch ((t (:foreground ,yellow :inverse-video t))))
          (lazy-highlight ((t (:background ,base2 :foreground ,base00))))
          (link ((t (:foreground ,violet :underline ,underline))))
