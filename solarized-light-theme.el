@@ -58,7 +58,7 @@
    `(minibuffer-prompt
      ((t (:background ,base3 :foreground ,blue :weight bold))))
    `(mode-line ((t (:background ,base1 :foreground ,base02))))
-   `(mode-line-buffer-id ((t (:foreground ,base1))))
+   `(mode-line-buffer-id ((t (:foreground ,base03 :weight bold))))
    `(mode-line-inactive ((t (:background ,base2 :foreground ,base01))))
    `(region ((t (:background ,base2 :foreground ,base01))))
    `(secondary-selection ((t (:background ,base02))))
