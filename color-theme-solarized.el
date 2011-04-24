@@ -203,6 +203,10 @@ Ported to Emacs by Greg Pfeil, http://ethanschoonover.com/solarized."
          ;; show-paren
          (show-paren-match-face ((t (:background ,cyan :foreground ,base3))))
          (show-paren-mismatch-face ((t (:background ,red :foreground ,base3))))
+         ;; widgets
+         (widget-field
+          ((t (:box (:line-width 1 :color ,base00) :inherit default))))
+         (widget-single-line-field ((t (:inherit widget-field))))
          ;; extra modules
          ;; -------------
          ;; gnus
