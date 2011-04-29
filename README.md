@@ -36,7 +36,7 @@ Installation & Usage
 1. Add the `emacs-color-theme-solarized` directory to your Emacs `load-path`.
 2. `M-x enable-theme`, then either `solarized-light` or `solarized-dark`.
 
-### [color-theme] (pre-Emacs 24)
+### [color-theme] \(pre-Emacs 24\)
 
 1. Download and install [color-theme].
 2. Add the `emacs-color-theme-solarized` directory to your Emacs `load-path`.
@@ -45,14 +45,23 @@ Installation & Usage
 
 ### IMPORTANT NOTE FOR TERMINAL USERS:
 
-If you are going to use Solarized in Terminal mode (i.e. not in a GUI version 
-like Cocoa or X11 Emacs), **please please please** consider setting your terminal emulator's colorscheme to used the Solarized palette. I've included palettes for some popular terminal emulator as well as Xdefaults in the official Solarized download available from [Solarized homepage]. If you use 
-Solarized *without* these colors, Solarized will need to be told to degrade its colorscheme to a set compatible with the limited 256 terminal palette (whereas by using the terminal's 16 ansi color values, you can set the correct, specific values for the Solarized palette).
+If you are going to use Solarized in Terminal mode (i.e. not in a GUI version
+like Cocoa or X11 Emacs), **please please please** consider setting your
+terminal emulator's colorscheme to use the Solarized palette. The [Solarized
+repository] includes palettes for some popular terminal emulator as well as
+Xdefaults; or you can download them from the official [Solarized homepage].
+If you use this emacs color theme *without* having changed your emulator's
+palette, you will need to configure Solarized to degrade its colorscheme to
+a set compatible with the terminal's default limited 256 color palette
+(whereas by using the terminal's 16 ANSI color values, you would
+see the correct, specific values for the Solarized palette).
 
-If you do use the custom terminal colors, Solarized should work out of the
-box for you. If you are using a terminal emulator that supports 256 colors and 
-don't want to use the custom Solarized terminal colors, you will need to use 
-the degraded 256 colorscheme. To do so, simply customize the `solarized-degrade` variable to `t`.
+If you do use the custom terminal colors, i.e. the 16 overridden ANSI color
+values, the emacs colorscheme should work out of the box for you. If you are
+using a terminal emulator that supports 256 colors and don't want to use
+the custom Solarized terminal colors, you will need to use the degraded 256
+colorscheme. To do so, simply customize the `solarized-termcolor` variable to
+`256`.
 
 Again, I recommend just changing your terminal colors to Solarized values 
 either manually or via one of the many terminal schemes available for import.
@@ -60,10 +69,12 @@ either manually or via one of the many terminal schemes available for import.
 Advanced Configuration
 ----------------------
 
-Solarized will work out of the box with just the instructions specified above but does include several other variables that can be customized.
+Solarized will work out of the box with just the instructions specified above
+but does include several variables that can be customized.
 
     variable name           default   optional
     -------------------------------------------
+    solarized-termcolors=   16    |   256
     solarized-degrade   =   nil   |   t
     solarized-bold      =   t     |   nil
     solarized-underline =   t     |   nil
@@ -74,10 +85,23 @@ Solarized will work out of the box with just the instructions specified above bu
 
 ### Option Details
 
+*   solarized-termcolors
+
+    This is set to *16* by default, meaning that Solarized will attempt to use 
+    the standard 16 colors of your terminal emulator, assuming that you've set
+    these colors to the correct Solarized values either manually or by 
+    importing one of the many colorscheme available for popular terminal 
+    emulators and Xdefaults.
+    If you don't want to use the Solarized colors via the terminal
+    emulator's palette, you can set this to *256*, which will use a degraded
+    version of the Solarized palette by displaying the closest colors in
+    the terminal's default 256 colors as shown in [Xterm's color
+    chart](http://en.wikipedia.org/wiki/File:Xterm_color_chart.png).
+
 *   solarized-degrade
 
-    For test purposes only; forces Solarized to use the 256 degraded color
-    mode to test the approximate color values for accuracy.
+    For test purposes only; in GUI mode, this forces Solarized to use the 256
+    degraded color mode to test the approximate color values for accuracy.
 
 *   solarized-bold | solarized-underline | solarized-italic
 
