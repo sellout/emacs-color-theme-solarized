@@ -92,7 +92,7 @@ will use the 256 degraded color mode."
         (rotatef base01 base1)
         (rotatef base00 base0))
       `((;; basic
-         (default ((t (:foreground ,base0))))
+         (default ((t (:foreground ,base0 ,:background ,base03))))
          (cursor
           ((t (:foreground ,base0 :background ,base03 :inverse-video t))))
          (escape-glyph-face ((t (:foreground ,red))))
