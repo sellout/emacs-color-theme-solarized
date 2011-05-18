@@ -286,7 +286,7 @@ will use the 256 degraded color mode."
          (cursor-color . ,base0))))))
 
 (defmacro create-solarized-theme (mode)
-  (let* ((theme-name (make-symbol (concat "solarized-" (symbol-name mode))))
+  (let* ((theme-name (intern (concat "solarized-" (symbol-name mode))))
          (defs (solarized-color-definitions mode))
          (theme-vars (mapcar (lambda (def) (list (car def) (cdr def)))
                              (second defs)))
