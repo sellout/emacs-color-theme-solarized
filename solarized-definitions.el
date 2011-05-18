@@ -101,6 +101,7 @@ will use the 256 degraded color mode."
          (escape-glyph-face ((t (:foreground ,red))))
          (fringe ((t (:foreground ,base01 :background ,base02))))
          (header-line ((t (:foreground ,base0 :background ,base2))))
+         (highlight ((t (:background ,base03))))
          (highlight ((t (:background ,base02))))
          (hl-line ((t (:background ,base02))))
          (isearch ((t (:foreground ,yellow :inverse-video t))))
@@ -185,7 +186,7 @@ will use the 256 degraded color mode."
          ;; org
          (org-hide ((t (:foreground ,base03))))
          (org-todo ((t (:foreground ,base03 :background ,red :weight ,bold))))
-         (org-done ((t (:foreground ,green :weight ,bold))))
+         (org-done ((t (:foreground ,base03 :background ,green :weight ,bold))))
          (org-todo-kwd-face ((t (:foreground ,red :background ,base03))))
          (org-done-kwd-face ((t (:foreground ,green :background ,base03))))
          (org-project-kwd-face ((t (:foreground ,violet :background ,base03))))
