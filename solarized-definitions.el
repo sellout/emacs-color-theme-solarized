@@ -65,7 +65,7 @@ will use the 256 degraded color mode."
            (let ((index (if window-system
                             (if solarized-degrade
                                 3
-			      2)
+			      1)
 			  (if (= solarized-termcolors 256)
 			      3
 			    4))))
@@ -97,14 +97,14 @@ will use the 256 degraded color mode."
       `((;; basic
          (default ((t (:foreground ,base0 ,:background ,base03))))
          (cursor
-          ((t (:foreground ,base0 :background ,base03 :inverse-video t))))
+          ((t (:foreground ,base03 :background ,base0 :inverse-video t))))
          (escape-glyph-face ((t (:foreground ,red))))
          (fringe ((t (:foreground ,base01 :background ,base02))))
          (linum ((t (:foreground ,base01 :background ,base02))))
          (header-line ((t (:foreground ,base0 :background ,base2))))
          (highlight ((t (:background ,base02))))
          (hl-line ((t (:background ,base02))))
-         (isearch ((t (:foreground ,yellow :inverse-video t))))
+         (isearch ((t (:foreground ,yellow :background ,base03 :inverse-video t))))
          (lazy-highlight ((t (:background ,base2 :foreground ,base00))))
          (link ((t (:foreground ,violet :underline ,underline))))
          (link-visited ((t (:foreground ,magenta :underline ,underline))))
@@ -160,7 +160,7 @@ will use the 256 degraded color mode."
          (emacs-wiki-verbatim-face
           ((t (:foreground ,base00 :underline ,underline))))
          ;; font-lock
-         (font-lock-builtin-face ((t (:foreground ,green))))
+         (font-lock-builtin-face ((t (:foreground ,blue))))
          (font-lock-comment-face ((t (:foreground ,base01 :slant ,italic))))
          (font-lock-constant-face ((t (:foreground ,cyan))))
          (font-lock-function-name-face ((t (:foreground ,blue))))
@@ -200,7 +200,7 @@ will use the 256 degraded color mode."
          (org-cancelled-kwd-face ((t (:foreground ,green :background ,base03))))
          (org-delegated-kwd-face ((t (:foreground ,cyan :background ,base03))))
          ;; show-paren
-         (show-paren-match-face ((t (:background ,cyan :foreground ,base3))))
+         (show-paren-match-face ((t (:background ,base01 :foreground ,red))))
          (show-paren-mismatch-face ((t (:background ,red :foreground ,base3))))
          ;; widgets
          (widget-field
