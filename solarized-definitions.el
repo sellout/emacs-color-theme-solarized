@@ -41,21 +41,21 @@ will use the 256 degraded color mode."
 (defvar solarized-colors
   ;; name    sRGB      Gen RGB   degraded  ANSI(Solarized terminal)
   '((base03  "#002b36" "#042028" "#1c1c1c" "#7f7f7f")
-    (base02  "#073642" "#0a2832" "#262626" "#000000")
-    (base01  "#586e75" "#465a61" "#4e4e4e" "#00ff00")
-    (base00  "#657b83" "#52676f" "#585858" "#ffff00")
-    (base0   "#839496" "#708183" "#808080" "#5c5cff")
-    (base1   "#93a1a1" "#81908f" "#8a8a8a" "#00ffff")
-    (base2   "#eee8d5" "#e9e2cb" "#d7d7af" "#e5e5e5")
+    (base02  "#073642" "#0a2933" "#262626" "#000000")
+    (base01  "#586e75" "#475b62" "#585858" "#00ff00")
+    (base00  "#657b83" "#536870" "#626262" "#ffff00")
+    (base0   "#839496" "#708284" "#808080" "#5c5cff")
+    (base1   "#93a1a1" "#819090" "#8a8a8a" "#00ffff")
+    (base2   "#eee8d5" "#eae3cb" "#e4e4e4" "#e5e5e5")
     (base3   "#fdf6e3" "#fcf4dc" "#ffffd7" "#ffffff")
-    (yellow  "#b58900" "#a57705" "#af8700" "#cdcd00")
-    (orange  "#cb4b16" "#bd3612" "#d75f00" "#ff0000")
-    (red     "#dc322f" "#c60007" "#af0000" "#cd0000")
-    (magenta "#d33682" "#c61b6e" "#af005f" "#cd00cd")
-    (violet  "#6c71c4" "#5859b7" "#5f5faf" "#ff00ff")
-    (blue    "#268bd2" "#2075c7" "#0087ff" "#0000ee")
-    (cyan    "#2aa198" "#259185" "#00afaf" "#00cdcd")
-    (green   "#859900" "#728a05" "#5f8700" "#00cd00"))
+    (yellow  "#b58900" "#a57706" "#af8700" "#cdcd00")
+    (orange  "#cb4b16" "#bd3613" "#d75f00" "#ff0000")
+    (red     "#dc322f" "#d11c24" "#d70000" "#cd0000")
+    (magenta "#d33682" "#c61b6f" "#af005f" "#cd00cd")
+    (violet  "#6c71c4" "#595ab7" "#5f5faf" "#ff00ff")
+    (blue    "#268bd2" "#2176c7" "#0087ff" "#0000ee")
+    (cyan    "#2aa198" "#259286" "#00afaf" "#00cdcd")
+    (green   "#859900" "#738a05" "#5f8700" "#00cd00"))
   "This is a table of all the colors used by the Solarized color theme. Each
    column is a different set, one of which will be chosen based on term
    capabilities, etc.")
@@ -63,12 +63,8 @@ will use the 256 degraded color mode."
 (defun solarized-color-definitions (mode)
   (flet ((find-color (name)
            (let ((index (if window-system
-                            (if solarized-degrade
-                                3
-			      2)
-			  (if (= solarized-termcolors 256)
-			      3
-			    4))))
+                          (if solarized-degrade 3 2)
+                          (if (= solarized-termcolors 256) 2 4))))
              (nth index (assoc name solarized-colors)))))
     (let ((base03    (find-color 'base03))
           (base02    (find-color 'base02))
@@ -94,8 +90,41 @@ will use the 256 degraded color mode."
         (rotatef base02 base2)
         (rotatef base01 base1)
         (rotatef base00 base0))
+      (unless window-system
+          ;; If we're a tty, we need to tell emacs that the standard terminal colours
+          ;; have been overridden, otherwise the "closest matching terminal colour" code
+          ;; will start giving odd-seeming results.
+          (tty-color-define "black"   0 (tty-color-standard-values base02))
+          (tty-color-define "red"     1 (tty-color-standard-values red))
+          (tty-color-define "green"   2 (tty-color-standard-values green))
+          (tty-color-define "yellow"  3 (tty-color-standard-values yellow))
+          (tty-color-define "blue"    4 (tty-color-standard-values blue))
+          (tty-color-define "magenta" 5 (tty-color-standard-values magenta))
+          (tty-color-define "cyan"    6 (tty-color-standard-values cyan))
+          (tty-color-define "white"   7 (tty-color-standard-values base2))
+          (when (> (display-color-cells (selected-frame)) 8)
+            ;; TODO: If we don't support 16 colour palette we probably ought to issue a warning
+            ;; since most of the base colours for Solarized require it in this setup.
+            (tty-color-define "brightblack"    8 (tty-color-standard-values base03))
+            (tty-color-define "brightred"      9 (tty-color-standard-values orange))
+            (tty-color-define "brightgreen"   10 (tty-color-standard-values base01))
+            (tty-color-define "brightyellow"  11 (tty-color-standard-values base00))
+            (tty-color-define "brightblue"    12 (tty-color-standard-values base0))
+            (tty-color-define "brightmagenta" 13 (tty-color-standard-values violet))
+            (tty-color-define "brightcyan"    14 (tty-color-standard-values base1))
+            (tty-color-define "brightwhite"   15 (tty-color-standard-values base3))
+            )
+          ;; This may well be happening before terminal is initialized, depending on how
+          ;; we're being invoked, so we set up a hook to reapply our colours after the
+          ;; terminal initialization (which sets up the default colours)
+          (remove-hook 'term-setup-hook 'color-theme-solarized-light)
+          (remove-hook 'term-setup-hook 'color-theme-solarized-dark)
+          (if (eq 'light mode)
+            (add-hook 'term-setup-hook 'color-theme-solarized-light)
+            (add-hook 'term-setup-hook 'color-theme-solarized-dark))
+        )
       `((;; basic
-         (default ((t (:foreground ,base0 ,:background ,base03))))
+         (default ((t (:foreground ,base0 :background ,base03))))
          (cursor
           ((t (:foreground ,base0 :background ,base03 :inverse-video t))))
          (escape-glyph-face ((t (:foreground ,red))))
