@@ -313,7 +313,10 @@ will use the 256 degraded color mode."
           ((t (:foreground ,yellow :weight ,bold :slant ,italic))))
          (message-header-subject ((t (:foreground ,base00))))
          (message-header-cc ((t (:foreground ,green :weight ,bold))))
-         (message-header-to ((t (:foreground ,base1 :weight ,bold)))))
+         (message-header-to ((t (:foreground ,base1 :weight ,bold))))
+         ;; buff-menu+
+         (buffer-menu-file-name ((t (:foreground ,base0))))
+	 )
         ((foreground-color . ,base0)
          (background-color . ,base03)
          (background-mode . ,mode)
