@@ -35,6 +35,11 @@ will use the 256 degraded color mode."
   :type 'integer
   :group 'solarized)
 
+(defcustom solarized-srgb nil
+  "Use Generic RGB color when nil."
+  :type 'boolean
+  :group 'solarized)
+
 ;; FIXME: The Generic RGB colors will actually vary from device to device, but
 ;;        hopefully these are closer to the intended colors than the sRGB values
 ;;        that Emacs seems to dislike
@@ -65,7 +70,9 @@ will use the 256 degraded color mode."
            (let ((index (if window-system
                             (if solarized-degrade
                                 3
-			      2)
+                              (if solarized-srgb
+                                  1
+                                2))
 			  (if (= solarized-termcolors 256)
 			      3
 			    4))))
