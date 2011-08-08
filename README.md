@@ -76,6 +76,7 @@ but does include several variables that can be customized.
     -------------------------------------------
     solarized-termcolors=   16    |   256
     solarized-degrade   =   nil   |   t
+    solarized-srgb      =   t     |   nil (see details below)
     solarized-bold      =   t     |   nil
     solarized-underline =   t     |   nil
     solarized-italic    =   t     |   nil
@@ -102,6 +103,13 @@ but does include several variables that can be customized.
 
     For test purposes only; in GUI mode, this forces Solarized to use the 256
     degraded color mode to test the approximate color values for accuracy.
+
+*   solarized-srgb
+
+    Due to [bug #8402](http://debbugs.gnu.org/cgi/bugreport.cgi?bug=8402),
+    emacs does not render official sRGB Solarized colors correctly on OS X.
+    This option forces Solarized to use sRGB colors instead of generic RGB
+    colors. It defaults to `nil` on Mac systems and `t` on all other platforms.
 
 *   solarized-bold | solarized-underline | solarized-italic
 
