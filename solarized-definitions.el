@@ -35,8 +35,11 @@ will use the 256 degraded color mode."
   :type 'integer
   :group 'solarized)
 
-(defcustom solarized-srgb nil
-  "Use Generic RGB color when nil."
+(defcustom solarized-srgb (if (eq system-type 'darwin) nil t)
+  "Makes Solarized use Generic RGB colors when nil. Generic RGB colors
+are device-specific, but may produce better results than sRGB colors.
+This defaults to nil on Mac systems and t on all other platforms due to
+emacs bug #8402."
   :type 'boolean
   :group 'solarized)
 
