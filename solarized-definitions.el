@@ -97,17 +97,30 @@ will use the 256 degraded color mode."
           (tty-color-define "magenta" 5 (tty-color-standard-values magenta))
           (tty-color-define "cyan"    6 (tty-color-standard-values cyan))
           (tty-color-define "white"   7 (tty-color-standard-values base2))
-          (when (> (display-color-cells (selected-frame)) 8)
-            ;; TODO: If we don't support 16 colour palette we probably ought to issue a warning
-            ;; since most of the base colours for Solarized require it in this setup.
-            (tty-color-define "brightblack"    8 (tty-color-standard-values base03))
-            (tty-color-define "brightred"      9 (tty-color-standard-values orange))
-            (tty-color-define "brightgreen"   10 (tty-color-standard-values base01))
-            (tty-color-define "brightyellow"  11 (tty-color-standard-values base00))
-            (tty-color-define "brightblue"    12 (tty-color-standard-values base0))
-            (tty-color-define "brightmagenta" 13 (tty-color-standard-values violet))
-            (tty-color-define "brightcyan"    14 (tty-color-standard-values base1))
-            (tty-color-define "brightwhite"   15 (tty-color-standard-values base3))
+          (if (> (display-color-cells (selected-frame)) 8)
+            (progn
+              (tty-color-define "brightblack"    8 (tty-color-standard-values base03))
+              (tty-color-define "brightred"      9 (tty-color-standard-values orange))
+              (tty-color-define "brightgreen"   10 (tty-color-standard-values base01))
+              (tty-color-define "brightyellow"  11 (tty-color-standard-values base00))
+              (tty-color-define "brightblue"    12 (tty-color-standard-values base0))
+              (tty-color-define "brightmagenta" 13 (tty-color-standard-values violet))
+              (tty-color-define "brightcyan"    14 (tty-color-standard-values base1))
+              (tty-color-define "brightwhite"   15 (tty-color-standard-values base3))
+              )
+            (progn
+              ;; We're operating in reduced-behaviour 8-colour terminal, we need to
+              ;; remap a bunch of the colours as per the solarized table.
+              (message "Warning: 8-color terminal detected, emacs-color-theme-solziared operating with degraded colors.")
+              (setq base03 blue)
+              (setq base02 blue) ;; This is what solarized spec says but it's unreadable for dark.
+              (setq base01 base2)
+              (setq base00 base2)
+              (setq base0  cyan)
+              (setq base1  blue)
+              ;; (setq base2  base2) ;; Unchanged
+              (setq base3  base2)
+              )
             )
           ;; This may well be happening before terminal is initialized, depending on how
           ;; we're being invoked, so we set up a hook to reapply our colours after the
