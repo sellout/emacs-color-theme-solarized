@@ -111,7 +111,7 @@ will use the 256 degraded color mode."
             (progn
               ;; We're operating in reduced-behaviour 8-colour terminal, we need to
               ;; remap a bunch of the colours as per the solarized table.
-              (message "Warning: 8-color terminal detected, emacs-color-theme-solziared operating with degraded colors.")
+              (message "Warning: 8-color terminal detected, emacs-color-theme-solarized operating with degraded colors.")
               (setq base03 blue)
               (setq base02 blue) ;; This is what solarized spec says but it's unreadable for dark.
               (setq base01 base2)
