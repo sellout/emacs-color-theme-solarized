@@ -85,11 +85,6 @@ will use the 256 degraded color mode."
           (bold      (if solarized-bold 'bold 'normal))
           (underline (if solarized-underline t nil))
           (italic    (if solarized-italic 'italic 'normal)))
-      (when (eq 'light mode)
-        (rotatef base03 base3)
-        (rotatef base02 base2)
-        (rotatef base01 base1)
-        (rotatef base00 base0))
       (unless window-system
           ;; If we're a tty, we need to tell emacs that the standard terminal colours
           ;; have been overridden, otherwise the "closest matching terminal colour" code
@@ -123,6 +118,11 @@ will use the 256 degraded color mode."
             (add-hook 'term-setup-hook 'color-theme-solarized-light)
             (add-hook 'term-setup-hook 'color-theme-solarized-dark))
         )
+      (when (eq 'light mode)
+        (rotatef base03 base3)
+        (rotatef base02 base2)
+        (rotatef base01 base1)
+        (rotatef base00 base0))
       `((;; basic
          (default ((t (:foreground ,base0 :background ,base03))))
          (cursor
