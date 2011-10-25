@@ -55,7 +55,7 @@ will use the 256 degraded color mode."
     (violet  "#6c71c4" "#5859b7" "#5f5faf" "#ff00ff")
     (blue    "#268bd2" "#2075c7" "#0087ff" "#0000ee")
     (cyan    "#2aa198" "#259185" "#00afaf" "#00cdcd")
-    (green   "#859900" "#728a05" "#5f8700" "#00cd00"))
+    (green   "#719e07" "#728a05" "#5f8700" "#00cd00"))
   "This is a table of all the colors used by the Solarized color theme. Each
    column is a different set, one of which will be chosen based on term
    capabilities, etc.")
