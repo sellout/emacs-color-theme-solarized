@@ -199,6 +199,8 @@ will use the 256 degraded color mode."
          (org-started-kwd-face ((t (:foreground ,yellow :background ,base03))))
          (org-cancelled-kwd-face ((t (:foreground ,green :background ,base03))))
          (org-delegated-kwd-face ((t (:foreground ,cyan :background ,base03))))
+         ;; emacs-starter-kit faces
+         (esk-paren-face ((t (:foreground ,red))))
          ;; show-paren
          (show-paren-match-face ((t (:background ,base01 :foreground ,red))))
          (show-paren-mismatch-face ((t (:background ,red :foreground ,base3))))
