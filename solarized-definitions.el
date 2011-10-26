@@ -112,11 +112,11 @@ will use the 256 degraded color mode."
          (minibuffer-prompt ((t (:foreground ,blue))))
          (mode-line
           ((t (:foreground ,base1 :background ,base02
-                           :box (:line-width 1 :color ,base1)))))
+                           :box nil :inverse-video t))))
          (mode-line-buffer-id ((t (:foreground ,base1))))
          (mode-line-inactive
-          ((t (:foreground ,base0  :background ,base02
-                           :box (:line-width 1 :color ,base02)))))
+          ((t (:foreground ,base00  :background ,base02
+                           :box nil :inverse-video t))))
          (region ((t (:foreground ,base01 :background ,base03 :inverse-video t))))
          (secondary-selection ((t (:background ,base02))))
          (trailing-whitespace ((t (:foreground ,red :inverse-video t))))
