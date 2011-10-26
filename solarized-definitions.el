@@ -55,7 +55,7 @@ will use the 256 degraded color mode."
     (violet  "#6c71c4" "#5859b7" "#5f5faf" "#ff00ff")
     (blue    "#268bd2" "#2075c7" "#0087ff" "#0000ee")
     (cyan    "#2aa198" "#259185" "#00afaf" "#00cdcd")
-    (green   "#859900" "#728a05" "#5f8700" "#00cd00"))
+    (green   "#719e07" "#728a05" "#5f8700" "#00cd00"))
   "This is a table of all the colors used by the Solarized color theme. Each
    column is a different set, one of which will be chosen based on term
    capabilities, etc.")
@@ -65,7 +65,7 @@ will use the 256 degraded color mode."
            (let ((index (if window-system
                             (if solarized-degrade
                                 3
-			      2)
+			      1)
 			  (if (= solarized-termcolors 256)
 			      3
 			    4))))
@@ -97,14 +97,14 @@ will use the 256 degraded color mode."
       `((;; basic
          (default ((t (:foreground ,base0 ,:background ,base03))))
          (cursor
-          ((t (:foreground ,base0 :background ,base03 :inverse-video t))))
+          ((t (:foreground ,base03 :background ,base0 :inverse-video t))))
          (escape-glyph-face ((t (:foreground ,red))))
          (fringe ((t (:foreground ,base01 :background ,base02))))
          (linum ((t (:foreground ,base01 :background ,base02))))
          (header-line ((t (:foreground ,base0 :background ,base2))))
          (highlight ((t (:background ,base02))))
          (hl-line ((t (:background ,base02))))
-         (isearch ((t (:foreground ,yellow :inverse-video t))))
+         (isearch ((t (:foreground ,yellow :background ,base03 :inverse-video t))))
          (lazy-highlight ((t (:background ,base2 :foreground ,base00))))
          (link ((t (:foreground ,violet :underline ,underline))))
          (link-visited ((t (:foreground ,magenta :underline ,underline))))
@@ -112,12 +112,12 @@ will use the 256 degraded color mode."
          (minibuffer-prompt ((t (:foreground ,blue))))
          (mode-line
           ((t (:foreground ,base1 :background ,base02
-                           :box (:line-width 1 :color ,base1)))))
+                           :box nil :inverse-video t))))
          (mode-line-buffer-id ((t (:foreground ,base1))))
          (mode-line-inactive
-          ((t (:foreground ,base0  :background ,base02
-                           :box (:line-width 1 :color ,base02)))))
-         (region ((t (:background ,base02))))
+          ((t (:foreground ,base00  :background ,base02
+                           :box nil :inverse-video t))))
+         (region ((t (:foreground ,base01 :background ,base03 :inverse-video t))))
          (secondary-selection ((t (:background ,base02))))
          (trailing-whitespace ((t (:foreground ,red :inverse-video t))))
          (vertical-border ((t (:foreground ,base0))))
@@ -160,7 +160,7 @@ will use the 256 degraded color mode."
          (emacs-wiki-verbatim-face
           ((t (:foreground ,base00 :underline ,underline))))
          ;; font-lock
-         (font-lock-builtin-face ((t (:foreground ,green))))
+         (font-lock-builtin-face ((t (:foreground ,blue))))
          (font-lock-comment-face ((t (:foreground ,base01 :slant ,italic))))
          (font-lock-constant-face ((t (:foreground ,cyan))))
          (font-lock-function-name-face ((t (:foreground ,blue))))
@@ -199,8 +199,10 @@ will use the 256 degraded color mode."
          (org-started-kwd-face ((t (:foreground ,yellow :background ,base03))))
          (org-cancelled-kwd-face ((t (:foreground ,green :background ,base03))))
          (org-delegated-kwd-face ((t (:foreground ,cyan :background ,base03))))
+         ;; emacs-starter-kit faces
+         (esk-paren-face ((t (:foreground ,red))))
          ;; show-paren
-         (show-paren-match-face ((t (:background ,cyan :foreground ,base3))))
+         (show-paren-match-face ((t (:background ,base01 :foreground ,red))))
          (show-paren-mismatch-face ((t (:background ,red :foreground ,base3))))
          ;; widgets
          (widget-field

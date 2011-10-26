@@ -16,6 +16,9 @@
   (require 'color-theme))
 
 ;;;###autoload
+(add-to-list 'custom-theme-load-path (file-name-directory load-file-name))
+
+;;;###autoload
 (defun color-theme-solarized (mode)
   "Color theme by Ethan Schoonover, created 2011-03-24.
 Ported to Emacs by Greg Pfeil, http://ethanschoonover.com/solarized."
