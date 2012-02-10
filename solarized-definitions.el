@@ -44,6 +44,14 @@ in order to expand or compress the tonal range displayed."
   :options '(high normal low)
   :group 'solarized)
 
+(defcustom solarized-srgb (if (eq system-type 'darwin) nil t)
+  "Makes Solarized use Generic RGB colors when nil. Generic RGB colors
+are device-specific, but may produce better results than sRGB colors.
+This defaults to nil on Mac systems and t on all other platforms due to
+emacs bug #8402."
+  :type 'boolean
+  :group 'solarized)
+
 ;; FIXME: The Generic RGB colors will actually vary from device to device, but
 ;;        hopefully these are closer to the intended colors than the sRGB values
 ;;        that Emacs seems to dislike
@@ -74,7 +82,9 @@ in order to expand or compress the tonal range displayed."
            (let ((index (if window-system
                             (if solarized-degrade
                                 3
-			      2)
+                              (if solarized-srgb
+                                  1
+                                2))
 			  (if (= solarized-termcolors 256)
 			      3
 			    4))))
