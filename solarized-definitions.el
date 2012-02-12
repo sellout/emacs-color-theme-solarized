@@ -187,6 +187,8 @@ However, these colors are not totally portable, so you may be able to edit the
             ((t (:foreground ,blue :underline ,underline))))
            (emacs-wiki-verbatim-face
             ((t (:foreground ,base00 :underline ,underline))))
+           ;; eshell
+           (eshell-prompt ((t (:foreground ,green :weight ,bold))))
            ;; font-lock
            (font-lock-builtin-face ((t (:foreground ,green))))
            (font-lock-comment-face ((t (:foreground ,base01 :slant ,italic))))
