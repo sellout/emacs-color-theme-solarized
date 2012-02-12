@@ -74,16 +74,17 @@ Advanced Configuration
 Solarized will work out of the box with just the instructions specified above
 but does include several variables that can be customized.
 
-    variable name           default   optional
-    -------------------------------------------
-    solarized-termcolors=   16    |   256
-    solarized-degrade   =   nil   |   t
-    solarized-bold      =   t     |   nil
-    solarized-underline =   t     |   nil
-    solarized-italic    =   t     |   nil
-    solarized-contrast  =   normal|   high, low
-    solarized-visibility=   normal|   high, low
-    -------------------------------------------
+    variable name            default   optional
+    --------------------------------------------
+    solarized-termcolors =   16    |   256
+    solarized-degrade    =   nil   |   t
+    solarized-bold       =   t     |   nil
+    solarized-underline  =   t     |   nil
+    solarized-italic     =   t     |   nil
+    solarized-contrast   =   normal|   high, low
+    solarized-visibility =   normal|   high, low
+    solarized-broken-srgb=   nil   |   t (see details for Mac behavior)
+    --------------------------------------------
 
 ### Option Details
 
@@ -121,6 +122,14 @@ but does include several variables that can be customized.
     Special characters such as trailing whitespace, tabs, newlines, when
     displayed using `:set list` can be set to one of three levels depending on 
     your needs. Default value is `normal` with `high` and `low` options.
+    
+*   solarized-broken-srgb
+
+    Emacs [bug #8402](http://debbugs.gnu.org/cgi/bugreport.cgi?bug=8402)
+    results in incorrect color handling on Macs. If this is `t` (the default
+    on Macs), Solarized works around it with alternative colors. However,
+    these colors are not totally portable, so you may be able to edit the
+    "Gen RGB" column in `solarized-definitions.el` to improve them further.
 
 Code Notes
 ----------

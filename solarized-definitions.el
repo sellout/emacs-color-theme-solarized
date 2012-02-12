@@ -44,6 +44,14 @@ in order to expand or compress the tonal range displayed."
   :options '(high normal low)
   :group 'solarized)
 
+(defcustom solarized-broken-srgb (if (eq system-type 'darwin) t nil)
+  "Emacs bug #8402 results in incorrect color handling on Macs. If this is t
+(the default on Macs), Solarized works around it with alternative colors.
+However, these colors are not totally portable, so you may be able to edit the
+\"Gen RGB\" column in solarized-definitions.el to improve them further."
+  :type 'boolean
+  :group 'solarized)
+
 ;; FIXME: The Generic RGB colors will actually vary from device to device, but
 ;;        hopefully these are closer to the intended colors than the sRGB values
 ;;        that Emacs seems to dislike
@@ -74,7 +82,7 @@ in order to expand or compress the tonal range displayed."
            (let ((index (if window-system
                             (if solarized-degrade
                                 3
-			      2)
+			      (if solarized-broken-srgb 2 1))
 			  (if (= solarized-termcolors 256)
 			      3
 			    4))))
