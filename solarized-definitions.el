@@ -152,22 +152,29 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
            ;; compilation
            (compilation-info ((t (:foreground ,green :weight ,bold))))
            (compilation-warning ((t (:foreground ,orange :weight ,bold))))
-           ;; customize
+           ;; custom
            (custom-button
-            ((t (:background ,base02
-                             :box (:line-width 2 :style released-button)))))
+            ((t (:foreground ,base1 :background ,base02
+                 :box (:line-width 2 :style released-button)))))
            (custom-button-mouse
-            ((t (:inherit custom-button :foreground ,base1))))
+            ((t (:foreground ,base1 :background ,base02 :inverse-video t
+                 :inherit custom-button))))
            (custom-button-pressed
-            ((t (:inherit custom-button-mouse
-                          :box (:line-width 2 :style pressed-button)))))
-           (custom-comment-tag ((t (:background ,base02))))
-           (custom-comment-tag ((t (:background ,base02))))
+            ((t (:foreground ,base1 :background ,base02 :inverse-video t
+                 :box (:line-width 2 :style pressed-button)
+                 :inherit custom-button-mouse))))
+           (custom-changed ((t (:foreground ,blue :background ,base3
+                                :inverse-video t))))
+           (custom-comment ((t (:foreground ,base1 :background ,base02))))
+           (custom-comment-tag ((t (:foreground ,base1 :background ,base02))))
            (custom-documentation ((t (:inherit default))))
-           (custom-group-tag ((t (:foreground ,orange :weight ,bold))))
+           (custom-group-tag ((t (:foreground ,base1))))
+           (custom-group-tag-1 ((t (:foreground ,base1 :weight ,bold))))
+           (custom-invalid
+            ((t (:foreground ,red :background ,back :inverse-video t))))
            (custom-link ((t (:foreground ,violet))))
            (custom-state ((t (:foreground ,green))))
-           (custom-variable-tag ((t (:foreground ,orange :weight ,bold))))
+           (custom-variable-tag ((t (:foreground ,base1))))
            ;; diff
            (diff-added ((t (:foreground ,green :inverse-video t))))
            (diff-changed ((t (:foreground ,yellow :inverse-video t))))
@@ -251,7 +258,7 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
             ((t (:background ,red :foreground ,base3))))
            ;; widgets
            (widget-field
-            ((t (:box (:line-width 1 :color ,base00) :inherit default))))
+            ((t (:box (:line-width 1 :color ,base2) :foreground ,base1 :background ,base02 :inherit default))))
            (widget-single-line-field ((t (:inherit widget-field))))
            ;; extra modules
            ;; -------------
