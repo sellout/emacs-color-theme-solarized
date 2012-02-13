@@ -207,6 +207,9 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
            (eshell-ls-symlink ((t (:foreground ,cyan))))
            (eshell-ls-unreadable ((t (:foreground ,base00))))
            (eshell-prompt ((t (:foreground ,green :weight ,bold))))
+           ;; flymake - FIXME: these don't seem to register
+           (flymake-errline ((t (:background ,base3))))
+           (flymake-warnline ((t (:background ,base2))))
            ;; font-lock
            (font-lock-builtin-face ((t (:foreground ,green))))
            (font-lock-comment-face ((t (:foreground ,base01 :slant ,italic))))
