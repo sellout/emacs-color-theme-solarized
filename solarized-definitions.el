@@ -188,6 +188,17 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
            (emacs-wiki-verbatim-face
             ((t (:foreground ,base00 :underline ,underline))))
            ;; eshell
+           (eshell-ls-archive ((t (:foreground ,magenta))))
+           (eshell-ls-backup ((t (:foreground ,yellow))))
+           (eshell-ls-clutter ((t (:foreground ,orange))))
+           (eshell-ls-directory ((t (:foreground ,blue))))
+           (eshell-ls-executable ((t (:foreground ,green))))
+           (eshell-ls-missing ((t (:foreground ,red))))
+           (eshell-ls-product ((t (:foreground ,yellow))))
+           (eshell-ls-readonly ((t (:foreground ,base1))))
+           (eshell-ls-special ((t (:foreground ,violet))))
+           (eshell-ls-symlink ((t (:foreground ,cyan))))
+           (eshell-ls-unreadable ((t (:foreground ,base00))))
            (eshell-prompt ((t (:foreground ,green :weight ,bold))))
            ;; font-lock
            (font-lock-builtin-face ((t (:foreground ,green))))
