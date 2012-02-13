@@ -28,18 +28,18 @@ degraded color mode to test the approximate color values for accuracy."
 
 (defcustom solarized-termcolors 16
   "This setting applies to emacs in terminal (non-GUI) mode.
-If set to 16, emacs will use the terminal emulator's colorscheme (best option as
-long as you've set your emulator's colors to the Solarized palette). If set to
-256 and your terminal is capable of displaying 256 colors, emacs will use the
-256 degraded color mode."
+If set to 16, emacs will use the terminal emulator's colorscheme (best option
+as long as you've set your emulator's colors to the Solarized palette). If
+set to 256 and your terminal is capable of displaying 256 colors, emacs will
+use the 256 degraded color mode."
   :type 'integer
   :options '(16 256)
   :group 'solarized)
 
 (defcustom solarized-contrast 'normal
   "Stick with normal! It's been carefully tested. Setting this option to high or
-low does use the same Solarized palette but simply shifts some values up or down
-in order to expand or compress the tonal range displayed."
+low does use the same Solarized palette but simply shifts some values up or
+down in order to expand or compress the tonal range displayed."
   :type 'symbol
   :options '(high normal low)
   :group 'solarized)
@@ -47,8 +47,8 @@ in order to expand or compress the tonal range displayed."
 (defcustom solarized-broken-srgb (if (eq system-type 'darwin) t nil)
   "Emacs bug #8402 results in incorrect color handling on Macs. If this is t
 (the default on Macs), Solarized works around it with alternative colors.
-However, these colors are not totally portable, so you may be able to edit the
-\"Gen RGB\" column in solarized-definitions.el to improve them further."
+However, these colors are not totally portable, so you may be able to edit
+the \"Gen RGB\" column in solarized-definitions.el to improve them further."
   :type 'boolean
   :group 'solarized)
 
