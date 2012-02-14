@@ -129,7 +129,7 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
         `((;; basic
            (default ((t (:foreground ,base0 ,:background ,back))))
            (cursor
-            ((t (:foreground ,base0 :background ,base03 :inverse-video t))))
+            ((t (:foreground ,base02 :background ,base1 :inverse-video t)))
            (escape-glyph-face ((t (:foreground ,red))))
            (fringe ((t (:foreground ,base01 :background ,base02))))
            (linum ((t (:foreground ,base01 :background ,base02))))
