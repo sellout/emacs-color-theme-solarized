@@ -11,6 +11,12 @@ degraded color mode to test the approximate color values for accuracy."
   :type 'boolean
   :group 'solarized)
 
+(defcustom solarized-diff-mode 'normal
+  "Sets the level of highlighting to use in diff-like modes."
+  :type 'symbol
+  :options '(high normal low)
+  :group 'solarized)
+
 (defcustom solarized-bold t
   "Stops Solarized from displaying bold when nil."
   :type 'boolean
@@ -145,6 +151,7 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
                              :box (:line-width 1 :color ,base02)))))
            (region ((t (:background ,base02))))
            (secondary-selection ((t (:background ,base02))))
+           (shadow ((t (:foreground, base01))))
            (trailing-whitespace ((t (:foreground ,red :inverse-video t))))
            (vertical-border ((t (:foreground ,base0))))
            ;; comint
@@ -175,14 +182,35 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
            (custom-link ((t (:foreground ,violet))))
            (custom-state ((t (:foreground ,green))))
            (custom-variable-tag ((t (:foreground ,base1))))
-           ;; diff
-           (diff-added ((t (:foreground ,green :inverse-video t))))
-           (diff-changed ((t (:foreground ,yellow :inverse-video t))))
-           (diff-removed ((t (:foreground ,red :inverse-video t))))
-           (diff-header ((t (:background ,base01))))
-           (diff-file-header
-            ((t (:background ,base1 :foreground ,base01 :weight ,bold))))
-           (diff-refine-change ((t (:background ,base1))))
+           ;; diff - DiffAdd, DiffChange, DiffDelete, and DiffText
+           ,@(case solarized-diff-mode
+               (high
+                `((diff-added ((t (:foreground ,green :inverse-video t))))
+                  (diff-changed ((t (:foreground ,yellow :inverse-video t))))
+                  (diff-removed ((t (:foreground ,red :inverse-video t))))
+                  (diff-header
+                   ((t (:foreground ,blue :background ,back :inverse-video t))))))
+               (low
+                `((diff-added ((t (:foreground ,green :underline ,underline))))
+                  (diff-changed
+                   ((t (:foreground ,yellow :underline ,underline))))
+                  (diff-removed ((t (:foreground ,red :weight ,bold))))
+                  (diff-header
+                   ((t (:foreground ,blue :background ,back :underline ,underline))))))
+               (normal
+                (if window-system
+                    `((diff-added ((t (:foreground ,green :weight ,bold))))
+                      (diff-changed ((t (:foreground ,yellow :weight ,bold))))
+                      (diff-removed ((t (:foreground ,red :weight ,bold))))
+                      (diff-header
+                       ((t (:foreground ,blue :background ,back
+                            :weight ,bold)))))
+                  `((diff-added ((t (:foreground ,green))))
+                    (diff-changed ((t (:foreground ,yellow))))
+                    (diff-removed ((t (:foreground ,red))))
+                    (diff-header ((t (:foreground ,blue :background ,back))))))))
+           (diff-file-header ((t (:background ,back))))
+           (diff-refine-change ((t (:background ,base3))))
            ;; IDO
            (ido-only-match ((t (:foreground ,green))))
            (ido-subdir ((t (:foreground ,blue))))
