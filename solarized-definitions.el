@@ -162,6 +162,7 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
               (fg-blue `(:foreground ,blue))
               (fg-cyan `(:foreground ,cyan))
 
+              (fmt-none `(:weight normal :slant normal  :underline nil        :inverse-video nil))
               (fmt-bold `(:weight ,bold  :slant normal  :underline nil        :inverse-video nil))
               (fmt-bldi `(:weight ,bold                 :underline nil        :inverse-video nil))
               (fmt-undr `(:weight normal :slant normal  :underline ,underline :inverse-video nil))
