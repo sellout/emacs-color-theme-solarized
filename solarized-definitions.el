@@ -325,6 +325,9 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
              (widget-single-line-field ((t (:inherit widget-field))))
              ;; extra modules
              ;; -------------
+             ;; Flymake
+             (flymake-errline ((t (,@bg-base3))))
+             (flymake-warnline ((t (,@bg-base02))))
              ;; gnus - these are taken from mutt, not VIM
              (gnus-cite-1 ((t (,@fmt-none ,@fg-blue)))) ; quoted
              (gnus-cite-2 ((t (,@fmt-none ,@fg-cyan)))) ; quoted1
@@ -400,19 +403,6 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
               ((t (,@fmt-none ,@fg-blue))))
              (gnus-summary-selected ; indicator
               ((t (,@fmt-none ,@fg-base03 ,@bg-yellow))))
-             ;; Flymake
-             (flymake-errline ((t (,@bg-base3))))
-             (flymake-warnline ((t (,@bg-base02))))
-             ;; whitespace
-             (whitespace-empty ((t (,@fg-red))))
-             (whitespace-hspace ((t (,@fg-orange))))
-             (whitespace-indentation ((t (,@fg-base02))))
-             (whitespace-space ((t (,@fg-base02))))
-             (whitespace-space-after-tab ((t (,@fg-cyan))))
-             (whitespace-space-before-tab ((t (,@fmt-bold ,@fg-red))))
-             (whitespace-tab ((t (,@fg-base02))))
-             (whitespace-trailing ((t (,@fmt-bold ,@fg-red ,@bg-base02))))
-             (whitespace-highlight-face ((t (,@fg-red ,@bg-blue))))
              ;; Message
              (message-mml ((t (,@fg-blue))))
              (message-cited-text ((t (,@fg-base2))))
@@ -440,7 +430,17 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
              (slime-repl-inputted-output-face ((t (,@fg-red))))
              (slime-repl-output-mouseover-face ((t (:box (:color ,base3)))))
              (slime-style-warning-face ((t (,@fg-orange))))
-             (slime-warning-face ((t (,@fmt-bold ,@fg-red))))) ; WarningMsg
+             (slime-warning-face ((t (,@fmt-bold ,@fg-red)))) ; WarningMsg
+             ;; whitespace
+             (whitespace-empty ((t (,@fg-red))))
+             (whitespace-hspace ((t (,@fg-orange))))
+             (whitespace-indentation ((t (,@fg-base02))))
+             (whitespace-space ((t (,@fg-base02))))
+             (whitespace-space-after-tab ((t (,@fg-cyan))))
+             (whitespace-space-before-tab ((t (,@fmt-bold ,@fg-red))))
+             (whitespace-tab ((t (,@fg-base02))))
+             (whitespace-trailing ((t (,@fmt-bold ,@fg-red ,@bg-base02))))
+             (whitespace-highlight-face ((t (,@fg-red ,@bg-blue)))))
             ((foreground-color . ,base0)
              (background-color . ,back)
              (background-mode . ,mode)
