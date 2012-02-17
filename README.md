@@ -134,7 +134,7 @@ but does include several variables that can be customized.
 Code Notes
 ----------
 
-I have attempted to modularize the creation of Emacs colorschemes in this script and, while it could be refactored further, it should be a good foundation for the creation of any color scheme. By simply changing the  values in the `solarized-colors` table in `solarized-definitions.el` and testing in a GUI Emacs, you can rapidly prototype new colorschemes without diving into the weeds of line-item editing each syntax highlight declaration.
+I have attempted to modularize the creation of Emacs colorschemes in this script and, while it could be refactored further, it should be a good foundation for the creation of any color scheme. By simply changing the values in the `solarized-colors` table in `solarized-definitions.el` and testing in a GUI Emacs, you can rapidly prototype new colorschemes without diving into the weeds of line-item editing each syntax highlight declaration.
 
 The Values
 ----------
@@ -161,3 +161,13 @@ matched in sRGB space.
     cyan      #2aa198  6/6 cyan      37 #00afaf 60 -35 -05  42 161 152 175  74  63
     green     #859900  2/2 green     64 #5f8700 60 -20  65 133 153   0  68 100  60
     
+### Bug Reporting
+
+Here are some things to keep in mind when submitting a bug report:
+
+*   include the output of `M-x version` in your report,
+*   mention whether you’re using color-theme or the Emacs 24 theme,
+*   include the names of Emacs faces that you have a problem with (`M-x describe-face` will tell you the name of the face at point),
+*   screenshots are very helpful (before and after if you made a change),
+*   it’s very helpful (but not expected) if you can compare it to a similar situation in VIM (especially if you know the VIM highlight name or have a screenshot), and
+*  `M-x customize-apropos-faces` can help you find all the relevant faces if you are submitting faces for a mode.
