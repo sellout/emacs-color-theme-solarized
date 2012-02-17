@@ -325,18 +325,18 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
              (widget-single-line-field ((t (:inherit widget-field))))
              ;; extra modules
              ;; -------------
-             ;; gnus
-             (gnus-cite-1 ((t (,@fg-magenta))))
-             (gnus-cite-2 ((t (,@fg-base2))))
-             (gnus-cite-3 ((t (,@fg-base3))))
-             (gnus-cite-4 ((t (,@fg-base1))))
-             (gnus-cite-5 ((t (,@fg-magenta))))
-             (gnus-cite-6 ((t (,@fg-base2))))
-             (gnus-cite-7 ((t (,@fg-base3))))
-             (gnus-cite-8 ((t (,@fg-base1))))
-             (gnus-cite-9 ((t (,@fg-base2))))
-             (gnus-cite-10 ((t (,@fg-base3))))
-             (gnus-cite-11 ((t (,@fg-blue))))
+             ;; gnus - these are taken from mutt, not VIM
+             (gnus-cite-1 ((t (,@fmt-none ,@fg-blue)))) ; quoted
+             (gnus-cite-2 ((t (,@fmt-none ,@fg-cyan)))) ; quoted1
+             (gnus-cite-3 ((t (,@fmt-none ,@fg-yellow)))) ; quoted2
+             (gnus-cite-4 ((t (,@fmt-none ,@fg-red)))) ; quoted3
+             (gnus-cite-5 ((t (,@fmt-none ,@fg-orange)))) ; quoted4
+             (gnus-cite-6 ((t (,@fmt-none ,@fg-violet))))
+             (gnus-cite-7 ((t (,@fmt-none ,@fg-green))))
+             (gnus-cite-8 ((t (,@fmt-none ,@fg-magenta))))
+             (gnus-cite-9 ((t (,@fmt-none ,@fg-base00))))
+             (gnus-cite-10 ((t (,@fmt-none ,@fg-base01))))
+             (gnus-cite-11 ((t (,@fmt-none ,@fg-base02))))
              (gnus-group-mail-1 ((t (,@fmt-bold ,@fg-base3))))
              (gnus-group-mail-1-empty ((t (,@fg-base3))))
              (gnus-group-mail-2 ((t (,@fmt-bold ,@fg-base2))))
@@ -351,29 +351,55 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
              (gnus-group-news-2-empty ((t (,@fg-blue))))
              (gnus-group-news-low ((t (,@fmt-bold ,@fg-violet))))
              (gnus-group-news-low-empty ((t (,@fg-violet))))
-             (gnus-header-content ((t (,@fmt-ital ,@fg-cyan))))
-             (gnus-header-from ((t (,@fg-base2))))
-             (gnus-header-name ((t (,@fg-blue))))
-             (gnus-header-newsgroups ((t (,@fmt-ital ,@fg-green))))
-             (gnus-header-subject ((t (,@fg-base1))))
+             (gnus-emphasis-highlight-words ; highlight
+              ((t (,@fmt-none ,fg-yellow))))
+             (gnus-header-content ((t (,@fmt-none ,@fg-base01)))) ; hdrdefault
+             (gnus-header-from ((t (,@fmt-none ,@fg-base00)))) ; header ^From
+             (gnus-header-name ((t (,@fmt-none ,@fg-base01)))) ; hdrdefault
+             (gnus-header-newsgroups ; hdrdefault
+              ((t (,@fmt-none ,@fg-base02))))
+             (gnus-header-subject ; header ^Subject
+              ((t (,@fmt-none ,@fg-blue))))
              (gnus-server-agent ((t (,@fmt-bold ,@fg-base3))))
              (gnus-server-closed ((t (,@fmt-ital ,@fg-base1))))
              (gnus-server-denied ((t (,@fmt-bold ,@fg-base2))))
              (gnus-server-offline ((t (,@fmt-bold ,@fg-green))))
              (gnus-server-opened ((t (,@fmt-bold ,@fg-cyan))))
+             (gnus-signature ((t (,@fmt-none ,@fg-base01)))) ; signature
              (gnus-splash ((t (,@fg-base2))))
-             (gnus-summary-high-ancient ((t (,@fmt-bold ,@fg-magenta))))
-             (gnus-summary-high-read ((t (,@fmt-bold ,@fg-base1))))
-             (gnus-summary-high-ticked ((t (,@fmt-bold ,@fg-base3))))
-             (gnus-summary-high-undownloaded ((t (,@fmt-bold ,@fg-base2))))
-             (gnus-summary-low-ancient ((t (,@fmt-ital ,@fg-magenta))))
-             (gnus-summary-low-read ((t (,@fmt-ital ,@fg-base1))))
-             (gnus-summary-low-ticked ((t (,@fmt-ital ,@fg-base3))))
-             (gnus-summary-low-undownloaded ((t (,@fmt-ital ,@fg-base2))))
-             (gnus-summary-normal-ancient ((t (,@fg-magenta))))
-             (gnus-summary-normal-read ((t (,@fg-base1))))
-             (gnus-summary-normal-ticked ((t (,@fg-base3))))
-             (gnus-summary-normal-undownloaded ((t (,@fg-base2))))
+             (gnus-summary-cancelled ; deleted messages
+              ((t (,@fmt-none ,@fg-red))))
+             (gnus-summary-high-ancient
+              ((t (,@fmt-bold :inherit gnus-summary-normal-ancient))))
+             (gnus-summary-high-read
+              ((t (,@fmt-bold :inherit gnus-summary-normal-read))))
+             (gnus-summary-high-ticked
+              ((t (,@fmt-bold :inherit gnus-summary-normal-ticked))))
+             (gnus-summary-high-undownloaded
+              ((t (,@fmt-bold :inherit gnus-summary-normal-undownloaded))))
+             (gnus-summary-high-unread
+              ((t (,@fmt-bold :inherit gnus-summary-normal-unread))))
+             (gnus-summary-low-ancient
+              ((t (,@fmt-ital :inherit gnus-summary-normal-ancient))))
+             (gnus-summary-low-read
+              ((t (,@fmt-ital :inherit gnus-summary-normal-ancient))))
+             (gnus-summary-low-unread
+              ((t (,@fmt-ital :inherit gnus-summary-normal-unread))))
+             (gnus-summary-low-ticked
+              ((t (,@fmt-ital :inherit gnus-summary-normal-ancient))))
+             (gnus-summary-low-undownloaded
+              ((t (,@fmt-ital :inherit gnus-summary-normal-ancient))))
+             (gnus-summary-normal-ancient ; old messages
+              ((t (,@fmt-none ,@fg-blue))))
+             (gnus-summary-normal-read ; read messages
+              ((t (,@fmt-none ,@fg-base01))))
+             (gnus-summary-normal-ticked ; flagged
+              ((t (,@fmt-none ,@fg-red))))
+             (gnus-summary-normal-undownloaded ((t (,@fmt-none ,@fg-base2))))
+             (gnus-summary-normal-unread ; unread messages
+              ((t (,@fmt-none ,@fg-blue))))
+             (gnus-summary-selected ; indicator
+              ((t (,@fmt-none ,@fg-base03 ,@bg-yellow))))
              ;; Flymake
              (flymake-errline ((t (,@bg-base3))))
              (flymake-warnline ((t (,@bg-base02))))
