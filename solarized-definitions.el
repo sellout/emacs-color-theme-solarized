@@ -187,18 +187,17 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
              (highlight ((t (,@bg-base02))))
 
              (hl-line ((t (,@fmt-uopt ,@bg-base02)))) ; CursorLine
-             (isearch ((t (,@fmt-stnd ,@fg-orange)))) ; IncSearch
-             (lazy-highlight ((t (,@bg-base2 ,@fg-base00))))
+             (isearch ((t (,@fmt-stnd ,@fg-orange ,@bg-back)))) ; IncSearch
+             (isearch-fail ((t (,@fmt-stnd ,@fg-orange ,@bg-back)))) ; IncSearch
+             (lazy-highlight ((t (,@fmt-revr ,@fg-yellow ,@bg-back)))) ; Search
              (link ((t (,@fmt-undr ,@fg-violet))))
              (link-visited ((t (,@fmt-undr ,@fg-magenta))))
              (menu ((t (,@fg-base0 ,@bg-base02))))
-             (minibuffer-prompt ((t (,@fg-blue))))
-             (mode-line
-              ((t (,@fg-base1 ,@bg-base02 :box (:line-width 1 :color ,base1)))))
-             (mode-line-buffer-id ((t (,@fg-base1))))
-             (mode-line-inactive
-              ((t (,@fg-base0  ,@bg-base02
-                               :box (:line-width 1 :color ,base02)))))
+             (minibuffer-prompt ((t (,@fmt-bold ,@fg-cyan)))) ; Question
+             (mode-line  ; StatusLine
+              ((t (,@fg-base1 ,@bg-base02 ,@fmt-revbb :box nil))))
+             (mode-line-inactive ; StatusLineNC
+              ((t (,@fg-base00 ,@bg-base02 ,@fmt-revbb :box nil))))
              (region ((t (,@fg-base01 ,@bg-base03 ,@fmt-revbb)))) ; Visual
              (secondary-selection ((t (,@bg-base02))))
              (shadow ((t (,@fg-base01))))
@@ -265,7 +264,7 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
              (eshell-ls-archive ((t (,@fg-magenta))))
              (eshell-ls-backup ((t (,@fg-yellow))))
              (eshell-ls-clutter ((t (,@fg-orange))))
-             (eshell-ls-directory ((t (,@fg-blue))))
+             (eshell-ls-directory ((t (,@fg-blue)))) ; Directory
              (eshell-ls-executable ((t (,@fg-green))))
              (eshell-ls-missing ((t (,@fg-red))))
              (eshell-ls-product ((t (,@fg-yellow))))
@@ -405,9 +404,16 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
              (rainbow-delimiters-depth-6-face ((t (,@fg-blue))))
              (rainbow-delimiters-depth-7-face ((t (,@fg-orange))))
              (rainbow-delimiters-depth-8-face ((t (,@fg-magenta))))
-             (rainbow-delimiters-depth-9-face ((t (,@fg-base0)))))
+             (rainbow-delimiters-depth-9-face ((t (,@fg-base0))))
+             ;; slime
+             (slime-error-face ((t (,@fmt-revr ,@fg-red)))) ; ErrorMsg
+             (slime-note-face ((t (,@fg-yellow))))
+             (slime-repl-inputted-output-face ((t (,@fg-red))))
+             (slime-repl-output-mouseover-face ((t (:box (:color ,base3)))))
+             (slime-style-warning-face ((t (,@fg-orange))))
+             (slime-warning-face ((t (,@fmt-bold ,@fg-red))))) ; WarningMsg
             ((foreground-color . ,base0)
-             (background-color . ,base03)
+             (background-color . ,back)
              (background-mode . ,mode)
              (cursor-color . ,base0))))))))
 
