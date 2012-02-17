@@ -234,24 +234,27 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
                   `((diff-added ((t (,@fmt-revr ,@fg-green))))
                     (diff-changed ((t (,@fmt-revr ,@fg-yellow))))
                     (diff-removed ((t (,@fmt-revr ,@fg-red))))
-                    (diff-header ((t (,@fmt-revr ,@fg-blue ,@bg-back))))))
+                    (diff-refine-change
+                     ((t (,@fmt-revr ,@fg-blue ,@bg-back))))))
                  (low
                   `((diff-added ((t (,@fmt-undr ,@fg-green))))
                     (diff-changed ((t (,@fmt-undr ,@fg-yellow))))
                     (diff-removed ((t (,@fmt-bold ,@fg-red))))
-                    (diff-header ((t (,@fmt-undr ,@fg-blue ,@bg-back))))))
+                    (diff-refine-change
+                     ((t (,@fmt-undr ,@fg-blue ,@bg-back))))))
                  (normal
                   (if window-system
                       `((diff-added ((t (,@fmt-bold ,@fg-green))))
                         (diff-changed ((t (,@fmt-bold ,@fg-yellow))))
                         (diff-removed ((t (,@fmt-bold ,@fg-red))))
-                        (diff-header ((t (,@fmt-bold ,@fg-blue ,@bg-back)))))
+                        (diff-refine-change
+                         ((t (,@fmt-bold ,@fg-blue ,@bg-back)))))
                     `((diff-added ((t (,@fg-green))))
                       (diff-changed ((t (,@fg-yellow))))
                       (diff-removed ((t (,@fg-red))))
-                      (diff-header ((t (,@fg-blue ,@bg-back))))))))
+                      (diff-refine-change ((t (,@fg-blue ,@bg-back))))))))
              (diff-file-header ((t (,@bg-back))))
-             (diff-refine-change ((t (,@bg-base3))))
+             (diff-header ((t (,@fg-base1 ,@bg-back))))
              ;; IDO
              (ido-only-match ((t (,@fg-green))))
              (ido-subdir ((t (,@fg-blue))))
