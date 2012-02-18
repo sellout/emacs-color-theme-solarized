@@ -5,12 +5,6 @@
   "Color theme by Ethan Schoonover, created 2011-03-24.
 Ported to Emacs by Greg Pfeil, http://ethanschoonover.com/solarized.")
 
-(defcustom solarized-degrade nil
-  "For test purposes only; when in GUI mode, forces Solarized to use the 256 degraded color mode
-to test the approximate color values for accuracy."
-  :type 'boolean
-  :group 'solarized)
-
 (defcustom solarized-bold t
   "Stops Solarized from displaying bold when nil."
   :type 'boolean
@@ -24,15 +18,6 @@ to test the approximate color values for accuracy."
 (defcustom solarized-italic t
   "Stops Solarized from displaying italics when nil."
   :type 'boolean
-  :group 'solarized)
-
-(defcustom solarized-termcolors 16
-  "This setting applies to emacs in terminal (non-GUI) mode.
-If set to 16, emacs will use the terminal emulator's colorscheme
-(best option as long as you've set your emulator's colors to the Solarized palette).
-If set to 256 and your terminal is capable of displaying 256 colors, emacs
-will use the 256 degraded color mode."
-  :type 'integer
   :group 'solarized)
 
 ;; FIXME: The Generic RGB colors will actually vary from device to device, but
@@ -56,12 +41,12 @@ will use the 256 degraded color mode."
     (blue    "#268bd2" "#2075c7" "#0087ff" "#0000ee")
     (cyan    "#2aa198" "#259185" "#00afaf" "#00cdcd")
     (green   "#859900" "#728a05" "#5f8700" "#00cd00"))
-  "This is a table of all the colors used by the Solarized color theme. Each
+  "This is a table of all the colors used by the solarized color theme. each
    column is a different set, one of which will be chosen based on term
    capabilities, etc.")
 
 (defun solarized-face-for-index (facespec index)
-  "Creates a face from FACESPEC where the colors use the names of
+  "Creates a face from facespec where the colors use the names of
   the `solarized-colors'."
   (let ((new-fontspec (copy-list facespec)))
     (dolist (property '(:foreground :background :color))
@@ -74,28 +59,51 @@ will use the 256 degraded color mode."
                                     (plist-get new-fontspec :box) index)))
     new-fontspec))
 
-(defun solarized-faces (facespecs)
+(defun solarized-flip (facespec)
+  "Convert a facespec to its lightened or darkened counterpart"
+  (let* ((reversing-alist '((base03 . base3) (base02 . base2) (base01 . base1)
+                            (base00 . base0) (base0 . base00) (base1 . base01)
+                            (base2 . base02) (base3 . base03))))
+    (mapcar (lambda (term) (cond ((listp term) (solarized-flip term)) 
+                            ((assoc term reversing-alist)
+                             (cdr (assoc term reversing-alist)))
+                            (t term))) facespec)))
+
+(defun solarized-faces (facespecs mode)
   (mapcar (lambda (facespec-with-name)
             (let* ((name (car facespec-with-name))
-                   (facespec (second facespec-with-name))
+                   (facespec (funcall
+                              (if (eq mode 'dark) 'solarized-flip 'identity)
+                              (second facespec-with-name)))
+                   (flipped-facespec (solarized-flip facespec))
                    (facespec-tty-256 (solarized-face-for-index facespec 3))
                    (facespec-tty-term (solarized-face-for-index facespec 4))
                    (facespec-default (solarized-face-for-index facespec 2)))
               `(,name
-                ((((type tty) (min-colors 256)) ,facespec-tty-256)
-                 (((type tty)) ,facespec-tty-term)
+                ((((min-colors 257)) ,facespec-default)
+                 (((min-colors 256)) ,facespec-tty-256)
+                 (((min-colors 16)) ,facespec-tty-term)
+                 ;; We should rarely if ever fall to the default.  If
+                 ;; so, let's set it to the default light spec and
+                 ;; hope for the best.
                  (t ,facespec-default))))) facespecs))
 
 (defun solarized-color-definitions (mode)
-  (let ((background-extreme (if (eq 'light mode) 'base3 'base03))
-        (background-medium  (if (eq 'light mode) 'base2 'base02))
-        (background-subtle  (if (eq 'light mode) 'base1 'base01))
-        (background-grey    (if (eq 'light mode) 'base0 'base00))
-        (foreground-extreme (if (eq 'light mode) 'base03 'base3))
-        (foreground-medium  (if (eq 'light mode) 'base02 'base2))
-        (foreground-subtle  (if (eq 'light mode) 'base01 'base1))
-        (foreground-grey    (if (eq 'light mode) 'base00 'base0))
-        (bold               (if solarized-bold 'bold 'normal))
+  "Define colors that make up Solarized."
+  ;; We define everything for light mode, but we generate dark mode
+  ;; automatically in `solarized-faces.'
+  ;;
+  ;; For light mode, here's what the colors mean,
+  ;; from http://ethanschoonover.com/solarized#features:
+  ;; base3 - background
+  ;; base2 - background highlights
+  ;; base1 - comments / secondary content
+  ;; base0
+  ;; base00 - body text / default code / primary content
+  ;; base01 - optional enhanced content
+  ;; base02
+  ;; base03
+  (let ((bold               (if solarized-bold 'bold 'normal))
         (underline          (if solarized-underline t nil))
         (italic             (if solarized-italic 'italic 'normal)))
     (list
@@ -103,40 +111,40 @@ will use the 256 degraded color mode."
      (append
       (solarized-faces
        `( ;; basic
-         (default (:foreground ,foreground-grey :background ,background-extreme))
-         (cursor (:foreground ,foreground-grey :background ,background-extreme :inverse-video t))
-         (fringe (:foreground ,background-subtle :background ,background-medium))
-         (header-line (:foreground ,foreground-grey :background ,foreground-medium))
-         (highlight (:background ,background-medium))
-         (hl-line (:background ,background-medium))
+         (default (:foreground base00 :background base3))
+         (cursor (:foreground base00 :background base3 :inverse-video t))
+         (fringe (:foreground base1 :background base2))
+         (header-line (:foreground base00 :background base02))
+         (highlight (:background base2))
+         (hl-line (:background base2))
          (isearch (:foreground yellow :inverse-video t))
-         (lazy-highlight (:background ,foreground-medium :foreground ,background-grey))
+         (lazy-highlight (:background base02 :foreground base0))
          (link (:foreground violet :,underline ,underline))
          (link-visited (:foreground magenta :,underline ,underline))
-         (menu (:foreground ,foreground-grey :background ,background-medium))
+         (menu (:foreground base00 :background base2))
          (minibuffer-prompt (:foreground blue))
-         (mode-line (:foreground ,foreground-subtle :background ,background-medium
-                                 :box (:line-width 1 :color ,foreground-subtle)))
-         (mode-line-buffer-id (:foreground ,foreground-subtle))
-         (mode-line-inactive (:foreground ,foreground-grey  :background ,background-medium
-                                          :box (:line-width 1 :color ,background-medium)))
-         (region (:background ,background-medium))
-         (secondary-selection (:background ,background-medium))
+         (mode-line (:foreground base01 :background base2
+                                 :box (:line-width 1 :color base01)))
+         (mode-line-buffer-id (:foreground base01))
+         (mode-line-inactive (:foreground base00  :background base2
+                                          :box (:line-width 1 :color base2)))
+         (region (:background base2))
+         (secondary-selection (:background base2))
          (trailing-whitespace (:foreground red :inverse-video t))
-         (vertical-border (:foreground ,foreground-grey))
+         (vertical-border (:foreground base00))
          ;; comint
          (comint-highlight-prompt (:foreground blue))
          ;; compilation
          (compilation-info (:foreground green :weight ,bold))
          (compilation-warning (:foreground orange :weight ,bold))
          ;; customize
-         (custom-button (:background ,background-medium
+         (custom-button (:background base2
                                      :box (:line-width 2 :style released-button)))
-         (custom-button-mouse (:inherit custom-button :foreground ,foreground-subtle))
+         (custom-button-mouse (:inherit custom-button :foreground base01))
          (custom-button-pressed (:inherit custom-button-mouse
                                           :box (:line-width 2 :style pressed-button)))
-         (custom-comment-tag (:background ,background-medium))
-         (custom-comment-tag (:background ,background-medium))
+         (custom-comment-tag (:background base2))
+         (custom-comment-tag (:background base2))
          (custom-documentation (:inherit default))
          (custom-group-tag (:foreground orange :weight ,bold))
          (custom-link (:foreground violet))
@@ -146,16 +154,16 @@ will use the 256 degraded color mode."
          (diff-added (:foreground green :inverse-video t))
          (diff-changed (:foreground yellow :inverse-video t))
          (diff-removed (:foreground red :inverse-video t))
-         (diff-header (:background ,background-subtle))
-         (diff-file-header (:background ,foreground-subtle :foreground ,background-subtle :weight ,bold))
-         (diff-refine-change (:background ,foreground-subtle))
+         (diff-header (:background base1))
+         (diff-file-header (:background base01 :foreground base1 :weight ,bold))
+         (diff-refine-change (:background base01))
          ;; emacs-wiki
          (emacs-wiki-bad-link-face (:foreground red :,underline ,underline))
          (emacs-wiki-link-face (:foreground blue :,underline ,underline))
-         (emacs-wiki-verbatim-face (:foreground ,background-grey :,underline ,underline))
+         (emacs-wiki-verbatim-face (:foreground base0 :,underline ,underline))
          ;; font-lock
          (font-lock-builtin-face (:foreground green))
-         (font-lock-comment-face (:foreground ,background-subtle :slant ,italic))
+         (font-lock-comment-face (:foreground base1 :slant ,italic))
          (font-lock-constant-face (:foreground cyan))
          (font-lock-function-name-face (:foreground blue))
          (font-lock-keyword-face (:foreground green))
@@ -165,7 +173,7 @@ will use the 256 degraded color mode."
          (font-lock-warning-face (:foreground red :weight ,bold))
          (font-lock-doc-face (:foreground cyan :slant ,italic))
          (font-lock-color-constant-face (:foreground green))
-         (font-lock-comment-delimiter-face (:foreground ,background-subtle :weight ,bold))
+         (font-lock-comment-delimiter-face (:foreground base1 :weight ,bold))
          (font-lock-doc-string-face (:foreground green))
          (font-lock-preprocessor-face (:foreground orange))
          (font-lock-reference-face (:foreground cyan))
@@ -180,101 +188,101 @@ will use the 256 degraded color mode."
          (info-xref (:foreground blue :,underline ,underline))
          (info-xref-visited (:inherit info-xref :foreground magenta))
          ;; org
-         (org-hide (:foreground ,background-extreme))
-         (org-todo (:foreground ,background-extreme :background red :weight ,bold))
+         (org-hide (:foreground base3))
+         (org-todo (:foreground base3 :background red :weight ,bold))
          (org-done (:foreground green :weight ,bold))
-         (org-todo-kwd-face (:foreground red :background ,background-extreme))
-         (org-done-kwd-face (:foreground green :background ,background-extreme))
-         (org-project-kwd-face (:foreground violet :background ,background-extreme))
-         (org-waiting-kwd-face (:foreground orange :background ,background-extreme))
-         (org-someday-kwd-face (:foreground blue :background ,background-extreme))
-         (org-started-kwd-face (:foreground yellow :background ,background-extreme))
-         (org-cancelled-kwd-face (:foreground green :background ,background-extreme))
-         (org-delegated-kwd-face (:foreground cyan :background ,background-extreme))
+         (org-todo-kwd-face (:foreground red :background base3))
+         (org-done-kwd-face (:foreground green :background base3))
+         (org-project-kwd-face (:foreground violet :background base3))
+         (org-waiting-kwd-face (:foreground orange :background base3))
+         (org-someday-kwd-face (:foreground blue :background base3))
+         (org-started-kwd-face (:foreground yellow :background base3))
+         (org-cancelled-kwd-face (:foreground green :background base3))
+         (org-delegated-kwd-face (:foreground cyan :background base3))
          ;; show-paren
-         (show-paren-match-face (:background cyan :foreground ,foreground-extreme))
-         (show-paren-mismatch-face (:background red :foreground ,foreground-extreme))
+         (show-paren-match-face (:background cyan :foreground base03))
+         (show-paren-mismatch-face (:background red :foreground base03))
          ;; widgets
-         (widget-field (:box (:line-width 1 :color ,background-grey) :inherit default))
+         (widget-field (:box (:line-width 1 :color base0) :inherit default))
          (widget-single-line-field (:inherit widget-field))
          ;; extra modules
          ;; -------------
          ;; gnus
          (gnus-cite-1 (:foreground magenta))
-         (gnus-cite-2 (:foreground ,foreground-medium))
-         (gnus-cite-3 (:foreground ,foreground-extreme))
-         (gnus-cite-4 (:foreground ,foreground-subtle))
+         (gnus-cite-2 (:foreground base02))
+         (gnus-cite-3 (:foreground base03))
+         (gnus-cite-4 (:foreground base01))
          (gnus-cite-5 (:foreground magenta))
-         (gnus-cite-6 (:foreground ,foreground-medium))
-         (gnus-cite-7 (:foreground ,foreground-extreme))
-         (gnus-cite-8 (:foreground ,foreground-subtle))
-         (gnus-cite-9 (:foreground ,foreground-medium))
-         (gnus-cite-10 (:foreground ,foreground-extreme))
+         (gnus-cite-6 (:foreground base02))
+         (gnus-cite-7 (:foreground base03))
+         (gnus-cite-8 (:foreground base01))
+         (gnus-cite-9 (:foreground base02))
+         (gnus-cite-10 (:foreground base03))
          (gnus-cite-11 (:foreground blue))
-         (gnus-group-mail-1 (:foreground ,foreground-extreme :weight ,bold))
-         (gnus-group-mail-1-empty (:foreground ,foreground-extreme))
-         (gnus-group-mail-2 (:foreground ,foreground-medium :weight ,bold))
-         (gnus-group-mail-2-empty (:foreground ,foreground-medium))
+         (gnus-group-mail-1 (:foreground base03 :weight ,bold))
+         (gnus-group-mail-1-empty (:foreground base03))
+         (gnus-group-mail-2 (:foreground base02 :weight ,bold))
+         (gnus-group-mail-2-empty (:foreground base02))
          (gnus-group-mail-3 (:foreground magenta :weight ,bold))
          (gnus-group-mail-3-empty (:foreground magenta))
-         (gnus-group-mail-low (:foreground ,background-grey :weight ,bold))
-         (gnus-group-mail-low-empty (:foreground ,background-grey))
-         (gnus-group-news-1 (:foreground ,foreground-subtle :weight ,bold))
-         (gnus-group-news-1-empty (:foreground ,foreground-subtle))
+         (gnus-group-mail-low (:foreground base0 :weight ,bold))
+         (gnus-group-mail-low-empty (:foreground base0))
+         (gnus-group-news-1 (:foreground base01 :weight ,bold))
+         (gnus-group-news-1-empty (:foreground base01))
          (gnus-group-news-2 (:foreground blue :weight ,bold))
          (gnus-group-news-2-empty (:foreground blue))
          (gnus-group-news-low (:foreground violet :weight ,bold))
          (gnus-group-news-low-empty (:foreground violet))
          (gnus-header-content (:foreground cyan :slant ,italic))
-         (gnus-header-from (:foreground ,foreground-medium))
+         (gnus-header-from (:foreground base02))
          (gnus-header-name (:foreground blue))
          (gnus-header-newsgroups (:foreground green :slant ,italic))
-         (gnus-header-subject (:foreground ,foreground-subtle))
-         (gnus-server-agent (:foreground ,foreground-extreme :weight ,bold))
-         (gnus-server-closed (:foreground ,foreground-subtle :slant ,italic))
-         (gnus-server-denied (:foreground ,foreground-medium :weight ,bold))
+         (gnus-header-subject (:foreground base01))
+         (gnus-server-agent (:foreground base03 :weight ,bold))
+         (gnus-server-closed (:foreground base01 :slant ,italic))
+         (gnus-server-denied (:foreground base02 :weight ,bold))
          (gnus-server-offline (:foreground green :weight ,bold))
          (gnus-server-opened (:foreground cyan :weight ,bold))
-         (gnus-splash (:foreground ,foreground-medium))
+         (gnus-splash (:foreground base02))
          (gnus-summary-high-ancient (:foreground magenta :weight ,bold))
-         (gnus-summary-high-read (:foreground ,foreground-subtle :weight ,bold))
-         (gnus-summary-high-ticked (:foreground ,foreground-extreme :weight ,bold))
-         (gnus-summary-high-undownloaded (:foreground ,foreground-medium :weight ,bold))
+         (gnus-summary-high-read (:foreground base01 :weight ,bold))
+         (gnus-summary-high-ticked (:foreground base03 :weight ,bold))
+         (gnus-summary-high-undownloaded (:foreground base02 :weight ,bold))
          (gnus-summary-low-ancient (:foreground magenta :slant ,italic))
-         (gnus-summary-low-read (:foreground ,foreground-subtle :slant ,italic))
-         (gnus-summary-low-ticked (:foreground ,foreground-extreme :slant ,italic))
-         (gnus-summary-low-undownloaded (:foreground ,foreground-medium :slant ,italic))
+         (gnus-summary-low-read (:foreground base01 :slant ,italic))
+         (gnus-summary-low-ticked (:foreground base03 :slant ,italic))
+         (gnus-summary-low-undownloaded (:foreground base02 :slant ,italic))
          (gnus-summary-normal-ancient (:foreground magenta))
-         (gnus-summary-normal-read (:foreground ,foreground-subtle))
-         (gnus-summary-normal-ticked (:foreground ,foreground-extreme))
-         (gnus-summary-normal-undownloaded (:foreground ,foreground-medium))
+         (gnus-summary-normal-read (:foreground base01))
+         (gnus-summary-normal-ticked (:foreground base03))
+         (gnus-summary-normal-undownloaded (:foreground base02))
          ;; Flymake
          (flymake-errline (:background orange))
          (flymake-warnline (:background violet))
          ;; whitespace
          (whitespace-empty (:foreground red))
          (whitespace-hspace (:foreground orange))
-         (whitespace-indentation (:foreground ,background-medium))
-         (whitespace-space (:foreground ,background-medium))
+         (whitespace-indentation (:foreground base2))
+         (whitespace-space (:foreground base2))
          (whitespace-space-after-tab (:foreground cyan))
          (whitespace-space-before-tab (:foreground red :weight ,bold))
-         (whitespace-tab (:foreground ,background-medium))
+         (whitespace-tab (:foreground base2))
          (whitespace-trailing
-          (:background ,background-medium :foreground red :weight ,bold))
+          (:background base2 :foreground red :weight ,bold))
          (whitespace-highlight-face (:background blue :foreground red))
          ;; Message
          (message-mml (:foreground blue))
-         (message-cited-text (:foreground ,foreground-medium))
-         (message-separator (:foreground ,foreground-extreme))
+         (message-cited-text (:foreground base02))
+         (message-separator (:foreground base03))
          (message-header-xheader (:foreground violet))
          (message-header-name (:foreground cyan))
          (message-header-other (:foreground red))
          (message-header-newsgroups
           (:foreground yellow :weight ,bold :slant ,italic))
-         (message-header-subject (:foreground ,background-grey))
+         (message-header-subject (:foreground base0))
          (message-header-cc (:foreground green :weight ,bold))
-         (message-header-to (:foreground ,foreground-subtle :weight ,bold)))))
-     `((background-mode . ,mode)))))
+         (message-header-to (:foreground base01 :weight ,bold)))
+       mode)))))
 
 (defmacro create-solarized-theme (mode)
   (let* ((theme-name (intern (concat "solarized-" (symbol-name mode))))
