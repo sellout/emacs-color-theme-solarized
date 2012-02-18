@@ -316,8 +316,8 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
              (org-cancelled-kwd-face ((t (,@fg-green ,@bg-base03))))
              (org-delegated-kwd-face ((t (,@fg-cyan ,@bg-base03))))
              ;; show-paren - MatchParen
-             (show-paren-match-face ((t (,@fg-cyan ,@fg-base01))))
-             (show-paren-mismatch-face ((t (,@fg-red ,@fg-base01))))
+             (show-paren-match ((t (,@fmt-bold ,@fg-cyan ,@bg-base02))))
+             (show-paren-mismatch ((t (,@fmt-bold ,@fg-red ,@bg-base01))))
              ;; widgets
              (widget-field
               ((t (,@fg-base1 ,@bg-base02 :box (:line-width 1 :color ,base2)
