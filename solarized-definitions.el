@@ -440,7 +440,16 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
              (whitespace-space-before-tab ((t (,@fmt-bold ,@fg-red))))
              (whitespace-tab ((t (,@fg-base02))))
              (whitespace-trailing ((t (,@fmt-bold ,@fg-red ,@bg-base02))))
-             (whitespace-highlight-face ((t (,@fg-red ,@bg-blue)))))
+             (whitespace-highlight-face ((t (,@fg-red ,@bg-blue))))
+             ;; rcirc
+             (rcirc-my-nick ((t (:foreground ,blue))))
+             (rcirc-nick-in-message ((t (:foreground ,orange))))
+             (rcirc-other-nick ((t (:foreground ,green))))
+             (rcirc-prompt ((t (:foreground ,yellow))))
+             (rcirc-bright-nick ((t (:foreground ,magenta))))
+             (rcirc-server ((t (:foreground ,base1))))
+             (rcirc-timestamp ((t (:foreground ,base01)))))
+
             ((foreground-color . ,base0)
              (background-color . ,back)
              (background-mode . ,mode)
