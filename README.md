@@ -34,7 +34,7 @@ Installation & Usage
 ### Emacs 24
 
 1. Add the `emacs-color-theme-solarized` directory to your Emacs `custom-theme-load-path`.
-2. Add `(load-theme solarized-[light|dark] t)` to your Emacs init file.
+2. Add `(load-theme 'solarized-[light|dark] t)` to your Emacs init file.
 3. Reload the init file, or restart Emacs.
 
 ### [color-theme] \(pre-Emacs 24\)
