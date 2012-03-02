@@ -29,7 +29,7 @@ Ported to Emacs by Greg Pfeil, http://ethanschoonover.com/solarized."
    (let* ((definitions (solarized-color-definitions mode))
           (faces (first definitions))
           (variables (second definitions)))
-       (solarized-color-definitions mode)
+     (solarized-color-definitions mode)
      `(,(intern (concat "color-theme-solarized-" (symbol-name mode)))
        ,variables
        ,@faces))))
@@ -43,6 +43,7 @@ Ported to Emacs by Greg Pfeil, http://ethanschoonover.com/solarized."
 (defun color-theme-solarized-light ()
   (interactive)
   (color-theme-solarized 'light))
+
 
 (add-to-list 'color-themes
              `(color-theme-solarized-light
