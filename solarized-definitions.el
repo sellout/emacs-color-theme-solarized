@@ -328,6 +328,10 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
              ;; Flymake
              (flymake-errline ((t (,@bg-base3))))
              (flymake-warnline ((t (,@bg-base02))))
+             ;; column-marker
+             (column-marker-1 ((t (,@bg-base01))))
+             (column-marker-2 ((t (,@bg-cyan))))
+             (column-marker-3 ((t (,@bg-violet))))
              ;; gnus - these are taken from mutt, not VIM
              (gnus-cite-1 ((t (,@fmt-none ,@fg-blue)))) ; quoted
              (gnus-cite-2 ((t (,@fmt-none ,@fg-cyan)))) ; quoted1
