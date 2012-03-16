@@ -414,6 +414,8 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
              (message-header-subject ((t (,@fg-base00))))
              (message-header-cc ((t (,@fmt-bold ,@fg-green))))
              (message-header-to ((t (,@fmt-bold ,@fg-base1))))
+             ;; parenface
+             (paren-face ((t (,@fg-base01))))
              ;; rainbow-delimiters
              (rainbow-delimiters-depth-1-face ((t (,@fg-cyan))))
              (rainbow-delimiters-depth-2-face ((t (,@fg-yellow))))
