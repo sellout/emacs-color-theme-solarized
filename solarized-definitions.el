@@ -460,7 +460,9 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
 
 (defun load-into-load-path ()
   (when load-file-name
-    (add-to-list 'custom-theme-load-path
-                 (file-name-as-directory (file-name-directory load-file-name)))))
+    (if (not (null (symbol-plist 'custom-theme-load-path)))
+        (add-to-list 'custom-theme-load-path
+                     (file-name-as-directory
+                      (file-name-directory load-file-name))))))
 
 (provide 'solarized-definitions)
