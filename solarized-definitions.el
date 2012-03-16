@@ -85,14 +85,14 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
 
 (defun solarized-color-definitions (mode)
   (flet ((find-color (name)
-           (let ((index (if window-system
-                            (if solarized-degrade
-                                3
-			      (if solarized-broken-srgb 2 1))
-			  (if (= solarized-termcolors 256)
-			      3
-			    4))))
-             (nth index (assoc name solarized-colors)))))
+                     (let ((index (if window-system
+                                      (if solarized-degrade
+                                          3
+                                        (if solarized-broken-srgb 2 1))
+                                    (if (= solarized-termcolors 256)
+                                        3
+                                      4))))
+                       (nth index (assoc name solarized-colors)))))
     (let ((base03      (find-color 'base03))
           (base02      (find-color 'base02))
           (base01      (find-color 'base01))
@@ -144,7 +144,7 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
               (bg-violet `(:background ,violet))
               (bg-blue `(:background ,blue))
               (bg-cyan `(:background ,cyan))
-              
+
               (fg-base03 `(:foreground ,base03))
               (fg-base02 `(:foreground ,base02))
               (fg-base01 `(:foreground ,base01))
