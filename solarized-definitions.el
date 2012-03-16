@@ -277,29 +277,34 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
              (eshell-ls-unreadable ((t (,@fg-base00))))
              (eshell-prompt ((t (,@fmt-bold ,@fg-green))))
              ;; font-lock
-             (font-lock-builtin-face ((t (,@fg-green)))) ; Statement
+             (font-lock-builtin-face ((t (,@fmt-none ,@fg-green)))) ; Statement
              (font-lock-comment-face ((t (,@fmt-ital ,@fg-base01)))) ; Comment
-             (font-lock-constant-face ((t (,@fg-cyan)))) ; Constant
-             (font-lock-function-name-face ((t (,@fg-blue)))) ; Identifier
-             (font-lock-keyword-face ((t (,@fg-green)))) ; Statement
-             (font-lock-string-face ((t (,@fg-cyan)))) ; Constant
-             (font-lock-type-face ((t (,@fg-yellow)))) ; Type
-             (font-lock-variable-name-face ((t (,@fg-blue)))) ; Identifier
+             (font-lock-constant-face ((t (,@fmt-none ,@fg-cyan)))) ; Constant
+             (font-lock-function-name-face ; Identifier
+              ((t (,@fmt-none ,@fg-blue))))
+             (font-lock-keyword-face ((t (,@fmt-none ,@fg-green)))) ; Statement
+             (font-lock-string-face ((t (,@fmt-none ,@fg-cyan)))) ; Constant
+             (font-lock-type-face ((t (,@fmt-none ,@fg-yellow)))) ; Type
+             (font-lock-variable-name-face ; Identifier
+              ((t (,@fmt-none ,@fg-blue))))
              (font-lock-warning-face ((t (,@fmt-bold ,@fg-red)))) ; Error
              (font-lock-doc-face ((t (,@fmt-ital ,@fg-cyan))))
-             (font-lock-color-constant-face ((t (,@fg-green))))
-             (font-lock-comment-delimiter-face  ; Comment
+             (font-lock-color-constant-face ((t (,@fmt-none ,@fg-green))))
+             (font-lock-comment-delimiter-face ; Comment
               ((t (,@fmt-ital ,@fg-base01))))
-             (font-lock-doc-string-face ((t (,@fg-green))))
-             (font-lock-preprocessor-face ((t (,@fg-orange)))) ; PreProc
-             (font-lock-reference-face ((t (,@fg-cyan))))
-             (font-lock-negation-char-face ((t (,@fg-red))))
+             (font-lock-doc-string-face ((t (,@fmt-none ,@fg-green))))
+             (font-lock-preprocessor-face ; PreProc
+              ((t (,@fmt-none ,@fg-orange))))
+             (font-lock-reference-face ((t (,@fmt-none ,@fg-cyan))))
+             (font-lock-negation-char-face ((t (,@fmt-none ,@fg-red))))
              (font-lock-other-type-face ((t (,@fmt-ital ,@fg-blue))))
-             (font-lock-regexp-grouping-construct ((t (,@fg-orange))))
-             (font-lock-special-keyword-face ((t (,@fg-magenta))))
-             (font-lock-exit-face ((t (,@fg-red))))
+             (font-lock-regexp-grouping-construct
+              ((t (,@fmt-none ,@fg-orange))))
+             (font-lock-special-keyword-face ((t (,@fmt-none ,@fg-magenta))))
+             (font-lock-exit-face ((t (,@fmt-none ,@fg-red))))
              (font-lock-other-emphasized-face ((t (,@fmt-bldi ,@fg-violet))))
-             (font-lock-regexp-grouping-backslash ((t (,@fg-yellow))))
+             (font-lock-regexp-grouping-backslash
+              ((t (,@fmt-none ,@fg-yellow))))
              ;; info
              (info-xref ((t (,@fmt-undr ,@fg-blue))))
              (info-xref-visited ((t (,@fg-magenta :inherit info-xref))))
