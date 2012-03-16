@@ -328,6 +328,27 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
              ;; Flymake
              (flymake-errline ((t (,@bg-base3))))
              (flymake-warnline ((t (,@bg-base02))))
+             ;; column-marker
+             (column-marker-1 ((t (,@bg-base01))))
+             (column-marker-2 ((t (,@bg-cyan))))
+             (column-marker-3 ((t (,@bg-violet))))
+             ;; jabber
+             (jabber-activity-face ((t (,@fmt-bold ,@fg-red))))
+             (jabber-activity-personal-face ((t (,@fmt-bold ,@fg-blue))))
+             (jabber-chat-error ((t (,@fmt-bold ,@fg-red))))
+             (jabber-chat-prompt-foreign ((t (,@fmt-bold ,@fg-red))))
+             (jabber-chat-prompt-local ((t (,@fmt-bold ,@fg-blue))))
+             (jabber-chat-prompt-system ((t (,@fmt-bold ,@fg-green))))
+             (jabber-chat-text-foreign ((t (,@fg-base1))))
+             (jabber-chat-text-local ((t (,@fg-base0))))
+             (jabber-chat-rare-time-face ((t (,@fmt-undr ,@fg-green))))
+             (jabber-roster-user-away ((t (,@fmt-ital ,@fg-green))))
+             (jabber-roster-user-chatty ((t (,@fmt-bold ,@fg-orange))))
+             (jabber-roster-user-dnd ((t (,@fmt-ital ,@fg-red))))
+             (jabber-roster-user-error ((t (:weight light :slant italic ,@fg-red))))
+             (jabber-roster-user-offline ((t (,@fg-base01))))
+             (jabber-roster-user-online ((t (,@fmt-bold ,@fg-blue))))
+             (jabber-roster-user-xa ((t (,@fmt-ital ,@fg-magenta))))
              ;; gnus - these are taken from mutt, not VIM
              (gnus-cite-1 ((t (,@fmt-none ,@fg-blue)))) ; quoted
              (gnus-cite-2 ((t (,@fmt-none ,@fg-cyan)))) ; quoted1
