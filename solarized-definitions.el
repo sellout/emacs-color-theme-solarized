@@ -288,11 +288,11 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
              (font-lock-variable-name-face ; Identifier
               ((t (,@fmt-none ,@fg-blue))))
              (font-lock-warning-face ((t (,@fmt-bold ,@fg-red)))) ; Error
-             (font-lock-doc-face ((t (,@fmt-ital ,@fg-cyan))))
+             (font-lock-doc-face ((t (,@fmt-none ,@fg-red)))) ; Special
              (font-lock-color-constant-face ((t (,@fmt-none ,@fg-green))))
              (font-lock-comment-delimiter-face ; Comment
               ((t (,@fmt-ital ,@fg-base01))))
-             (font-lock-doc-string-face ((t (,@fmt-none ,@fg-green))))
+             (font-lock-doc-string-face ((t (,@fmt-none ,@fg-red)))) ; Special
              (font-lock-preprocessor-face ; PreProc
               ((t (,@fmt-none ,@fg-orange))))
              (font-lock-reference-face ((t (,@fmt-none ,@fg-cyan))))
