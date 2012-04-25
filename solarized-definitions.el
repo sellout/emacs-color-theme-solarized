@@ -32,16 +32,6 @@ degraded color mode to test the approximate color values for accuracy."
   :type 'boolean
   :group 'solarized)
 
-(defcustom solarized-termcolors 16
-  "This setting applies to emacs in terminal (non-GUI) mode.
-If set to 16, emacs will use the terminal emulator's colorscheme (best option
-as long as you've set your emulator's colors to the Solarized palette). If
-set to 256 and your terminal is capable of displaying 256 colors, emacs will
-use the 256 degraded color mode."
-  :type 'integer
-  :options '(16 256)
-  :group 'solarized)
-
 (defcustom solarized-contrast 'normal
   "Stick with normal! It's been carefully tested. Setting this option to high or
 low does use the same Solarized palette but simply shifts some values up or
@@ -52,7 +42,7 @@ down in order to expand or compress the tonal range displayed."
 
 (defcustom solarized-broken-srgb (if (eq system-type 'darwin) t nil)
   "Emacs bug #8402 results in incorrect color handling on Macs. If this is t
-(the default on Macs), Solarized works around it with alternative colors.
+\(the default on Macs), Solarized works around it with alternative colors.
 However, these colors are not totally portable, so you may be able to edit
 the \"Gen RGB\" column in solarized-definitions.el to improve them further."
   :type 'boolean
@@ -61,37 +51,38 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
 ;; FIXME: The Generic RGB colors will actually vary from device to device, but
 ;;        hopefully these are closer to the intended colors than the sRGB values
 ;;        that Emacs seems to dislike
-(defvar solarized-colors
-  ;; name    sRGB      Gen RGB   degraded  ANSI(Solarized terminal)
-  '((base03  "#002b36" "#042028" "#1c1c1c" "#7f7f7f")
-    (base02  "#073642" "#0a2832" "#262626" "#000000")
-    (base01  "#586e75" "#465a61" "#585858" "#00ff00")
-    (base00  "#657b83" "#52676f" "#626262" "#ffff00")
-    (base0   "#839496" "#708183" "#808080" "#5c5cff")
-    (base1   "#93a1a1" "#81908f" "#8a8a8a" "#00ffff")
-    (base2   "#eee8d5" "#e9e2cb" "#e4e4e4" "#e5e5e5")
-    (base3   "#fdf6e3" "#fcf4dc" "#ffffd7" "#ffffff")
-    (yellow  "#b58900" "#a57705" "#af8700" "#cdcd00")
-    (orange  "#cb4b16" "#bd3612" "#d75f00" "#ff0000")
-    (red     "#dc322f" "#c60007" "#d70000" "#cd0000")
-    (magenta "#d33682" "#c61b6e" "#af005f" "#cd00cd")
-    (violet  "#6c71c4" "#5859b7" "#5f5faf" "#ff00ff")
-    (blue    "#268bd2" "#2075c7" "#0087ff" "#0000ee")
-    (cyan    "#2aa198" "#259185" "#00afaf" "#00cdcd")
-    (green   "#859900" "#728a05" "#5f8700" "#00cd00"))
+(defvar solarized-colors           ; ANSI(Solarized terminal)
+  ;; name     sRGB      Gen RGB   256       16              8
+  '((base03  "#002b36" "#042028" "#1c1c1c" "brightblack"   "black")
+    (base02  "#073642" "#0a2832" "#262626" "black"         "black")
+    (base01  "#586e75" "#465a61" "#585858" "brightgreen"   "green")
+    (base00  "#657b83" "#52676f" "#626262" "brightyellow"  "yellow")
+    (base0   "#839496" "#708183" "#808080" "brightblue"    "blue")
+    (base1   "#93a1a1" "#81908f" "#8a8a8a" "brightcyan"    "cyan")
+    (base2   "#eee8d5" "#e9e2cb" "#e4e4e4" "white"         "white")
+    (base3   "#fdf6e3" "#fcf4dc" "#ffffd7" "brightwhite"   "white")
+    (yellow  "#b58900" "#a57705" "#af8700" "yellow"        "yellow")
+    (orange  "#cb4b16" "#bd3612" "#d75f00" "brightred"     "red")
+    (red     "#dc322f" "#c60007" "#d70000" "red"           "red")
+    (magenta "#d33682" "#c61b6e" "#af005f" "magenta"       "magenta")
+    (violet  "#6c71c4" "#5859b7" "#5f5faf" "brightmagenta" "magenta")
+    (blue    "#268bd2" "#2075c7" "#0087ff" "blue"          "blue")
+    (cyan    "#2aa198" "#259185" "#00afaf" "cyan"          "cyan")
+    (green   "#859900" "#728a05" "#5f8700" "green"         "green"))
   "This is a table of all the colors used by the Solarized color theme. Each
    column is a different set, one of which will be chosen based on term
    capabilities, etc.")
 
 (defun solarized-color-definitions (mode)
   (flet ((find-color (name)
-           (let ((index (if window-system
-                            (if solarized-degrade
-                                3
-			      (if solarized-broken-srgb 2 1))
-			  (if (= solarized-termcolors 256)
-			      3
-			    4))))
+           (let* ((index (if window-system
+                             (if solarized-degrade
+                                 3
+                               (if solarized-broken-srgb 2 1))
+                           (case (display-color-cells)
+                             (16 4)
+                             (8  5)
+                             (otherwise 3)))))
              (nth index (assoc name solarized-colors)))))
     (let ((base03      (find-color 'base03))
           (base02      (find-color 'base02))
@@ -127,7 +118,10 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
               ((eq 'low solarized-contrast)
                (setf back      base02
                      opt-under t)))
-        (let ((bg-back `(:background ,back))
+        ;; NOTE: We try to turn an 8-color term into a 10-color term by not
+        ;;       using default background and foreground colors, expecting the
+        ;;       user to have the right colors set for them.
+        (let ((bg-back   `(:background ,(when (< (display-color-cells) 16) back nil)))
               (bg-base03 `(:background ,base03))
               (bg-base02 `(:background ,base02))
               (bg-base01 `(:background ,base01))
@@ -149,8 +143,8 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
               (fg-base02 `(:foreground ,base02))
               (fg-base01 `(:foreground ,base01))
               (fg-base00 `(:foreground ,base00))
-              (fg-base0 `(:foreground ,base0))
-              (fg-base1 `(:foreground ,base1))
+              (fg-base0 `(:foreground ,(when (< (display-color-cells) 16) base0 nil)))
+              (fg-base1 `(:foreground ,(when (< (display-color-cells) 16) base1 nil)))
               (fg-base2 `(:foreground ,base2))
               (fg-base3 `(:foreground ,base3))
               (fg-green `(:foreground ,green))
