@@ -111,7 +111,9 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
         (rotatef base01 base1)
         (rotatef base00 base0))
       (let ((back base03))
-        (cond ((eq 'high solarized-contrast)
+        (cond ((< (display-color-cells) 16)
+               (setf back nil))
+              ((eq 'high solarized-contrast)
                (let ((orig-base3 base3))
                  (rotatef base01 base00 base0 base1 base2 base3)
                  (setf base3 orig-base3)))
@@ -121,7 +123,7 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
         ;; NOTE: We try to turn an 8-color term into a 10-color term by not
         ;;       using default background and foreground colors, expecting the
         ;;       user to have the right colors set for them.
-        (let ((bg-back   `(:background ,(when (< (display-color-cells) 16) back nil)))
+        (let ((bg-back   `(:background ,back))
               (bg-base03 `(:background ,base03))
               (bg-base02 `(:background ,base02))
               (bg-base01 `(:background ,base01))
@@ -143,8 +145,10 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
               (fg-base02 `(:foreground ,base02))
               (fg-base01 `(:foreground ,base01))
               (fg-base00 `(:foreground ,base00))
-              (fg-base0 `(:foreground ,(when (< (display-color-cells) 16) base0 nil)))
-              (fg-base1 `(:foreground ,(when (< (display-color-cells) 16) base1 nil)))
+              (fg-base0 `(:foreground ,(when (<= 16 (display-color-cells))
+                                         base0)))
+              (fg-base1 `(:foreground ,(when (<= 16 (display-color-cells))
+                                         base1)))
               (fg-base2 `(:foreground ,base2))
               (fg-base3 `(:foreground ,base3))
               (fg-green `(:foreground ,green))
@@ -483,10 +487,11 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
              (rcirc-server ((t (:foreground ,base1))))
              (rcirc-timestamp ((t (:foreground ,base01)))))
 
-            ((foreground-color . ,base0)
+            ((foreground-color . ,(when (<= 16 (display-color-cells)) base0))
              (background-color . ,back)
              (background-mode . ,mode)
-             (cursor-color . ,base0))))))))
+             (cursor-color . ,(when (<= 16 (display-color-cells))
+                                base03)))))))))
 
 (defmacro create-solarized-theme (mode)
   (let* ((theme-name (intern (concat "solarized-" (symbol-name mode))))
