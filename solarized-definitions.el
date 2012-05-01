@@ -287,11 +287,12 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
              (font-lock-variable-name-face ; Identifier
               ((t (,@fmt-none ,@fg-blue))))
              (font-lock-warning-face ((t (,@fmt-bold ,@fg-red)))) ; Error
-             (font-lock-doc-face ((t (,@fmt-none ,@fg-red)))) ; Special
+             (font-lock-doc-face ((t (,@fmt-ital ,@fg-base01)))) ; Comment
+             (font-lock-doc-string-face  ; Comment (XEmacs-only)
+              ((t (,@fmt-ital ,@fg-base01))))
              (font-lock-color-constant-face ((t (,@fmt-none ,@fg-green))))
              (font-lock-comment-delimiter-face ; Comment
               ((t (,@fmt-ital ,@fg-base01))))
-             (font-lock-doc-string-face ((t (,@fmt-none ,@fg-red)))) ; Special
              (font-lock-preprocessor-face ; PreProc
               ((t (,@fmt-none ,@fg-orange))))
              (font-lock-reference-face ((t (,@fmt-none ,@fg-cyan))))
@@ -299,7 +300,8 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
              (font-lock-other-type-face ((t (,@fmt-ital ,@fg-blue))))
              (font-lock-regexp-grouping-construct
               ((t (,@fmt-none ,@fg-orange))))
-             (font-lock-special-keyword-face ((t (,@fmt-none ,@fg-magenta))))
+             (font-lock-special-keyword-face ; Special
+              ((t (,@fmt-none ,@fg-red))))
              (font-lock-exit-face ((t (,@fmt-none ,@fg-red))))
              (font-lock-other-emphasized-face ((t (,@fmt-bldi ,@fg-violet))))
              (font-lock-regexp-grouping-backslash
