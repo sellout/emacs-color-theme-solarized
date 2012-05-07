@@ -493,7 +493,7 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
              (background-color . ,back)
              (background-mode . ,mode)
              (cursor-color . ,(when (<= 16 (display-color-cells))
-                                base03)))))))))
+                                base0)))))))))
 
 (defmacro create-solarized-theme (mode)
   (let* ((theme-name (intern (concat "solarized-" (symbol-name mode))))
