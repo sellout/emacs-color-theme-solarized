@@ -498,13 +498,13 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
              (rcirc-prompt ((t (:foreground ,yellow))))
              (rcirc-bright-nick ((t (:foreground ,magenta))))
              (rcirc-server ((t (:foreground ,base1))))
-             (rcirc-timestamp ((t (:foreground ,base01)))))
+             (rcirc-timestamp ((t (:foreground ,base01))))
              ;;font-latex
              (font-latex-warning-face ((t (,@fg-red))))
              (font-latex-sectioning-5-face ((t (,@fg-violet))))
              ;;flyspell
              (flyspell-incorrect ((t (,@fg-red))))
-             (flyspell-duplicate ((t (,@fg-yellow))))
+             (flyspell-duplicate ((t (,@fg-yellow)))))
 
             ((foreground-color . ,(when (<= 16 (display-color-cells)) base0))
              (background-color . ,back)
