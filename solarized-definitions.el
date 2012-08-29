@@ -40,7 +40,10 @@ down in order to expand or compress the tonal range displayed."
   :options '(high normal low)
   :group 'solarized)
 
-(defcustom solarized-broken-srgb (if (eq system-type 'darwin) t nil)
+(defcustom solarized-broken-srgb (if (and (eq system-type 'darwin)
+                                          (eq window-system 'ns))
+                                     t
+                                   nil)
   "Emacs bug #8402 results in incorrect color handling on Macs. If this is t
 \(the default on Macs), Solarized works around it with alternative colors.
 However, these colors are not totally portable, so you may be able to edit
