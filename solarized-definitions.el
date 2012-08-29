@@ -309,6 +309,8 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
              (font-lock-other-emphasized-face ((t (,@fmt-bldi ,@fg-violet))))
              (font-lock-regexp-grouping-backslash
               ((t (,@fmt-none ,@fg-yellow))))
+             ;; sh
+             (sh-heredoc ((t (:foreground nil :inherit font-lock-string-face))))
              ;; info
              (info-xref ((t (,@fmt-undr ,@fg-blue))))
              (info-xref-visited ((t (,@fg-magenta :inherit info-xref))))
