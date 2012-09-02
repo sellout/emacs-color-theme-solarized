@@ -261,6 +261,11 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
              (ido-only-match ((t (,@fg-green))))
              (ido-subdir ((t (,@fg-blue))))
              (ido-first-match ((t (,@fmt-bold ,@fg-green))))
+             ;; iedit
+             (iedit-occurrence ((t (,@fg-base3 ,@bg-violet))))
+             ;; eldoc
+             (eldoc-highlight-function-argument ((t (,@fmt-undr ,@fg-cyan))))
+
              ;; emacs-wiki
              (emacs-wiki-bad-link-face ((t (,@fmt-undr ,@fg-red))))
              (emacs-wiki-link-face ((t (,@fmt-undr ,@fg-blue))))
