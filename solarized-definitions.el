@@ -348,7 +348,7 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
              (show-paren-mismatch ((t (,@fmt-bold ,@fg-red ,@bg-base01))))
              ;; widgets
              (widget-field
-              ((t (,@fg-base1 ,@bg-base02 :box (:line-width 1 :color ,base2)
+              ((t (,@fg-base1 ,@bg-base02 :box (:line-width 1)
                               :inherit default))))
              (widget-single-line-field ((t (:inherit widget-field))))
              ;; extra modules
