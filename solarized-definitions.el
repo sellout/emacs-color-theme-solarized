@@ -261,11 +261,17 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
              (ido-only-match ((t (,@fg-green))))
              (ido-subdir ((t (,@fg-blue))))
              (ido-first-match ((t (,@fmt-bold ,@fg-green))))
+             ;; helm
+             (helm-source-header ((t (,@fg-base01 ,@bg-base02 :height 1.2 ,@fmt-none))))
+             (helm-ff-directory ((t (,@fg-cyan :background nil))))
+             (helm-candidate-number ((t (,@fmt-undr ,@fg-blue :background nil))))
+             (helm-ff-file ((t (:inherit default))))
+             (helm-ff-executable ((t (,@fg-green))))
+             (helm-selection ((t (,@bg-blue ,@fg-base02 ,@fmt-none))))
              ;; iedit
              (iedit-occurrence ((t (,@fg-base3 ,@bg-violet))))
              ;; eldoc
              (eldoc-highlight-function-argument ((t (,@fmt-undr ,@fg-cyan))))
-
              ;; emacs-wiki
              (emacs-wiki-bad-link-face ((t (,@fmt-undr ,@fg-red))))
              (emacs-wiki-link-face ((t (,@fmt-undr ,@fg-blue))))
