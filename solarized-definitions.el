@@ -168,7 +168,7 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
               (fmt-bldi `(:weight ,bold                 :underline nil        :inverse-video nil))
               (fmt-undr `(:weight normal :slant normal  :underline ,underline :inverse-video nil))
               (fmt-undb `(:weight ,bold  :slant normal  :underline ,underline :inverse-video nil))
-              (fmt-undi `(:weight normal                :underline ,underline :inverse-video nil))
+              (fmt-undi `(:weight normal :slant ,italic :underline ,underline :inverse-video nil))
               (fmt-uopt `(:weight normal :slant normal  :underline ,opt-under :inverse-video nil))
               ;; FIXME: not quite the same
               (fmt-curl `(:weight normal :slant normal  :underline t          :inverse-video nil))
