@@ -272,6 +272,10 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
              (iedit-occurrence ((t (,@fg-base3 ,@bg-violet))))
              ;; eldoc
              (eldoc-highlight-function-argument ((t (,@fmt-undr ,@fg-cyan))))
+             ;; mmm-mode
+             (mmm-code-submode-face ((t (:background nil ,@fmt-ital))))
+             (mmm-output-submode-face ((t (:background nil ,@fmt-undi))))
+             (mmm-comment-submode-face ((t (:inherit font-lock-comment-face))))
              ;; emacs-wiki
              (emacs-wiki-bad-link-face ((t (,@fmt-undr ,@fg-red))))
              (emacs-wiki-link-face ((t (,@fmt-undr ,@fg-blue))))
