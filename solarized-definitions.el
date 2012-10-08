@@ -342,6 +342,14 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
              (org-started-kwd-face ((t (,@fg-yellow ,@bg-base03))))
              (org-cancelled-kwd-face ((t (,@fg-green ,@bg-base03))))
              (org-delegated-kwd-face ((t (,@fg-cyan ,@bg-base03))))
+             (org-level-1 ((t (,@fmt-none ,@fg-blue))))
+             (org-level-2 ((t (,@fmt-none ,@fg-cyan))))
+             (org-level-3 ((t (,@fmt-none ,@fg-yellow))))
+             (org-level-4 ((t (,@fg-violet))))
+             (org-level-5 ((t (,@fmt-none ,@fg-base1))))
+             (org-level-6 ((t (,@fmt-none ,@fg-base01))))
+             (org-level-7 ((t (,@fmt-none ,@fg-orange))))
+             (org-level-8 ((t (,@fmt-none ,@fg-violet))))
              ;; table
              (table-cell ((t (,@fmt-none ,@fg-base0 ,@bg-back))))
              ;; outline - pandocBlockQuoteLeader*
