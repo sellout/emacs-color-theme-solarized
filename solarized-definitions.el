@@ -327,6 +327,10 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
              ;; sh
              (sh-heredoc ((t (:foreground nil :inherit font-lock-string-face))))
              (sh-quoted-exec ((t (,@fmt-none))))
+             ;; cperl -- commenting out until refined.
+             (cperl-hash-face ((t (,@fmt-none :background nil ,@fg-yellow))))
+             (cperl-nonoverridable-face ((t (:inherit font-lock-keyword-face))))
+             (cperl-nonoverridable-face ((t (,@fmt-none ,@fg-red))))
              ;; info
              (info-xref ((t (,@fmt-undr ,@fg-blue))))
              (info-xref-visited ((t (,@fg-magenta :inherit info-xref))))
