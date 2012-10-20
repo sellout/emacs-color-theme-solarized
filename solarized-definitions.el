@@ -243,18 +243,18 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
                     (diff-changed ((t (,@fmt-undr ,@fg-yellow))))
                     (diff-removed ((t (,@fmt-bold ,@fg-red))))
                     (diff-refine-change
-                     ((t (,@fmt-undr ,@fg-blue ,@bg-back))))))
+                     ((t (,@fmt-undr ,@fg-blue))))))
                  (normal
                   (if window-system
                       `((diff-added ((t (,@fmt-bold ,@fg-green))))
                         (diff-changed ((t (,@fmt-bold ,@fg-yellow))))
                         (diff-removed ((t (,@fmt-bold ,@fg-red))))
                         (diff-refine-change
-                         ((t (,@fmt-bold ,@fg-blue ,@bg-back)))))
+                         ((t (,@fmt-bold ,@fg-blue)))))
                     `((diff-added ((t (,@fg-green))))
                       (diff-changed ((t (,@fg-yellow))))
                       (diff-removed ((t (,@fg-red))))
-                      (diff-refine-change ((t (,@fg-blue ,@bg-back))))))))
+                      (diff-refine-change ((t (,@fg-blue))))))))
              (diff-file-header ((t (,@bg-back))))
              (diff-header ((t (,@fg-base1 ,@bg-back))))
              ;; IDO
