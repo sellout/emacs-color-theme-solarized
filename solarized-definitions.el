@@ -502,6 +502,13 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
              (rcirc-bright-nick ((t (:foreground ,magenta))))
              (rcirc-server ((t (:foreground ,base1))))
              (rcirc-timestamp ((t (:foreground ,base01))))
+             ;; ERC
+             (erc-input-face ((t (:foreground ,base01))))
+             (erc-keyword-face ((t (,@fmt-bold ,@fg-cyan ,@bg-base02))))
+             (erc-my-nick-face ((t (:foreground ,blue))))
+             (erc-nick-default-face ((t (,@fmt-none ,@fg-cyan))))
+             (erc-notice-face ((t (,@fmt-none ,@fg-blue))))
+             (erc-timestamp-face ((t (:foreground ,base01))))
              ;;font-latex
              (font-latex-warning-face ((t (,@fg-red))))
              (font-latex-sectioning-5-face ((t (,@fg-violet))))
