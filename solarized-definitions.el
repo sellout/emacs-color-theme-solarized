@@ -26,6 +26,13 @@ Ported to Emacs by Greg Pfeil, http://ethanschoonover.com/solarized.")
   :type 'boolean
   :group 'solarized)
 
+(defcustom solarized-terminal-themed t
+  "Non-nil when the terminal emulator has been themes with Solarized.
+In this scenario, we do not set the background color, in favor of the more
+accurate version of the color in the default terminal background."
+  :type 'boolean
+  :group 'solarized)
+
 (defcustom solarized-contrast 'normal
   "Stick with normal! It's been carefully tested. Setting this option to high or
 low does use the same Solarized palette but simply shifts some values up or
@@ -53,8 +60,8 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
   '((base03  "#002b36" "#042028" "#1c1c1c" "brightblack"   "black")
     (base02  "#073642" "#0a2832" "#262626" "black"         "black")
     (base01  "#586e75" "#465a61" "#585858" "brightgreen"   "green")
-    (base00  "#657b83" "#52676f" "#626262" "brightyellow"  nil)
-    (base0   "#839496" "#708183" "#808080" "brightblue"    nil)
+    (base00  "#657b83" "#52676f" "#626262" "brightyellow"  "yellow")
+    (base0   "#839496" "#708183" "#808080" "brightblue"    "blue")
     (base1   "#93a1a1" "#81908f" "#8a8a8a" "brightcyan"    "cyan")
     (base2   "#eee8d5" "#e9e2cb" "#e4e4e4" "white"         "white")
     (base3   "#fdf6e3" "#fcf4dc" "#ffffd7" "brightwhite"   "white")
@@ -70,15 +77,19 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
    column is a different set, one of which will be chosen based on term
    capabilities, etc.")
 
-(defun solarized-face-for-index (facespec index)
+(defun solarized-face-for-index (facespec index &optional back fg)
   "Creates a face from facespec where the colors use the names of
   the `solarized-colors'."
   (let ((new-fontspec (copy-list facespec)))
     (dolist (property '(:foreground :background :color))
-      (when (plist-get new-fontspec property)
-       (plist-put new-fontspec property
-                  (nth index (assoc (plist-get new-fontspec property)
-                                    solarized-colors)))))
+      (let ((color (plist-get new-fontspec property)))
+        (when color
+          (if (and solarized-terminal-themed
+                   (or (and (eq property :background) (memq color back))
+                       (and (eq property :foreground) (memq color fg))))
+              (plist-put new-fontspec property nil)
+            (plist-put new-fontspec property
+                       (nth index (assoc color solarized-colors)))))))
     (when (plist-get new-fontspec :box)
       (plist-put new-fontspec :box (solarized-face-for-index
                                     (plist-get new-fontspec :box) index)))
@@ -94,15 +105,15 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
                              (cdr (assoc term reversing-alist)))
                             (t term))) facespec)))
 
-(defun solarized-faces (facespecs mode)
+(defun solarized-faces (back fg facespecs mode)
   (mapcar (lambda (facespec-with-name)
             (let* ((name (car facespec-with-name))
                    (facespec (funcall
                               (if (eq mode 'light) 'solarized-flip 'identity)
                               (second facespec-with-name)))
-                   (facespec-tty-256 (solarized-face-for-index facespec 3))
-                   (facespec-tty-term (solarized-face-for-index facespec 4))
-                   (facespec-tty-8 (solarized-face-for-index facespec 5))
+                   (facespec-tty-256 (solarized-face-for-index facespec 3 back fg))
+                   (facespec-tty-term (solarized-face-for-index facespec 4 back fg))
+                   (facespec-tty-8 (solarized-face-for-index facespec 5 back fg))
                    (facespec-default (if solarized-broken-srgb
                                          (solarized-face-for-index facespec 2)
                                        (solarized-face-for-index facespec 1))))
@@ -182,7 +193,7 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
     (list
      ;; First list is for faces
      (append
-      (solarized-faces
+      (solarized-faces `(,back) '(base0 base1)
        `(;; basic
          (default (,@fg-base0 ,@bg-back)) ; Normal
          (cursor (,@fg-base03 ,@bg-base0)) ; Cursor
