@@ -102,6 +102,7 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
           (violet      (find-color 'violet))
           (blue        (find-color 'blue))
           (cyan        (find-color 'cyan))
+
           (green       (find-color 'green))
           (bold        (if solarized-bold 'bold 'normal))
           (bright-bold (if solarized-bold 'normal 'bold))
@@ -192,8 +193,8 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
              (isearch ((t (,@fmt-stnd ,@fg-orange ,@bg-back)))) ; IncSearch
              (isearch-fail ((t (,@fmt-stnd ,@fg-orange ,@bg-back)))) ; IncSearch
              (lazy-highlight ((t (,@fmt-revr ,@fg-yellow ,@bg-back)))) ; Search
-             (link ((t (,@fmt-undr ,@fg-violet))))
-             (link-visited ((t (,@fmt-undr ,@fg-magenta))))
+             (link ((t (,@fmt-undr))))
+             (link-visited ((t (,@fmt-undr))))
              (menu ((t (,@fg-base0 ,@bg-base02))))
              (minibuffer-prompt ((t (,@fmt-bold ,@fg-cyan)))) ; Question
              (mode-line  ; StatusLine
@@ -316,25 +317,30 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
              (org-hide ((t (,@fg-base03))))
              (org-todo ((t (,@fmt-bold ,@fg-base03 ,@bg-red))))
              (org-done ((t (,@fmt-bold ,@fg-green))))
-             (org-todo-kwd-face ((t (,@fg-red ,@bg-base03))))
-             (org-done-kwd-face ((t (,@fg-green ,@bg-base03))))
+             (org-todo-kwd-face ((t (,@fg-red ,@bg-base03 :box (:line-width 1 :color ,red :style released-button)))))
+             (org-done-kwd-face ((t (,@fg-green ,@bg-base03 :box (:line-width 1 :color ,green :style released-button)))))
              (org-project-kwd-face ((t (,@fg-violet ,@bg-base03))))
-             (org-waiting-kwd-face ((t (,@fg-orange ,@bg-base03))))
-             (org-someday-kwd-face ((t (,@fg-blue ,@bg-base03))))
-             (org-started-kwd-face ((t (,@fg-yellow ,@bg-base03))))
-             (org-cancelled-kwd-face ((t (,@fg-green ,@bg-base03))))
-             (org-delegated-kwd-face ((t (,@fg-cyan ,@bg-base03))))
+             (org-someday-kwd-face ((t (,@fg-magenta ,@bg-base03 :box (:line-width 1 :color ,magenta :style released-button)))))
+             (org-appt-kwd-face ((t (,@fg-orange ,@bg-base03 :box (:line-width 1 :color ,orange :style released-button)))))
+             (org-waiting-kwd-face ((t (,@fg-orange ,@bg-base03 :box (:line-width 1 :color ,orange :style released-button)))))
+             (org-started-kwd-face ((t (,@fg-yellow ,@bg-base03 :box (:line-width 1 :color ,yellow :style released-button)))))
+             (org-next-kwd-face ((t (,@fg-base03 ,@bg-yellow))))
+             (org-cancelled-kwd-face ((t (,@fg-cyan ,@bg-base03 :box (:line-width 1 :color ,cyan :style released-button)))))
+             (org-delegated-kwd-face ((t (,@fg-cyan ,@bg-base03 :box (:line-width 1 :color ,cyan :style released-button)))))
+             (org-deferred-kwd-face ((t (,@fg-cyan ,@bg-base03 :box (:line-width 1 :color ,cyan :style released-button)))))
+             ;; huy: org
+             (org-date ((t (:underline t))))
              ;; table
              (table-cell ((t (,@fmt-none ,@fg-base0 ,@bg-back))))
              ;; outline - pandocBlockQuoteLeader*
-             (outline-1 ((t (,@fmt-none ,@fg-blue))))
-             (outline-2 ((t (,@fmt-none ,@fg-cyan))))
-             (outline-3 ((t (,@fmt-none ,@fg-yellow))))
-             (outline-4 ((t (,@fmt-none ,@fg-red))))
-             (outline-5 ((t (,@fmt-none ,@fg-base0))))
-             (outline-6 ((t (,@fmt-none ,@fg-base01))))
-             (outline-7 ((t (,@fmt-none ,@fg-orange))))
-             (outline-8 ((t (,@fmt-none ,@fg-violet))))
+             (outline-1 ((t (,@fmt-none ,@fg-base3))))
+             (outline-2 ((t (,@fmt-none ,@fg-blue))))
+             (outline-3 ((t (,@fmt-none ,@fg-cyan))))
+             (outline-4 ((t (,@fmt-none ,@fg-green))))
+             (outline-5 ((t (,@fmt-none ,@fg-orange))))
+             (outline-6 ((t (,@fmt-none ,@fg-violet))))
+             (outline-7 ((t (,@fmt-none ,@fg-blue))))
+             (outline-8 ((t (,@fmt-none ,@fg-cyan))))
              ;; speedbar
              (speedbar-button-face ((t (,@fmt-none ,@fg-base1))))
              (speedbar-directory-face ((t (,@fmt-none ,@fg-orange))))
