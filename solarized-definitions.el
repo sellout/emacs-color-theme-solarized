@@ -520,18 +520,22 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
              (background-color . ,back)
              (background-mode . ,mode)
              (cursor-color . ,(when (<= 16 (display-color-cells))
-                                base0)))))))))
+                                base0))
+             (ansi-term-color-vector . [unspecified ,base02 ,red ,green ,yellow ,blue ,magenta ,cyan ,base2]))))))))
 
 (defmacro create-solarized-theme (mode)
   (let* ((theme-name (intern (concat "solarized-" (symbol-name mode))))
          (defs (solarized-color-definitions mode))
          (theme-vars (mapcar (lambda (def) (list (car def) (cdr def)))
                              (second defs)))
-         (theme-faces (first defs)))
+         (theme-faces (first defs))
+         (ansi-term-color-vector (remove-if-not (lambda (def) (eq (symbol-name (car def)) 'ansi-term-color-vector)) theme-vars)))
     `(progn
        (deftheme ,theme-name ,solarized-description)
        (apply 'custom-theme-set-variables ',theme-name ',theme-vars)
        (apply 'custom-theme-set-faces ',theme-name ',theme-faces)
+       (eval-after-load 'term
+         (setq ansi-term-color-vector ,ansi-term-color-vector))
        (provide-theme ',theme-name))))
 
 ;;;###autoload
