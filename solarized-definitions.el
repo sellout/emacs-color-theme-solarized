@@ -353,6 +353,9 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
              (widget-single-line-field ((t (:inherit widget-field))))
              ;; extra modules
              ;; -------------
+	     ;; bm visual bookmarks
+	     (bm-fringe-face ((t (,@bg-orange ,@fg-base03))))
+	     (bm-fringe-persistent-face ((t (,@bg-blue ,@fg-base03))))
              ;; Flymake
              (flymake-errline ((t (,@fmt-revr ,@fg-red ,@bg-back)))) ; ErrorMsg
              (flymake-warnline ; WarningMsg
