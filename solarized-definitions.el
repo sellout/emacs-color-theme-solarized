@@ -73,456 +73,464 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
    column is a different set, one of which will be chosen based on term
    capabilities, etc.")
 
-(defun solarized-color-definitions (mode)
-  (flet ((find-color (name)
-           (let* ((index (if window-system
-                             (if solarized-degrade
-                                 3
-                               (if solarized-broken-srgb 2 1))
-                           (case (display-color-cells)
-                             (16 4)
-                             (8  5)
-                             (otherwise 3)))))
-             (nth index (assoc name solarized-colors)))))
-    (let ((base03      (find-color 'base03))
-          (base02      (find-color 'base02))
-          (base01      (find-color 'base01))
-          (base00      (find-color 'base00))
-          (base0       (find-color 'base0))
-          (base1       (find-color 'base1))
-          (base2       (find-color 'base2))
-          (base3       (find-color 'base3))
-          (yellow      (find-color 'yellow))
-          (orange      (find-color 'orange))
-          (red         (find-color 'red))
-          (magenta     (find-color 'magenta))
-          (violet      (find-color 'violet))
-          (blue        (find-color 'blue))
-          (cyan        (find-color 'cyan))
-          (green       (find-color 'green))
-          (bold        (if solarized-bold 'bold 'normal))
-          (bright-bold (if solarized-bold 'normal 'bold))
-          (underline   (if solarized-underline t nil))
-          (opt-under   nil)
-          (italic      (if solarized-italic 'italic 'normal)))
-      (when (eq 'light mode)
-        (rotatef base03 base3)
-        (rotatef base02 base2)
-        (rotatef base01 base1)
-        (rotatef base00 base0))
-      (let ((back base03))
-        (cond ((< (display-color-cells) 16)
-               (setf back nil))
-              ((eq 'high solarized-contrast)
-               (let ((orig-base3 base3))
-                 (rotatef base01 base00 base0 base1 base2 base3)
-                 (setf base3 orig-base3)))
-              ((eq 'low solarized-contrast)
-               (setf back      base02
-                     opt-under t)))
-        ;; NOTE: We try to turn an 8-color term into a 10-color term by not
-        ;;       using default background and foreground colors, expecting the
-        ;;       user to have the right colors set for them.
-        (let ((bg-back   `(:background ,back))
-              (bg-base03 `(:background ,base03))
-              (bg-base02 `(:background ,base02))
-              (bg-base01 `(:background ,base01))
-              (bg-base00 `(:background ,base00))
-              (bg-base0 `(:background ,base0))
-              (bg-base1 `(:background ,base1))
-              (bg-base2 `(:background ,base2))
-              (bg-base3 `(:background ,base3))
-              (bg-green `(:background ,green))
-              (bg-yellow `(:background ,yellow))
-              (bg-orange `(:background ,orange))
-              (bg-red `(:background ,red))
-              (bg-magenta `(:background ,magenta))
-              (bg-violet `(:background ,violet))
-              (bg-blue `(:background ,blue))
-              (bg-cyan `(:background ,cyan))
-              
-              (fg-base03 `(:foreground ,base03))
-              (fg-base02 `(:foreground ,base02))
-              (fg-base01 `(:foreground ,base01))
-              (fg-base00 `(:foreground ,base00))
-              (fg-base0 `(:foreground ,(when (<= 16 (display-color-cells))
-                                         base0)))
-              (fg-base1 `(:foreground ,(when (<= 16 (display-color-cells))
-                                         base1)))
-              (fg-base2 `(:foreground ,base2))
-              (fg-base3 `(:foreground ,base3))
-              (fg-green `(:foreground ,green))
-              (fg-yellow `(:foreground ,yellow))
-              (fg-orange `(:foreground ,orange))
-              (fg-red `(:foreground ,red))
-              (fg-magenta `(:foreground ,magenta))
-              (fg-violet `(:foreground ,violet))
-              (fg-blue `(:foreground ,blue))
-              (fg-cyan `(:foreground ,cyan))
 
-              (fmt-none `(:weight normal :slant normal  :underline nil        :inverse-video nil))
-              (fmt-bold `(:weight ,bold  :slant normal  :underline nil        :inverse-video nil))
-              (fmt-bldi `(:weight ,bold                 :underline nil        :inverse-video nil))
-              (fmt-undr `(:weight normal :slant normal  :underline ,underline :inverse-video nil))
-              (fmt-undb `(:weight ,bold  :slant normal  :underline ,underline :inverse-video nil))
-              (fmt-undi `(:weight normal                :underline ,underline :inverse-video nil))
-              (fmt-uopt `(:weight normal :slant normal  :underline ,opt-under :inverse-video nil))
-              ;; FIXME: not quite the same
-              (fmt-curl `(:weight normal :slant normal  :underline t          :inverse-video nil))
-              (fmt-ital `(:weight normal :slant ,italic :underline nil        :inverse-video nil))
-              ;; FIXME: not quite the same
-              (fmt-stnd `(:weight normal :slant normal  :underline nil        :inverse-video t))
-              (fmt-revr `(:weight normal :slant normal  :underline nil        :inverse-video t))
-              (fmt-revb `(:weight ,bold  :slant normal  :underline nil        :inverse-video t))
-              (fmt-revbb `(:weight ,bright-bold :slant normal :underline nil  :inverse-video t))
-              (fmt-revbbu `(:weight ,bright-bold :slant normal  :underline ,underline :inverse-video t)))
-          `((;; basic
-             (default ((t (,@fg-base0 ,@bg-back)))) ; Normal
-             (cursor ((t (,@fg-base03 ,@bg-base0)))) ; Cursor
-             (error ((t (,@fmt-bold ,@fg-red)))) ; Error
-             (escape-glyph-face ((t (,@fg-red))))
-             (fringe ((t (,@fg-base01 ,@bg-base02))))
-             (linum ((t (,@fg-base01 ,@bg-base02))))
-             (header-line ((t (,@fg-base0 ,@bg-base02 ,@fmt-revbb)))) ; Pmenu
-             (highlight ((t (,@bg-base02))))
-             (hl-line ((t (:underline ,opt-under ,@bg-base02)))) ; CursorLine
-             (isearch ((t (,@fmt-stnd ,@fg-orange ,@bg-back)))) ; IncSearch
-             (isearch-fail ((t (,@fmt-stnd ,@fg-orange ,@bg-back)))) ; IncSearch
-             (lazy-highlight ((t (,@fmt-revr ,@fg-yellow ,@bg-back)))) ; Search
-             (link ((t (,@fmt-undr ,@fg-violet))))
-             (link-visited ((t (,@fmt-undr ,@fg-magenta))))
-             (menu ((t (,@fg-base0 ,@bg-base02))))
-             (minibuffer-prompt ((t (,@fmt-bold ,@fg-cyan)))) ; Question
-             (mode-line  ; StatusLine
-              ((t (,@fg-base1 ,@bg-base02 ,@fmt-revbb :box nil))))
-             (mode-line-inactive ; StatusLineNC
-              ((t (,@fg-base00 ,@bg-base02 ,@fmt-revbb :box nil))))
-             (region ((t (,@fg-base01 ,@bg-base03 ,@fmt-revbb)))) ; Visual
-             (secondary-selection ((t (,@bg-base02))))
-             (shadow ((t (,@fg-base01))))
-             (trailing-whitespace ((t (,@fmt-revr ,@fg-red))))
-             (vertical-border ((t (,@fg-base0))))
-             ;; comint
-             (comint-highlight-prompt ((t (,@fg-blue))))
-             ;; compilation
-             (compilation-info ((t (,@fmt-bold ,@fg-green))))
-             (compilation-warning ((t (,@fmt-bold ,@fg-orange))))
-             ;; custom
-             (custom-button
-              ((t (,@fg-base1 ,@bg-base02
-                              :box (:line-width 2 :style released-button)))))
-             (custom-button-mouse
-              ((t (,@fmt-revr ,@fg-base1 ,@bg-base02 :inherit custom-button))))
-             (custom-button-pressed
-              ((t (,@fmt-revr ,@fg-base1 ,@bg-base02
-                              :box (:line-width 2 :style pressed-button)
-                              :inherit custom-button-mouse))))
-             (custom-changed ((t (,@fmt-revr ,@fg-blue ,@bg-base3))))
-             (custom-comment ((t (,@fg-base1 ,@bg-base02))))
-             (custom-comment-tag ((t (,@fg-base1 ,@bg-base02))))
-             (custom-documentation ((t (:inherit default))))
-             (custom-group-tag ((t (,@fg-base1))))
-             (custom-group-tag-1 ((t (,fmt-bold ,@fg-base1))))
-             (custom-invalid ((t (,@fmt-revr ,@fg-red ,@bg-back))))
-             (custom-link ((t (,@fg-violet))))
-             (custom-state ((t (,@fg-green))))
-             (custom-variable-tag ((t (,@fg-base1))))
-             ;; diff - DiffAdd, DiffChange, DiffDelete, and DiffText
-             ,@(case solarized-diff-mode
-                 (high
-                  `((diff-added ((t (,@fmt-revr ,@fg-green))))
-                    (diff-changed ((t (,@fmt-revr ,@fg-yellow))))
-                    (diff-removed ((t (,@fmt-revr ,@fg-red))))
-                    (diff-refine-change
-                     ((t (,@fmt-revr ,@fg-blue ,@bg-back))))))
-                 (low
-                  `((diff-added ((t (,@fmt-undr ,@fg-green))))
-                    (diff-changed ((t (,@fmt-undr ,@fg-yellow))))
-                    (diff-removed ((t (,@fmt-bold ,@fg-red))))
-                    (diff-refine-change
-                     ((t (,@fmt-undr ,@fg-blue ,@bg-back))))))
-                 (normal
-                  (if window-system
-                      `((diff-added ((t (,@fmt-bold ,@fg-green))))
-                        (diff-changed ((t (,@fmt-bold ,@fg-yellow))))
-                        (diff-removed ((t (,@fmt-bold ,@fg-red))))
-                        (diff-refine-change
-                         ((t (,@fmt-bold ,@fg-blue ,@bg-back)))))
-                    `((diff-added ((t (,@fg-green))))
-                      (diff-changed ((t (,@fg-yellow))))
-                      (diff-removed ((t (,@fg-red))))
-                      (diff-refine-change ((t (,@fg-blue ,@bg-back))))))))
-             (diff-file-header ((t (,@bg-back))))
-             (diff-header ((t (,@fg-base1 ,@bg-back))))
-             ;; IDO
-             (ido-only-match ((t (,@fg-green))))
-             (ido-subdir ((t (,@fg-blue))))
-             (ido-first-match ((t (,@fmt-bold ,@fg-green))))
-             ;; emacs-wiki
-             (emacs-wiki-bad-link-face ((t (,@fmt-undr ,@fg-red))))
-             (emacs-wiki-link-face ((t (,@fmt-undr ,@fg-blue))))
-             (emacs-wiki-verbatim-face ((t (,@fmt-undr ,@fg-base00))))
-             ;; eshell
-             (eshell-ls-archive ((t (,@fg-magenta))))
-             (eshell-ls-backup ((t (,@fg-yellow))))
-             (eshell-ls-clutter ((t (,@fg-orange))))
-             (eshell-ls-directory ((t (,@fg-blue)))) ; Directory
-             (eshell-ls-executable ((t (,@fg-green))))
-             (eshell-ls-missing ((t (,@fg-red))))
-             (eshell-ls-product ((t (,@fg-yellow))))
-             (eshell-ls-readonly ((t (,@fg-base1))))
-             (eshell-ls-special ((t (,@fg-violet))))
-             (eshell-ls-symlink ((t (,@fg-cyan))))
-             (eshell-ls-unreadable ((t (,@fg-base00))))
-             (eshell-prompt ((t (,@fmt-bold ,@fg-green))))
-             ;; font-lock
-             (font-lock-builtin-face ((t (,@fmt-none ,@fg-green)))) ; Statement
-             (font-lock-comment-face ((t (,@fmt-ital ,@fg-base01)))) ; Comment
-             (font-lock-constant-face ((t (,@fmt-none ,@fg-cyan)))) ; Constant
-             (font-lock-function-name-face ; Identifier
-              ((t (,@fmt-none ,@fg-blue))))
-             (font-lock-keyword-face ((t (,@fmt-none ,@fg-green)))) ; Statement
-             (font-lock-string-face ((t (,@fmt-none ,@fg-cyan)))) ; Constant
-             (font-lock-type-face ((t (,@fmt-none ,@fg-yellow)))) ; Type
-             (font-lock-variable-name-face ; Identifier
-              ((t (,@fmt-none ,@fg-blue))))
-             (font-lock-warning-face ((t (,@fmt-bold ,@fg-red)))) ; Error
-             (font-lock-doc-face ((t (,@fmt-ital ,@fg-base01)))) ; Comment
-             (font-lock-doc-string-face  ; Comment (XEmacs-only)
-              ((t (,@fmt-ital ,@fg-base01))))
-             (font-lock-color-constant-face ((t (,@fmt-none ,@fg-green))))
-             (font-lock-comment-delimiter-face ; Comment
-              ((t (,@fmt-ital ,@fg-base01))))
-             (font-lock-preprocessor-face ; PreProc
-              ((t (,@fmt-none ,@fg-orange))))
-             (font-lock-reference-face ((t (,@fmt-none ,@fg-cyan))))
-             (font-lock-negation-char-face ((t (,@fmt-none ,@fg-red))))
-             (font-lock-other-type-face ((t (,@fmt-ital ,@fg-blue))))
-             (font-lock-regexp-grouping-construct
-              ((t (,@fmt-none ,@fg-orange))))
-             (font-lock-special-keyword-face ; Special
-              ((t (,@fmt-none ,@fg-red))))
-             (font-lock-exit-face ((t (,@fmt-none ,@fg-red))))
-             (font-lock-other-emphasized-face ((t (,@fmt-bldi ,@fg-violet))))
-             (font-lock-regexp-grouping-backslash
-              ((t (,@fmt-none ,@fg-yellow))))
-             ;; info
-             (info-xref ((t (,@fmt-undr ,@fg-blue))))
-             (info-xref-visited ((t (,@fg-magenta :inherit info-xref))))
-             ;; org
-             (org-hide ((t (,@fg-base03))))
-             (org-todo ((t (,@fmt-bold ,@fg-base03 ,@bg-red))))
-             (org-done ((t (,@fmt-bold ,@fg-green))))
-             (org-todo-kwd-face ((t (,@fg-red ,@bg-base03))))
-             (org-done-kwd-face ((t (,@fg-green ,@bg-base03))))
-             (org-project-kwd-face ((t (,@fg-violet ,@bg-base03))))
-             (org-waiting-kwd-face ((t (,@fg-orange ,@bg-base03))))
-             (org-someday-kwd-face ((t (,@fg-blue ,@bg-base03))))
-             (org-started-kwd-face ((t (,@fg-yellow ,@bg-base03))))
-             (org-cancelled-kwd-face ((t (,@fg-green ,@bg-base03))))
-             (org-delegated-kwd-face ((t (,@fg-cyan ,@bg-base03))))
-             ;; table
-             (table-cell ((t (,@fmt-none ,@fg-base0 ,@bg-back))))
-             ;; outline - pandocBlockQuoteLeader*
-             (outline-1 ((t (,@fmt-none ,@fg-blue))))
-             (outline-2 ((t (,@fmt-none ,@fg-cyan))))
-             (outline-3 ((t (,@fmt-none ,@fg-yellow))))
-             (outline-4 ((t (,@fmt-none ,@fg-red))))
-             (outline-5 ((t (,@fmt-none ,@fg-base0))))
-             (outline-6 ((t (,@fmt-none ,@fg-base01))))
-             (outline-7 ((t (,@fmt-none ,@fg-orange))))
-             (outline-8 ((t (,@fmt-none ,@fg-violet))))
-             ;; speedbar
-             (speedbar-button-face ((t (,@fmt-none ,@fg-base1))))
-             (speedbar-directory-face ((t (,@fmt-none ,@fg-orange))))
-             (speedbar-file-face ((t (,@fmt-none ,@fg-green))))
-             (speedbar-highlight-face ((t (,@bg-base02))))
-             (speedbar-selected-face ((t (,@fmt-undr ,@fg-yellow))))
-             (speedbar-separator-face ((t (,@fmt-stnd))))
-             (speedbar-tag-face ((t (,@fmt-none ,@fg-blue))))
-             ;; show-paren - MatchParen
-             (show-paren-match ((t (,@fmt-bold ,@fg-cyan ,@bg-base02))))
-             (show-paren-mismatch ((t (,@fmt-bold ,@fg-red ,@bg-base01))))
-             ;; widgets
-             (widget-field
-              ((t (,@fg-base1 ,@bg-base02 :box (:line-width 1 :color ,base2)
-                              :inherit default))))
-             (widget-single-line-field ((t (:inherit widget-field))))
-             ;; extra modules
-             ;; -------------
-             ;; Flymake
-             (flymake-errline ((t (,@fmt-revr ,@fg-red ,@bg-back)))) ; ErrorMsg
-             (flymake-warnline ; WarningMsg
-              ((t (,@fmt-bold ,@fg-red ,@bg-back))))
-             ;; column-marker
-             (column-marker-1 ((t (,@bg-base01))))
-             (column-marker-2 ((t (,@bg-cyan))))
-             (column-marker-3 ((t (,@bg-violet))))
-             ;; jabber
-             (jabber-activity-face ((t (,@fmt-bold ,@fg-red))))
-             (jabber-activity-personal-face ((t (,@fmt-bold ,@fg-blue))))
-             (jabber-chat-error ((t (,@fmt-bold ,@fg-red))))
-             (jabber-chat-prompt-foreign ((t (,@fmt-bold ,@fg-red))))
-             (jabber-chat-prompt-local ((t (,@fmt-bold ,@fg-blue))))
-             (jabber-chat-prompt-system ((t (,@fmt-bold ,@fg-green))))
-             (jabber-chat-text-foreign ((t (,@fg-base1))))
-             (jabber-chat-text-local ((t (,@fg-base0))))
-             (jabber-chat-rare-time-face ((t (,@fmt-undr ,@fg-green))))
-             (jabber-roster-user-away ((t (,@fmt-ital ,@fg-green))))
-             (jabber-roster-user-chatty ((t (,@fmt-bold ,@fg-orange))))
-             (jabber-roster-user-dnd ((t (,@fmt-ital ,@fg-red))))
-             (jabber-roster-user-error ((t (:weight light :slant italic ,@fg-red))))
-             (jabber-roster-user-offline ((t (,@fg-base01))))
-             (jabber-roster-user-online ((t (,@fmt-bold ,@fg-blue))))
-             (jabber-roster-user-xa ((t (,@fmt-ital ,@fg-magenta))))
-             ;; gnus - these are taken from mutt, not VIM
-             (gnus-cite-1 ((t (,@fmt-none ,@fg-blue)))) ; quoted
-             (gnus-cite-2 ((t (,@fmt-none ,@fg-cyan)))) ; quoted1
-             (gnus-cite-3 ((t (,@fmt-none ,@fg-yellow)))) ; quoted2
-             (gnus-cite-4 ((t (,@fmt-none ,@fg-red)))) ; quoted3
-             (gnus-cite-5 ((t (,@fmt-none ,@fg-orange)))) ; quoted4
-             (gnus-cite-6 ((t (,@fmt-none ,@fg-violet))))
-             (gnus-cite-7 ((t (,@fmt-none ,@fg-green))))
-             (gnus-cite-8 ((t (,@fmt-none ,@fg-magenta))))
-             (gnus-cite-9 ((t (,@fmt-none ,@fg-base00))))
-             (gnus-cite-10 ((t (,@fmt-none ,@fg-base01))))
-             (gnus-cite-11 ((t (,@fmt-none ,@fg-base02))))
-             (gnus-group-mail-1 ((t (,@fmt-bold ,@fg-base3))))
-             (gnus-group-mail-1-empty ((t (,@fg-base3))))
-             (gnus-group-mail-2 ((t (,@fmt-bold ,@fg-base2))))
-             (gnus-group-mail-2-empty ((t (,@fg-base2))))
-             (gnus-group-mail-3 ((t (,@fmt-bold ,@fg-magenta))))
-             (gnus-group-mail-3-empty ((t (,@fg-magenta))))
-             (gnus-group-mail-low ((t (,@fmt-bold ,@fg-base00))))
-             (gnus-group-mail-low-empty ((t (,@fg-base00))))
-             (gnus-group-news-1 ((t (,@fmt-bold ,@fg-base1))))
-             (gnus-group-news-1-empty ((t (,@fg-base1))))
-             (gnus-group-news-2 ((t (,@fmt-bold ,@fg-blue))))
-             (gnus-group-news-2-empty ((t (,@fg-blue))))
-             (gnus-group-news-low ((t (,@fmt-bold ,@fg-violet))))
-             (gnus-group-news-low-empty ((t (,@fg-violet))))
-             (gnus-emphasis-highlight-words ; highlight
-              ((t (,@fmt-none ,fg-yellow))))
-             (gnus-header-content ((t (,@fmt-none ,@fg-base01)))) ; hdrdefault
-             (gnus-header-from ((t (,@fmt-none ,@fg-base00)))) ; header ^From
-             (gnus-header-name ((t (,@fmt-none ,@fg-base01)))) ; hdrdefault
-             (gnus-header-newsgroups ; hdrdefault
-              ((t (,@fmt-none ,@fg-base02))))
-             (gnus-header-subject ; header ^Subject
-              ((t (,@fmt-none ,@fg-blue))))
-             (gnus-server-agent ((t (,@fmt-bold ,@fg-base3))))
-             (gnus-server-closed ((t (,@fmt-ital ,@fg-base1))))
-             (gnus-server-denied ((t (,@fmt-bold ,@fg-base2))))
-             (gnus-server-offline ((t (,@fmt-bold ,@fg-green))))
-             (gnus-server-opened ((t (,@fmt-bold ,@fg-cyan))))
-             (gnus-signature ((t (,@fmt-none ,@fg-base01)))) ; signature
-             (gnus-splash ((t (,@fg-base2))))
-             (gnus-summary-cancelled ; deleted messages
-              ((t (,@fmt-none ,@fg-red))))
-             (gnus-summary-high-ancient
-              ((t (,@fmt-bold :inherit gnus-summary-normal-ancient))))
-             (gnus-summary-high-read
-              ((t (,@fmt-bold :inherit gnus-summary-normal-read))))
-             (gnus-summary-high-ticked
-              ((t (,@fmt-bold :inherit gnus-summary-normal-ticked))))
-             (gnus-summary-high-undownloaded
-              ((t (,@fmt-bold :inherit gnus-summary-normal-undownloaded))))
-             (gnus-summary-high-unread
-              ((t (,@fmt-bold :inherit gnus-summary-normal-unread))))
-             (gnus-summary-low-ancient
-              ((t (,@fmt-ital :inherit gnus-summary-normal-ancient))))
-             (gnus-summary-low-read
-              ((t (,@fmt-ital :inherit gnus-summary-normal-ancient))))
-             (gnus-summary-low-unread
-              ((t (,@fmt-ital :inherit gnus-summary-normal-unread))))
-             (gnus-summary-low-ticked
-              ((t (,@fmt-ital :inherit gnus-summary-normal-ancient))))
-             (gnus-summary-low-undownloaded
-              ((t (,@fmt-ital :inherit gnus-summary-normal-ancient))))
-             (gnus-summary-normal-ancient ; old messages
-              ((t (,@fmt-none ,@fg-blue))))
-             (gnus-summary-normal-read ; read messages
-              ((t (,@fmt-none ,@fg-base01))))
-             (gnus-summary-normal-ticked ; flagged
-              ((t (,@fmt-none ,@fg-red))))
-             (gnus-summary-normal-undownloaded ((t (,@fmt-none ,@fg-base2))))
-             (gnus-summary-normal-unread ; unread messages
-              ((t (,@fmt-none ,@fg-blue))))
-             (gnus-summary-selected ; indicator
-              ((t (,@fmt-none ,@fg-base03 ,@bg-yellow))))
-             ;; Message
-             (message-mml ((t (,@fg-blue))))
-             (message-cited-text ((t (,@fg-base2))))
-             (message-separator ((t (,@fg-base3))))
-             (message-header-xheader ((t (,@fg-violet))))
-             (message-header-name ((t (,@fg-cyan))))
-             (message-header-other ((t (,@fg-red))))
-             (message-header-newsgroups ((t (,@fmt-bldi ,@fg-yellow))))
-             (message-header-subject ((t (,@fg-base00))))
-             (message-header-cc ((t (,@fmt-bold ,@fg-green))))
-             (message-header-to ((t (,@fmt-bold ,@fg-base1))))
-             ;; parenface
-             (paren-face ((t (,@fg-base01))))
-             ;; rainbow-delimiters
-             (rainbow-delimiters-depth-1-face ((t (,@fg-cyan))))
-             (rainbow-delimiters-depth-2-face ((t (,@fg-yellow))))
-             (rainbow-delimiters-depth-3-face ((t (,@fg-blue))))
-             (rainbow-delimiters-depth-4-face ((t (,@fg-red))))
-             (rainbow-delimiters-depth-5-face ((t (,@fg-green))))
-             (rainbow-delimiters-depth-6-face ((t (,@fg-blue))))
-             (rainbow-delimiters-depth-7-face ((t (,@fg-orange))))
-             (rainbow-delimiters-depth-8-face ((t (,@fg-magenta))))
-             (rainbow-delimiters-depth-9-face ((t (,@fg-base0))))
-             ;; slime
-             (slime-error-face ((t (,@fmt-revr ,@fg-red)))) ; ErrorMsg
-             (slime-note-face ((t (,@fg-yellow))))
-             (slime-repl-inputted-output-face ((t (,@fg-red))))
-             (slime-repl-output-mouseover-face ((t (:box (:color ,base3)))))
-             (slime-style-warning-face ((t (,@fmt-bold ,@fg-orange))))
-             (slime-warning-face ((t (,@fmt-bold ,@fg-red)))) ; WarningMsg
-             ;; whitespace
-             (whitespace-empty ((t (,@fg-red))))
-             (whitespace-hspace ((t (,@fg-orange))))
-             (whitespace-indentation ((t (,@fg-base02))))
-             (whitespace-space ((t (,@fg-base02))))
-             (whitespace-space-after-tab ((t (,@fg-cyan))))
-             (whitespace-space-before-tab ((t (,@fmt-bold ,@fg-red))))
-             (whitespace-tab ((t (,@fg-base02))))
-             (whitespace-trailing ((t (,@fmt-bold ,@fg-red ,@bg-base02))))
-             (whitespace-highlight-face ((t (,@fg-red ,@bg-blue))))
-             (whitespace-line ((t (,@fg-magenta ,@bg-base03))))
-             ;; rcirc
-             (rcirc-my-nick ((t (:foreground ,blue))))
-             (rcirc-nick-in-message ((t (:foreground ,orange))))
-             (rcirc-other-nick ((t (:foreground ,green))))
-             (rcirc-prompt ((t (:foreground ,yellow))))
-             (rcirc-bright-nick ((t (:foreground ,magenta))))
-             (rcirc-server ((t (:foreground ,base1))))
-             (rcirc-timestamp ((t (:foreground ,base01))))
-             ;;font-latex
-             (font-latex-warning-face ((t (,@fg-red))))
-             (font-latex-sectioning-5-face ((t (,@fg-violet))))
-             ;;flyspell
-             (flyspell-incorrect ((t (,@fg-red))))
-             (flyspell-duplicate ((t (,@fg-yellow)))))
+(defun solarized-face-for-index (facespec index &optional light)
+  "Creates a face from facespec where the colors use the names from
+  `solarized-colors`."
+  (let ((new-fontspec (copy-list facespec)))
+    (dolist (property '(:foreground :background :color))
+      (let ((color-name (plist-get new-fontspec property)))
+        (when color-name
+          ;; NOTE: We try to turn an 8-color term into a 10-color term by not
+          ;;       using default background and foreground colors, expecting the
+          ;;       user to have the right colors set for them.
+          (when (and (= index 5)
+                     (or (and (eq property :background)
+                              (eq color-name 'back))
+                         (and (eq property :foreground)
+                              (member color-name '(base0 base1)))))
+            (setf color-name nil))
+          (when (eq color-name 'back)
+            (setf color-name 'base03))
+          (when light
+            (setf color-name
+                  (case color-name
+                    (base03 'base3)
+                    (base02 'base2)
+                    (base01 'base1)
+                    (base00 'base0)
+                    (base0 'base00)
+                    (base1 'base01)
+                    (base2 'base02)
+                    (base3 'base03)
+                    (otherwise color-name))))
+          (plist-put new-fontspec
+                     property
+                     (nth index (assoc color-name solarized-colors))))))
+    (when (plist-get new-fontspec :box)
+      (plist-put new-fontspec
+                 :box
+                 (solarized-face-for-index (plist-get new-fontspec :box) index
+                                           light)))
+    new-fontspec))
 
-            ((foreground-color . ,(when (<= 16 (display-color-cells)) base0))
-             (background-color . ,back)
-             (background-mode . ,mode)
-             (cursor-color . ,(when (<= 16 (display-color-cells))
-                                base0)))))))))
+(defun create-face-spec (name facespec)
+  `(,name ((((background dark) (type graphic))
+            ,(solarized-face-for-index facespec
+                                       (cond (solarized-degrade     3)
+                                             (solarized-broken-srgb 2)
+                                             (t                     1))))
+           (((background dark) (type tty) (min-colors 256))
+            ,(solarized-face-for-index facespec 3))
+           (((background dark) (type tty) (min-colors  16))
+            ,(solarized-face-for-index facespec 4))
+           (((background dark) (type tty) (min-colors   8))
+            ,(solarized-face-for-index facespec 5))
+           (((background light) (type graphic))
+            ,(solarized-face-for-index facespec
+                                       (cond (solarized-degrade     3)
+                                             (solarized-broken-srgb 2)
+                                             (t                     1))
+                                       t))
+           (((background light) (type tty) (min-colors 256))
+            ,(solarized-face-for-index facespec 3 t))
+           (((background light) (type tty) (min-colors  16))
+            ,(solarized-face-for-index facespec 4 t))
+           (((background light) (type tty) (min-colors   8))
+            ,(solarized-face-for-index facespec 5 t)))))
 
-(defmacro create-solarized-theme (mode)
-  (let* ((theme-name (intern (concat "solarized-" (symbol-name mode))))
-         (defs (solarized-color-definitions mode))
-         (theme-vars (mapcar (lambda (def) (list (car def) (cdr def)))
-                             (second defs)))
-         (theme-faces (first defs)))
-    `(progn
-       (deftheme ,theme-name ,solarized-description)
-       (apply 'custom-theme-set-variables ',theme-name ',theme-vars)
-       (apply 'custom-theme-set-faces ',theme-name ',theme-faces)
-       (provide-theme ',theme-name))))
+(defun solarized-color-definitions ()
+  (let ((bold        (if solarized-bold 'bold 'normal))
+        (bright-bold (if solarized-bold 'normal 'bold))
+        (underline   (if solarized-underline t nil))
+        (opt-under   nil)
+        (italic      (if solarized-italic 'italic 'normal)))
+    (cond ((eq 'high solarized-contrast)
+           (let ((orig-base3 base3))
+             (rotatef base01 base00 base0 base1 base2 base3)
+             (setf base3 orig-base3)))
+          ((eq 'low solarized-contrast)
+           (setf back      base02
+                 opt-under t)))
+    (let ((bg-back   '(:background back))
+          (bg-base03 '(:background base03))
+          (bg-base02 '(:background base02))
+          (bg-base01 '(:background base01))
+          (bg-base00 '(:background base00))
+          (bg-base0 '(:background base0))
+          (bg-base1 '(:background base1))
+          (bg-base2 '(:background base2))
+          (bg-base3 '(:background base3))
+          (bg-green '(:background green))
+          (bg-yellow '(:background yellow))
+          (bg-orange '(:background orange))
+          (bg-red '(:background red))
+          (bg-magenta '(:background magenta))
+          (bg-violet '(:background violet))
+          (bg-blue '(:background blue))
+          (bg-cyan '(:background cyan))
+          
+          (fg-base03 '(:foreground base03))
+          (fg-base02 '(:foreground base02))
+          (fg-base01 '(:foreground base01))
+          (fg-base00 '(:foreground base00))
+          (fg-base0 '(:foreground base0))
+          (fg-base1 '(:foreground base1))
+          (fg-base2 '(:foreground base2))
+          (fg-base3 '(:foreground base3))
+          (fg-green '(:foreground green))
+          (fg-yellow '(:foreground yellow))
+          (fg-orange '(:foreground orange))
+          (fg-red '(:foreground red))
+          (fg-magenta '(:foreground magenta))
+          (fg-violet '(:foreground violet))
+          (fg-blue '(:foreground blue))
+          (fg-cyan '(:foreground cyan))
+
+          (fmt-none `(:weight normal :slant normal  :underline nil        :inverse-video nil))
+          (fmt-bold `(:weight ,bold  :slant normal  :underline nil        :inverse-video nil))
+          (fmt-bldi `(:weight ,bold                 :underline nil        :inverse-video nil))
+          (fmt-undr `(:weight normal :slant normal  :underline ,underline :inverse-video nil))
+          (fmt-undb `(:weight ,bold  :slant normal  :underline ,underline :inverse-video nil))
+          (fmt-undi `(:weight normal                :underline ,underline :inverse-video nil))
+          (fmt-uopt `(:weight normal :slant normal  :underline ,opt-under :inverse-video nil))
+          ;; FIXME: not quite the same
+          (fmt-curl `(:weight normal :slant normal  :underline t          :inverse-video nil))
+          (fmt-ital `(:weight normal :slant ,italic :underline nil        :inverse-video nil))
+          ;; FIXME: not quite the same
+          (fmt-stnd `(:weight normal :slant normal  :underline nil        :inverse-video t))
+          (fmt-revr `(:weight normal :slant normal  :underline nil        :inverse-video t))
+          (fmt-revb `(:weight ,bold  :slant normal  :underline nil        :inverse-video t))
+          (fmt-revbb `(:weight ,bright-bold :slant normal :underline nil  :inverse-video t))
+          (fmt-revbbu `(:weight ,bright-bold :slant normal  :underline ,underline :inverse-video t)))
+      (mapcar (lambda (face) (apply 'create-face-spec face))
+              `(;; basic
+                (default (,@fg-base0 ,@bg-back))   ; Normal
+                (cursor (,@fg-base03 ,@bg-base0))  ; Cursor
+                (error (,@fmt-bold ,@fg-red))      ; Error
+                (escape-glyph-face (,@fg-red))
+                (fringe (,@fg-base01 ,@bg-base02))
+                (linum (,@fg-base01 ,@bg-base02))
+                (header-line (,@fg-base0 ,@bg-base02 ,@fmt-revbb)) ; Pmenu
+                (highlight (,@bg-base02))
+                (hl-line (:underline ,opt-under ,@bg-base02)) ; CursorLine
+                (isearch (,@fmt-stnd ,@fg-orange ,@bg-back)) ; IncSearch
+                (isearch-fail (,@fmt-stnd ,@fg-orange ,@bg-back)) ; IncSearch
+                (lazy-highlight (,@fmt-revr ,@fg-yellow ,@bg-back)) ; Search
+                (link (,@fmt-undr ,@fg-violet))
+                (link-visited (,@fmt-undr ,@fg-magenta))
+                (menu (,@fg-base0 ,@bg-base02))
+                (minibuffer-prompt (,@fmt-bold ,@fg-cyan)) ; Question
+                (mode-line (,@fg-base1 ,@bg-base02 ,@fmt-revbb :box nil)) ; StatusLine
+                (mode-line-inactive    ; StatusLineNC
+                 (,@fg-base00 ,@bg-base02 ,@fmt-revbb :box nil))
+                (region (,@fg-base01 ,@bg-base03 ,@fmt-revbb)) ; Visual
+                (secondary-selection (,@bg-base02))
+                (shadow (,@fg-base01))
+                (trailing-whitespace (,@fmt-revr ,@fg-red))
+                (vertical-border (,@fg-base0))
+                ;; comint
+                (comint-highlight-prompt (,@fg-blue))
+                ;; compilation
+                (compilation-info (,@fmt-bold ,@fg-green))
+                (compilation-warning (,@fmt-bold ,@fg-orange))
+                ;; custom
+                (custom-button
+                 (,@fg-base1 ,@bg-base02 :box (:line-width 2 :style released-button)))
+                (custom-button-mouse
+                 (,@fmt-revr ,@fg-base1 ,@bg-base02 :inherit custom-button))
+                (custom-button-pressed
+                 (,@fmt-revr ,@fg-base1 ,@bg-base02
+                             :box (:line-width 2 :style pressed-button)
+                             :inherit custom-button-mouse))
+                (custom-changed (,@fmt-revr ,@fg-blue ,@bg-base3))
+                (custom-comment (,@fg-base1 ,@bg-base02))
+                (custom-comment-tag (,@fg-base1 ,@bg-base02))
+                (custom-documentation (:inherit default))
+                (custom-group-tag (,@fg-base1))
+                (custom-group-tag-1 (,fmt-bold ,@fg-base1))
+                (custom-invalid (,@fmt-revr ,@fg-red ,@bg-back))
+                (custom-link (,@fg-violet))
+                (custom-state (,@fg-green))
+                (custom-variable-tag (,@fg-base1))
+                ;; diff - DiffAdd, DiffChange, DiffDelete, and DiffText
+                ,@(case solarized-diff-mode
+                    (high
+                     `((diff-added (,@fmt-revr ,@fg-green))
+                       (diff-changed (,@fmt-revr ,@fg-yellow))
+                       (diff-removed (,@fmt-revr ,@fg-red))
+                       (diff-refine-change
+                        (,@fmt-revr ,@fg-blue ,@bg-back))))
+                    (low
+                     `((diff-added (,@fmt-undr ,@fg-green))
+                       (diff-changed (,@fmt-undr ,@fg-yellow))
+                       (diff-removed (,@fmt-bold ,@fg-red))
+                       (diff-refine-change (,@fmt-undr ,@fg-blue ,@bg-back))))
+                    (normal
+                     `((diff-added (,@fmt-bold ,@fg-green ,@bg-base02))
+                       (diff-changed (,@fmt-bold ,@fg-yellow ,@bg-base02))
+                       (diff-removed (,@fmt-bold ,@fg-red ,@bg-base02))
+                       (diff-refine-change (,@fmt-bold ,@fg-blue ,@bg-base02)))
+                     ;; FIXME: use these non-bold versions for TTY frames
+                     `((diff-added (,@fg-green ,@bg-base02))
+                       (diff-changed (,@fg-yellow ,@bg-base02))
+                       (diff-removed (,@fg-red ,@bg-base02))
+                       (diff-refine-change (,@fg-blue ,@bg-base02)))))
+                (diff-file-header (,@bg-back))
+                (diff-header (,@fg-base1 ,@bg-back))
+                ;; IDO
+                (ido-only-match (,@fg-green))
+                (ido-subdir (,@fg-blue))
+                (ido-first-match (,@fmt-bold ,@fg-green))
+                ;; emacs-wiki
+                (emacs-wiki-bad-link-face (,@fmt-undr ,@fg-red))
+                (emacs-wiki-link-face (,@fmt-undr ,@fg-blue))
+                (emacs-wiki-verbatim-face (,@fmt-undr ,@fg-base00))
+                ;; eshell
+                (eshell-ls-archive (,@fg-magenta))
+                (eshell-ls-backup (,@fg-yellow))
+                (eshell-ls-clutter (,@fg-orange))
+                (eshell-ls-directory (,@fg-blue)) ; Directory
+                (eshell-ls-executable (,@fg-green))
+                (eshell-ls-missing (,@fg-red))
+                (eshell-ls-product (,@fg-yellow))
+                (eshell-ls-readonly (,@fg-base1))
+                (eshell-ls-special (,@fg-violet))
+                (eshell-ls-symlink (,@fg-cyan))
+                (eshell-ls-unreadable (,@fg-base00))
+                (eshell-prompt (,@fmt-bold ,@fg-green))
+                ;; font-lock
+                (font-lock-builtin-face (,@fmt-none ,@fg-green)) ; Statement
+                (font-lock-comment-face (,@fmt-ital ,@fg-base01)) ; Comment
+                (font-lock-constant-face (,@fmt-none ,@fg-cyan)) ; Constant
+                (font-lock-function-name-face ; Identifier
+                 (,@fmt-none ,@fg-blue))
+                (font-lock-keyword-face (,@fmt-none ,@fg-green)) ; Statement
+                (font-lock-string-face (,@fmt-none ,@fg-cyan)) ; Constant
+                (font-lock-type-face (,@fmt-none ,@fg-yellow)) ; Type
+                (font-lock-variable-name-face (,@fmt-none ,@fg-blue)) ; Identifier
+                (font-lock-warning-face (,@fmt-bold ,@fg-red)) ; Error
+                (font-lock-doc-face (,@fmt-ital ,@fg-base01)) ; Comment
+                (font-lock-doc-string-face ; Comment (XEmacs-only)
+                 (,@fmt-ital ,@fg-base01))
+                (font-lock-color-constant-face (,@fmt-none ,@fg-green))
+                (font-lock-comment-delimiter-face (,@fmt-ital ,@fg-base01)) ; Comment
+                (font-lock-preprocessor-face (,@fmt-none ,@fg-orange)) ; PreProc
+                (font-lock-reference-face (,@fmt-none ,@fg-cyan))
+                (font-lock-negation-char-face (,@fmt-none ,@fg-red))
+                (font-lock-other-type-face (,@fmt-ital ,@fg-blue))
+                (font-lock-regexp-grouping-construct (,@fmt-none ,@fg-orange))
+                (font-lock-special-keyword-face (,@fmt-none ,@fg-red)) ; Special
+                (font-lock-exit-face (,@fmt-none ,@fg-red))
+                (font-lock-other-emphasized-face (,@fmt-bldi ,@fg-violet))
+                (font-lock-regexp-grouping-backslash (,@fmt-none ,@fg-yellow))
+                ;; info
+                (info-xref (,@fmt-undr ,@fg-blue))
+                (info-xref-visited (,@fg-magenta :inherit info-xref))
+                ;; org
+                (org-hide (,@fg-base03))
+                (org-todo (,@fmt-bold ,@fg-base03 ,@bg-red))
+                (org-done (,@fmt-bold ,@fg-green))
+                (org-todo-kwd-face (,@fg-red ,@bg-base03))
+                (org-done-kwd-face (,@fg-green ,@bg-base03))
+                (org-project-kwd-face (,@fg-violet ,@bg-base03))
+                (org-waiting-kwd-face (,@fg-orange ,@bg-base03))
+                (org-someday-kwd-face (,@fg-blue ,@bg-base03))
+                (org-started-kwd-face (,@fg-yellow ,@bg-base03))
+                (org-cancelled-kwd-face (,@fg-green ,@bg-base03))
+                (org-delegated-kwd-face (,@fg-cyan ,@bg-base03))
+                ;; table
+                (table-cell (,@fmt-none ,@fg-base0 ,@bg-back))
+                ;; outline - pandocBlockQuoteLeader*
+                (outline-1 (,@fmt-none ,@fg-blue))
+                (outline-2 (,@fmt-none ,@fg-cyan))
+                (outline-3 (,@fmt-none ,@fg-yellow))
+                (outline-4 (,@fmt-none ,@fg-red))
+                (outline-5 (,@fmt-none ,@fg-base0))
+                (outline-6 (,@fmt-none ,@fg-base01))
+                (outline-7 (,@fmt-none ,@fg-orange))
+                (outline-8 (,@fmt-none ,@fg-violet))
+                ;; speedbar
+                (speedbar-button-face (,@fmt-none ,@fg-base1))
+                (speedbar-directory-face (,@fmt-none ,@fg-orange))
+                (speedbar-file-face (,@fmt-none ,@fg-green))
+                (speedbar-highlight-face (,@bg-base02))
+                (speedbar-selected-face (,@fmt-undr ,@fg-yellow))
+                (speedbar-separator-face (,@fmt-stnd))
+                (speedbar-tag-face (,@fmt-none ,@fg-blue))
+                ;; show-paren - MatchParen
+                (show-paren-match (,@fmt-bold ,@fg-cyan ,@bg-base02))
+                (show-paren-mismatch (,@fmt-bold ,@fg-red ,@bg-base01))
+                ;; widgets
+                (widget-field
+                 (,@fg-base1 ,@bg-base02 :box (:line-width 1 :color base2)
+                             :inherit default))
+                (widget-single-line-field (:inherit widget-field))
+                ;; extra modules
+                ;; -------------
+                ;; Flymake
+                (flymake-errline (,@fmt-revr ,@fg-red ,@bg-back)) ; ErrorMsg
+                (flymake-warnline (,@fmt-bold ,@fg-red ,@bg-back)) ; WarningMsg
+                ;; column-marker
+                (column-marker-1 (,@bg-base01))
+                (column-marker-2 (,@bg-cyan))
+                (column-marker-3 (,@bg-violet))
+                ;; jabber
+                (jabber-activity-face (,@fmt-bold ,@fg-red))
+                (jabber-activity-personal-face (,@fmt-bold ,@fg-blue))
+                (jabber-chat-error (,@fmt-bold ,@fg-red))
+                (jabber-chat-prompt-foreign (,@fmt-bold ,@fg-red))
+                (jabber-chat-prompt-local (,@fmt-bold ,@fg-blue))
+                (jabber-chat-prompt-system (,@fmt-bold ,@fg-green))
+                (jabber-chat-text-foreign (,@fg-base1))
+                (jabber-chat-text-local (,@fg-base0))
+                (jabber-chat-rare-time-face (,@fmt-undr ,@fg-green))
+                (jabber-roster-user-away (,@fmt-ital ,@fg-green))
+                (jabber-roster-user-chatty (,@fmt-bold ,@fg-orange))
+                (jabber-roster-user-dnd (,@fmt-ital ,@fg-red))
+                (jabber-roster-user-error (:weight light :slant italic ,@fg-red))
+                (jabber-roster-user-offline (,@fg-base01))
+                (jabber-roster-user-online (,@fmt-bold ,@fg-blue))
+                (jabber-roster-user-xa (,@fmt-ital ,@fg-magenta))
+                ;; gnus - these are taken from mutt, not VIM
+                (gnus-cite-1 (,@fmt-none ,@fg-blue))    ; quoted
+                (gnus-cite-2 (,@fmt-none ,@fg-cyan))    ; quoted1
+                (gnus-cite-3 (,@fmt-none ,@fg-yellow))  ; quoted2
+                (gnus-cite-4 (,@fmt-none ,@fg-red))     ; quoted3
+                (gnus-cite-5 (,@fmt-none ,@fg-orange))  ; quoted4
+                (gnus-cite-6 (,@fmt-none ,@fg-violet))
+                (gnus-cite-7 (,@fmt-none ,@fg-green))
+                (gnus-cite-8 (,@fmt-none ,@fg-magenta))
+                (gnus-cite-9 (,@fmt-none ,@fg-base00))
+                (gnus-cite-10 (,@fmt-none ,@fg-base01))
+                (gnus-cite-11 (,@fmt-none ,@fg-base02))
+                (gnus-group-mail-1 (,@fmt-bold ,@fg-base3))
+                (gnus-group-mail-1-empty (,@fg-base3))
+                (gnus-group-mail-2 (,@fmt-bold ,@fg-base2))
+                (gnus-group-mail-2-empty (,@fg-base2))
+                (gnus-group-mail-3 (,@fmt-bold ,@fg-magenta))
+                (gnus-group-mail-3-empty (,@fg-magenta))
+                (gnus-group-mail-low (,@fmt-bold ,@fg-base00))
+                (gnus-group-mail-low-empty (,@fg-base00))
+                (gnus-group-news-1 (,@fmt-bold ,@fg-base1))
+                (gnus-group-news-1-empty (,@fg-base1))
+                (gnus-group-news-2 (,@fmt-bold ,@fg-blue))
+                (gnus-group-news-2-empty (,@fg-blue))
+                (gnus-group-news-low (,@fmt-bold ,@fg-violet))
+                (gnus-group-news-low-empty (,@fg-violet))
+                (gnus-emphasis-highlight-words (,@fmt-none ,fg-yellow)) ; highlight
+                (gnus-header-content (,@fmt-none ,@fg-base01)) ; hdrdefault
+                (gnus-header-from (,@fmt-none ,@fg-base00)) ; header ^From
+                (gnus-header-name (,@fmt-none ,@fg-base01)) ; hdrdefault
+                (gnus-header-newsgroups (,@fmt-none ,@fg-base02)) ; hdrdefault
+                (gnus-header-subject (,@fmt-none ,@fg-blue)) ; header ^Subject
+                (gnus-server-agent (,@fmt-bold ,@fg-base3))
+                (gnus-server-closed (,@fmt-ital ,@fg-base1))
+                (gnus-server-denied (,@fmt-bold ,@fg-base2))
+                (gnus-server-offline (,@fmt-bold ,@fg-green))
+                (gnus-server-opened (,@fmt-bold ,@fg-cyan))
+                (gnus-signature (,@fmt-none ,@fg-base01)) ; signature
+                (gnus-splash (,@fg-base2))
+                (gnus-summary-cancelled (,@fmt-none ,@fg-red)) ; deleted messages
+                (gnus-summary-high-ancient
+                 (,@fmt-bold :inherit gnus-summary-normal-ancient))
+                (gnus-summary-high-read
+                 (,@fmt-bold :inherit gnus-summary-normal-read))
+                (gnus-summary-high-ticked
+                 (,@fmt-bold :inherit gnus-summary-normal-ticked))
+                (gnus-summary-high-undownloaded
+                 (,@fmt-bold :inherit gnus-summary-normal-undownloaded))
+                (gnus-summary-high-unread
+                 (,@fmt-bold :inherit gnus-summary-normal-unread))
+                (gnus-summary-low-ancient
+                 (,@fmt-ital :inherit gnus-summary-normal-ancient))
+                (gnus-summary-low-read
+                 (,@fmt-ital :inherit gnus-summary-normal-ancient))
+                (gnus-summary-low-unread
+                 (,@fmt-ital :inherit gnus-summary-normal-unread))
+                (gnus-summary-low-ticked
+                 (,@fmt-ital :inherit gnus-summary-normal-ancient))
+                (gnus-summary-low-undownloaded
+                 (,@fmt-ital :inherit gnus-summary-normal-ancient))
+                (gnus-summary-normal-ancient (,@fmt-none ,@fg-blue)) ; old messages
+                (gnus-summary-normal-read (,@fmt-none ,@fg-base01)) ; read messages
+                (gnus-summary-normal-ticked (,@fmt-none ,@fg-red)) ; flagged
+                (gnus-summary-normal-undownloaded (,@fmt-none ,@fg-base2))
+                (gnus-summary-normal-unread (,@fmt-none ,@fg-blue)) ; unread messages
+                (gnus-summary-selected ; indicator
+                 (,@fmt-none ,@fg-base03 ,@bg-yellow))
+                ;; Message
+                (message-mml (,@fg-blue))
+                (message-cited-text (,@fg-base2))
+                (message-separator (,@fg-base3))
+                (message-header-xheader (,@fg-violet))
+                (message-header-name (,@fg-cyan))
+                (message-header-other (,@fg-red))
+                (message-header-newsgroups (,@fmt-bldi ,@fg-yellow))
+                (message-header-subject (,@fg-base00))
+                (message-header-cc (,@fmt-bold ,@fg-green))
+                (message-header-to (,@fmt-bold ,@fg-base1))
+                ;; minimap
+                (minimap-active-region-background (,@bg-base02))
+                (minimap-semantic-function-face (,bg-base3))
+                (minimap-semantic-type-face (,bg-base3))
+                (minimap-semantic-variable-face (,bg-base3))
+                ;; parenface
+                (paren-face (,@fg-base01))
+                ;; rainbow-delimiters
+                (rainbow-delimiters-depth-1-face (,@fg-cyan))
+                (rainbow-delimiters-depth-2-face (,@fg-yellow))
+                (rainbow-delimiters-depth-3-face (,@fg-blue))
+                (rainbow-delimiters-depth-4-face (,@fg-red))
+                (rainbow-delimiters-depth-5-face (,@fg-green))
+                (rainbow-delimiters-depth-6-face (,@fg-blue))
+                (rainbow-delimiters-depth-7-face (,@fg-orange))
+                (rainbow-delimiters-depth-8-face (,@fg-magenta))
+                (rainbow-delimiters-depth-9-face (,@fg-base0))
+                ;; slime
+                (slime-error-face (,@fmt-revr ,@fg-red)) ; ErrorMsg
+                (slime-note-face (,@fg-yellow))
+                (slime-repl-inputted-output-face (,@fg-red))
+                (slime-repl-output-mouseover-face (:box (:color base3)))
+                (slime-style-warning-face (,@fmt-bold ,@fg-orange))
+                (slime-warning-face (,@fmt-bold ,@fg-red)) ; WarningMsg
+                ;; speedbar
+                (speedbar-button-face
+                 (,@fg-base1 ,@bg-base02
+                             :box (:line-width 2 :style released-button)))
+                (speedbar-directory-face (,@fmt-none ,@fg-blue))
+                (speedbar-file-face (,@fmt-none ,@fg-green))
+                (speedbar-highlight-face
+                 (,@fmt-revr ,@fg-base1 ,@bg-base02
+                             :inherit speedbar-button-face))
+                (speedbar-selected-face (,@fmt-none ,@bg-base02 ,@fg-green))
+                (speedbar-separator-face (,@fmt-stnd))
+                (speedbar-tag-face (,@fmt-none ,@fg-blue))
+                ;; whitespace
+                (whitespace-empty (,@fg-red))
+                (whitespace-hspace (,@fg-orange))
+                (whitespace-indentation (,@fg-base02))
+                (whitespace-space (,@fg-base02))
+                (whitespace-space-after-tab (,@fg-cyan))
+                (whitespace-space-before-tab (,@fmt-bold ,@fg-red))
+                (whitespace-tab (,@fg-base02))
+                (whitespace-trailing (,@fmt-bold ,@fg-red ,@bg-base02))
+                (whitespace-highlight-face (,@fg-red ,@bg-blue))
+                (whitespace-line (,@fg-magenta ,@bg-base03))
+                ;; rcirc
+                (rcirc-my-nick (,@fg-blue))
+                (rcirc-nick-in-message (,@fg-orange))
+                (rcirc-other-nick (,@fg-green))
+                (rcirc-prompt (,@fg-yellow))
+                (rcirc-bright-nick (,@fg-magenta))
+                (rcirc-server (,@fg-base1))
+                (rcirc-timestamp (,@fg-base01))
+                ;;font-latex
+                (font-latex-warning-face (,@fg-red))
+                (font-latex-sectioning-5-face (,@fg-violet))
+                ;;flyspell
+                (flyspell-incorrect (,@fg-red))
+                (flyspell-duplicate (,@fg-yellow)))))))
 
 ;;;###autoload
 (when (boundp 'custom-theme-load-path)

@@ -34,7 +34,7 @@ Installation & Usage
 ### Emacs 24
 
 1. Add the `emacs-color-theme-solarized` directory to your Emacs `custom-theme-load-path`.
-2. Add `(load-theme 'solarized-[light|dark] t)` to your Emacs init file.
+2. Add `(load-theme 'solarized t)` to your Emacs init file.
 3. Reload the init file, or restart Emacs.
 
 ### [color-theme] \(pre-Emacs 24\)
@@ -43,7 +43,22 @@ Installation & Usage
 2. Add the `emacs-color-theme-solarized` directory to your Emacs `load-path`.
 3. Add `(require 'color-theme-solarized)` to your Emacs init file (usually `~/.emacs`).
 3. Reload the init file, or restart Emacs.
-4. Use the usual [color-theme] mechanism to select one of the Solarized themes, or `M-x color-theme-solarized-[light|dark]`.
+4. Use the usual [color-theme] mechanism to select one of the Solarized themes, or `M-x color-theme-solarized`.
+
+### all versions
+
+To switch between the light and dark variations of Solarized, set the frame’s `background-mode`. This can be accomplished globally using `M-x customize-variable frame-background-mode` or on a per-frame basis with `(set-frame-parameter nil 'background-mode 'light)` (or `'dark`). Remember to call `enable-theme` after changing the background mode to update the state of the theme.
+
+This allows you to have a mix of light and dark frames. I tend to use light frames in the GUI and dark frames in my terminal, so I use the following code:
+
+```common-lisp
+(add-hook 'after-make-frame-functions
+          (lambda (frame)
+            (set-frame-parameter frame
+                                 'background-mode
+                                 (if (display-graphic-p frame) 'light 'dark))
+            (enable-theme 'solarized)))
+```
 
 ### IMPORTANT NOTE FOR TERMINAL USERS:
 
@@ -58,13 +73,6 @@ a set compatible with the terminal's default limited 256 color palette
 (whereas by using the terminal's 16 ANSI color values, you would
 see the correct, specific values for the Solarized palette).
 
-If you do use the custom terminal colors, i.e. the 16 overridden ANSI color
-values, the emacs colorscheme should work out of the box for you. If you are
-using a terminal emulator that supports 256 colors and don't want to use
-the custom Solarized terminal colors, you will need to use the degraded 256
-colorscheme. To do so, simply customize the `solarized-termcolor` variable to
-`256`.
-
 Again, I recommend just changing your terminal colors to Solarized values 
 either manually or via one of the many terminal schemes available for import.
 
@@ -76,7 +84,6 @@ but does include several variables that can be customized.
 
     variable name            default   optional
     --------------------------------------------
-    solarized-termcolors =   16    |   256
     solarized-degrade    =   nil   |   t
     solarized-bold       =   t     |   nil
     solarized-underline  =   t     |   nil
@@ -87,19 +94,6 @@ but does include several variables that can be customized.
     --------------------------------------------
 
 ### Option Details
-
-*   solarized-termcolors
-
-    This is set to *16* by default, meaning that Solarized will attempt to use 
-    the standard 16 colors of your terminal emulator, assuming that you've set
-    these colors to the correct Solarized values either manually or by 
-    importing one of the many colorscheme available for popular terminal 
-    emulators and Xdefaults.
-    If you don't want to use the Solarized colors via the terminal
-    emulator's palette, you can set this to *256*, which will use a degraded
-    version of the Solarized palette by displaying the closest colors in
-    the terminal's default 256 colors as shown in [Xterm's color
-    chart](http://en.wikipedia.org/wiki/File:Xterm_color_chart.png).
 
 *   solarized-degrade
 

@@ -23,36 +23,16 @@
   (require 'color-theme))
 
 ;;;###autoload
-(defun color-theme-solarized (mode)
+(defun color-theme-solarized ()
   "Color theme by Ethan Schoonover, created 2011-03-24.
 Ported to Emacs by Greg Pfeil, http://ethanschoonover.com/solarized."
-  (interactive "Slight or dark? ")
+  (interactive)
   (color-theme-install
-   (let* ((definitions (solarized-color-definitions mode))
-          (faces (first definitions))
-          (variables (second definitions)))
-       (solarized-color-definitions mode)
-     `(,(intern (concat "color-theme-solarized-" (symbol-name mode)))
-       ,variables
-       ,@faces))))
-
-;;;###autoload
-(defun color-theme-solarized-dark ()
-  (interactive)
-  (color-theme-solarized 'dark))
-
-;;;###autoload
-(defun color-theme-solarized-light ()
-  (interactive)
-  (color-theme-solarized 'light))
+   `(color-theme-solarized () () ,@(solarized-color-definitions))))
 
 (add-to-list 'color-themes
-             `(color-theme-solarized-light
-               "Solarized Light"
-               ,solarized-description))
-(add-to-list 'color-themes
-             `(color-theme-solarized-dark
-               "Solarized Dark"
+             `(color-theme-solarized
+               "Solarized"
                ,solarized-description))
 
 (provide 'color-theme-solarized)
