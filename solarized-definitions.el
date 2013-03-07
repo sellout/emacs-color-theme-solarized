@@ -530,7 +530,16 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
                 (font-latex-sectioning-5-face (,@fg-violet))
                 ;;flyspell
                 (flyspell-incorrect (,@fg-red))
-                (flyspell-duplicate (,@fg-yellow)))))))
+                (flyspell-duplicate (,@fg-yellow))
+                ;;ansi-term
+                (term-color-black (,@fg-base02))
+                (term-color-red (,@fg-red))
+                (term-color-green (,@fg-green))
+                (term-color-yellow (,@fg-yellow))
+                (term-color-blue (,@fg-blue))
+                (term-color-magenta (,@fg-magenta))
+                (term-color-cyan (,@fg-cyan))
+                (term-color-white (,@fg-base00)))))))
 
 ;;;###autoload
 (when (boundp 'custom-theme-load-path)
