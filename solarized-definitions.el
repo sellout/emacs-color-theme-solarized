@@ -353,6 +353,9 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
              (widget-single-line-field ((t (:inherit widget-field))))
              ;; extra modules
              ;; -------------
+	     ;; bm visual bookmarks
+	     (bm-fringe-face ((t (,@bg-orange ,@fg-base03))))
+	     (bm-fringe-persistent-face ((t (,@bg-blue ,@fg-base03))))
              ;; Flymake
              (flymake-errline ((t (,@fmt-revr ,@fg-red ,@bg-back)))) ; ErrorMsg
              (flymake-warnline ; WarningMsg
@@ -378,6 +381,10 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
              (jabber-roster-user-offline ((t (,@fg-base01))))
              (jabber-roster-user-online ((t (,@fmt-bold ,@fg-blue))))
              (jabber-roster-user-xa ((t (,@fmt-ital ,@fg-magenta))))
+	     ;; git-gutter
+	     (git-gutter:modified ((t (,@fg-violet))))
+	     (git-gutter:added ((t (,@fg-green))))
+	     (git-gutter:deleted ((t (,@fg-red))))
              ;; gnus - these are taken from mutt, not VIM
              (gnus-cite-1 ((t (,@fmt-none ,@fg-blue)))) ; quoted
              (gnus-cite-2 ((t (,@fmt-none ,@fg-cyan)))) ; quoted1
