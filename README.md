@@ -33,7 +33,7 @@ Installation & Usage
 
 ### Emacs 24
 
-1. Add the `emacs-color-theme-solarized` directory to your Emacs `custom-theme-load-path`.
+1. Add the `emacs-color-theme-solarized` directory to your Emacs `custom-theme-load-path`, or install from marmalade using `package-install color-theme-solarized`
 2. Add `(load-theme 'solarized-[light|dark] t)` to your Emacs init file.
 3. Reload the init file, or restart Emacs.
 
@@ -167,7 +167,10 @@ Here are some things to keep in mind when submitting a bug report:
 
 *   include the output of `M-x version` in your report,
 *   mention whether you’re using color-theme or the Emacs 24 theme,
-*   include the names of Emacs faces that you have a problem with (`M-x describe-face` will tell you the name of the face at point),
+*   include the names of Emacs faces that you have a problem with (`M-: (face-at-point)` and `M-x describe-face` will tell you the name of the face at point),
+*   include the output of `M-: (display-color-cells)` (that lets us know which set of colors your Emacs is using),
 *   screenshots are very helpful (before and after if you made a change),
+*   if you’re using a terminal, the name of the terminal and (if you can find out) the number of colors the terminal app is using,
+*   also if you’re using a terminal, try running Emacs in GUI mode, and see if the problem exists there (if it does, report the bug that way, if not, just mention that it’s a terminal-only bug),
 *   it’s very helpful (but not expected) if you can compare it to a similar situation in VIM (especially if you know the VIM highlight name or have a screenshot), and
 *  `M-x customize-apropos-faces` can help you find all the relevant faces if you are submitting faces for a mode.
