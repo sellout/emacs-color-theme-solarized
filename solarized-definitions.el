@@ -143,7 +143,7 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
               (bg-violet `(:background ,violet))
               (bg-blue `(:background ,blue))
               (bg-cyan `(:background ,cyan))
-              
+
               (fg-base03 `(:foreground ,base03))
               (fg-base02 `(:foreground ,base02))
               (fg-base01 `(:foreground ,base01))
@@ -523,14 +523,14 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
              (flyspell-incorrect ((t (,@fg-red))))
              (flyspell-duplicate ((t (,@fg-yellow))))
 	     ;;ansi-term
-	     (term-color-black ((t ( ,@fg-base02))))
-	     (term-color-red ((t ( ,@fg-red))))
-	     (term-color-green ((t ( ,@fg-green))))
-	     (term-color-yellow ((t ( ,@fg-yellow))))
-	     (term-color-blue ((t ( ,@fg-blue))))
-	     (term-color-magenta ((t ( ,@fg-magenta))))
-	     (term-color-cyan ((t ( ,@fg-cyan))))
-	     (term-color-white ((t ( ,@fg-base00)))))
+	     (term-color-black ((t ( ,@fg-base02 ,@bg-base02))))
+	     (term-color-red ((t ( ,@fg-red ,@bg-red))))
+	     (term-color-green ((t ( ,@fg-green ,@bg-green))))
+	     (term-color-yellow ((t ( ,@fg-yellow ,@bg-yellow))))
+	     (term-color-blue ((t ( ,@fg-blue ,@bg-blue))))
+	     (term-color-magenta ((t ( ,@fg-magenta ,@bg-magenta))))
+	     (term-color-cyan ((t ( ,@fg-cyan ,@bg-cyan))))
+	     (term-color-white ((t ( ,@fg-base00 ,@bg-base00)))))
 
             ((foreground-color . ,(when (<= 16 (display-color-cells)) base0))
              (background-color . ,back)
