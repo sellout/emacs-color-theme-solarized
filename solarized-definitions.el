@@ -51,6 +51,13 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
   :type 'boolean
   :group 'solarized)
 
+(defcustom solarized-termcolors 16
+  "Number of colors to assume if in terminal mode. If nil, then
+try to figure out from display-color-cells. Useful when wanting
+to using modified color maps but running in 256 color mode."
+  :type 'integer
+  :group 'solarized)
+
 ;; FIXME: The Generic RGB colors will actually vary from device to device, but
 ;;        hopefully these are closer to the intended colors than the sRGB values
 ;;        that Emacs seems to dislike
@@ -77,12 +84,15 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
    capabilities, etc.")
 
 (defun solarized-color-definitions (mode)
-  (flet ((find-color (name)
+  (flet ((effective-color-cells () (if solarized-termcolors
+                                       solarized-termcolors
+                                     (display-color-cells)))
+         (find-color (name)
            (let* ((index (if window-system
                              (if solarized-degrade
                                  3
                                (if solarized-broken-srgb 2 1))
-                           (case (display-color-cells)
+                           (case (effective-color-cells)
                              (16 4)
                              (8  5)
                              (otherwise 3)))))
@@ -114,7 +124,7 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
         (rotatef base01 base1)
         (rotatef base00 base0))
       (let ((back base03))
-        (cond ((< (display-color-cells) 16)
+        (cond ((< (effective-color-cells) 16)
                (setf back nil))
               ((eq 'high solarized-contrast)
                (let ((orig-base3 base3))
@@ -143,14 +153,14 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
               (bg-violet `(:background ,violet))
               (bg-blue `(:background ,blue))
               (bg-cyan `(:background ,cyan))
-              
+
               (fg-base03 `(:foreground ,base03))
               (fg-base02 `(:foreground ,base02))
               (fg-base01 `(:foreground ,base01))
               (fg-base00 `(:foreground ,base00))
-              (fg-base0 `(:foreground ,(when (<= 16 (display-color-cells))
+              (fg-base0 `(:foreground ,(when (<= 16 (effective-color-cells))
                                          base0)))
-              (fg-base1 `(:foreground ,(when (<= 16 (display-color-cells))
+              (fg-base1 `(:foreground ,(when (<= 16 (effective-color-cells))
                                          base1)))
               (fg-base2 `(:foreground ,base2))
               (fg-base3 `(:foreground ,base3))
@@ -194,6 +204,7 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
              (lazy-highlight ((t (,@fmt-revr ,@fg-yellow ,@bg-back)))) ; Search
              (link ((t (,@fmt-undr ,@fg-violet))))
              (link-visited ((t (,@fmt-undr ,@fg-magenta))))
+             (match ((t (,@fmt-stnd ,@fg-orange ,@bg-back))))
              (menu ((t (,@fg-base0 ,@bg-base02))))
              (minibuffer-prompt ((t (,@fmt-bold ,@fg-cyan)))) ; Question
              (mode-line  ; StatusLine
@@ -532,10 +543,10 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
 	     (term-color-cyan ((t ( ,@fg-cyan))))
 	     (term-color-white ((t ( ,@fg-base00)))))
 
-            ((foreground-color . ,(when (<= 16 (display-color-cells)) base0))
+            ((foreground-color . ,(when (<= 16 (effective-color-cells)) base0))
              (background-color . ,back)
              (background-mode . ,mode)
-             (cursor-color . ,(when (<= 16 (display-color-cells))
+             (cursor-color . ,(when (<= 16 (effective-color-cells))
                                 base0))
 	     (ansi-color-names-vector . [,base02 ,red ,green ,yellow ,blue ,magenta ,cyan ,base00]))))))))
 
