@@ -168,7 +168,7 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
               (fmt-bldi `(:weight ,bold                 :underline nil        :inverse-video nil))
               (fmt-undr `(:weight normal :slant normal  :underline ,underline :inverse-video nil))
               (fmt-undb `(:weight ,bold  :slant normal  :underline ,underline :inverse-video nil))
-              (fmt-undi `(:weight normal                :underline ,underline :inverse-video nil))
+              (fmt-undi `(:weight normal :slant ,italic :underline ,underline :inverse-video nil))
               (fmt-uopt `(:weight normal :slant normal  :underline ,opt-under :inverse-video nil))
               ;; FIXME: not quite the same
               (fmt-curl `(:weight normal :slant normal  :underline t          :inverse-video nil))
@@ -237,30 +237,45 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
                     (diff-changed ((t (,@fmt-revr ,@fg-yellow))))
                     (diff-removed ((t (,@fmt-revr ,@fg-red))))
                     (diff-refine-change
-                     ((t (,@fmt-revr ,@fg-blue ,@bg-back))))))
+                     ((t (,@fmt-revr :foreground "black" ,@bg-base01))))))
                  (low
                   `((diff-added ((t (,@fmt-undr ,@fg-green))))
                     (diff-changed ((t (,@fmt-undr ,@fg-yellow))))
                     (diff-removed ((t (,@fmt-bold ,@fg-red))))
                     (diff-refine-change
-                     ((t (,@fmt-undr ,@fg-blue ,@bg-back))))))
+                     ((t (,@fmt-undr :foreground "black" ,@bg-back))))))
                  (normal
                   (if window-system
                       `((diff-added ((t (,@fmt-bold ,@fg-green))))
                         (diff-changed ((t (,@fmt-bold ,@fg-yellow))))
                         (diff-removed ((t (,@fmt-bold ,@fg-red))))
                         (diff-refine-change
-                         ((t (,@fmt-bold ,@fg-blue ,@bg-back)))))
+                         ((t (,@fmt-bold :foreground "black" ,@bg-base01)))))
                     `((diff-added ((t (,@fg-green))))
                       (diff-changed ((t (,@fg-yellow))))
                       (diff-removed ((t (,@fg-red))))
-                      (diff-refine-change ((t (,@fg-blue ,@bg-back))))))))
+                      (diff-refine-change ((t (:foreground "black" ,@bg-base01))))))))
              (diff-file-header ((t (,@bg-back))))
              (diff-header ((t (,@fg-base1 ,@bg-back))))
              ;; IDO
              (ido-only-match ((t (,@fg-green))))
              (ido-subdir ((t (,@fg-blue))))
              (ido-first-match ((t (,@fmt-bold ,@fg-green))))
+             ;; helm
+             (helm-source-header ((t (,@fg-base01 ,@bg-base02 :height 1.2 ,@fmt-none))))
+             (helm-ff-directory ((t (,@fg-cyan :background nil))))
+             (helm-candidate-number ((t (,@fmt-undr ,@fg-blue :background nil))))
+             (helm-ff-file ((t (:inherit default))))
+             (helm-ff-executable ((t (,@fg-green))))
+             (helm-selection ((t (,@bg-blue ,@fg-base02 ,@fmt-none))))
+             ;; iedit
+             (iedit-occurrence ((t (,@fg-base3 ,@bg-violet))))
+             ;; eldoc
+             (eldoc-highlight-function-argument ((t (,@fmt-undr ,@fg-cyan))))
+             ;; mmm-mode
+             (mmm-code-submode-face ((t (:background nil ,@fmt-ital))))
+             (mmm-output-submode-face ((t (:background nil ,@fmt-undi))))
+             (mmm-comment-submode-face ((t (:inherit font-lock-comment-face))))
              ;; emacs-wiki
              (emacs-wiki-bad-link-face ((t (,@fmt-undr ,@fg-red))))
              (emacs-wiki-link-face ((t (,@fmt-undr ,@fg-blue))))
@@ -309,6 +324,13 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
              (font-lock-other-emphasized-face ((t (,@fmt-bldi ,@fg-violet))))
              (font-lock-regexp-grouping-backslash
               ((t (,@fmt-none ,@fg-yellow))))
+             ;; sh
+             (sh-heredoc ((t (:foreground nil :inherit font-lock-string-face))))
+             (sh-quoted-exec ((t (,@fmt-none))))
+             ;; cperl -- commenting out until refined.
+             (cperl-hash-face ((t (,@fmt-none :background nil ,@fg-yellow))))
+             (cperl-nonoverridable-face ((t (:inherit font-lock-keyword-face))))
+             (cperl-nonoverridable-face ((t (,@fmt-none ,@fg-red))))
              ;; info
              (info-xref ((t (,@fmt-undr ,@fg-blue))))
              (info-xref-visited ((t (,@fg-magenta :inherit info-xref))))
@@ -324,6 +346,14 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
              (org-started-kwd-face ((t (,@fg-yellow ,@bg-base03))))
              (org-cancelled-kwd-face ((t (,@fg-green ,@bg-base03))))
              (org-delegated-kwd-face ((t (,@fg-cyan ,@bg-base03))))
+             (org-level-1 ((t (,@fmt-none ,@fg-blue))))
+             (org-level-2 ((t (,@fmt-none ,@fg-cyan))))
+             (org-level-3 ((t (,@fmt-none ,@fg-yellow))))
+             (org-level-4 ((t (,@fg-violet))))
+             (org-level-5 ((t (,@fmt-none ,@fg-base1))))
+             (org-level-6 ((t (,@fmt-none ,@fg-base01))))
+             (org-level-7 ((t (,@fmt-none ,@fg-orange))))
+             (org-level-8 ((t (,@fmt-none ,@fg-violet))))
              ;; table
              (table-cell ((t (,@fmt-none ,@fg-base0 ,@bg-back))))
              ;; outline - pandocBlockQuoteLeader*
@@ -353,9 +383,9 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
              (widget-single-line-field ((t (:inherit widget-field))))
              ;; extra modules
              ;; -------------
-	     ;; bm visual bookmarks
-	     (bm-fringe-face ((t (,@bg-orange ,@fg-base03))))
-	     (bm-fringe-persistent-face ((t (,@bg-blue ,@fg-base03))))
+             ;; bm visual bookmarks
+             (bm-fringe-face ((t (,@bg-orange ,@fg-base03))))
+             (bm-fringe-persistent-face ((t (,@bg-blue ,@fg-base03))))
              ;; Flymake
              (flymake-errline ((t (,@fmt-revr ,@fg-red ,@bg-back)))) ; ErrorMsg
              (flymake-warnline ; WarningMsg
@@ -381,10 +411,10 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
              (jabber-roster-user-offline ((t (,@fg-base01))))
              (jabber-roster-user-online ((t (,@fmt-bold ,@fg-blue))))
              (jabber-roster-user-xa ((t (,@fmt-ital ,@fg-magenta))))
-	     ;; git-gutter
-	     (git-gutter:modified ((t (,@fg-violet))))
-	     (git-gutter:added ((t (,@fg-green))))
-	     (git-gutter:deleted ((t (,@fg-red))))
+             ;; git-gutter
+             (git-gutter:modified ((t (,@fg-violet))))
+             (git-gutter:added ((t (,@fg-green))))
+             (git-gutter:deleted ((t (,@fg-red))))
              ;; gnus - these are taken from mutt, not VIM
              (gnus-cite-1 ((t (,@fmt-none ,@fg-blue)))) ; quoted
              (gnus-cite-2 ((t (,@fmt-none ,@fg-cyan)))) ; quoted1
@@ -522,22 +552,23 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
              ;;flyspell
              (flyspell-incorrect ((t (,@fg-red))))
              (flyspell-duplicate ((t (,@fg-yellow))))
-	     ;;ansi-term
-	     (term-color-black ((t ( ,@fg-base02))))
-	     (term-color-red ((t ( ,@fg-red))))
-	     (term-color-green ((t ( ,@fg-green))))
-	     (term-color-yellow ((t ( ,@fg-yellow))))
-	     (term-color-blue ((t ( ,@fg-blue))))
-	     (term-color-magenta ((t ( ,@fg-magenta))))
-	     (term-color-cyan ((t ( ,@fg-cyan))))
-	     (term-color-white ((t ( ,@fg-base00)))))
+             ;;ansi-term
+             (term-color-black ((t ( ,@fg-base02))))
+             (term-color-red ((t ( ,@fg-red))))
+             (term-color-green ((t ( ,@fg-green))))
+             (term-color-yellow ((t ( ,@fg-yellow))))
+             (term-color-blue ((t ( ,@fg-blue))))
+             (term-color-magenta ((t ( ,@fg-magenta))))
+             (term-color-cyan ((t ( ,@fg-cyan))))
+             (term-color-white ((t ( ,@fg-base00)))))
 
             ((foreground-color . ,(when (<= 16 (display-color-cells)) base0))
              (background-color . ,back)
              (background-mode . ,mode)
              (cursor-color . ,(when (<= 16 (display-color-cells))
                                 base0))
-	     (ansi-color-names-vector . [,base02 ,red ,green ,yellow ,blue ,magenta ,cyan ,base00]))))))))
+             (ansi-color-names-vector . [,base02 ,red ,green ,yellow ,blue ,magenta ,cyan ,base00])
+             (compilation-message-face  . nil))))))))
 
 (defmacro create-solarized-theme (mode)
   (let* ((theme-name (intern (concat "solarized-" (symbol-name mode))))
@@ -552,7 +583,8 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
        (provide-theme ',theme-name))))
 
 ;;;###autoload
-(when (boundp 'custom-theme-load-path)
+(when (and (boundp 'custom-theme-load-path)
+           load-file-name)
   (add-to-list 'custom-theme-load-path
                (file-name-as-directory (file-name-directory load-file-name))))
 
