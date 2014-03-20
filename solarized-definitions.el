@@ -76,8 +76,15 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
    column is a different set, one of which will be chosen based on term
    capabilities, etc.")
 
+(defvar which-flet
+  "This variable will store either flet or cl-flet depending on the Emacs
+  version. flet was deprecated in in 24.3")
+(if (and (> emacs-major-version 24) (> emacs-minor-version 2))
+    (fset 'which-flet 'cl-flet)
+  (fset 'which-flet 'flet))
+
 (defun solarized-color-definitions (mode)
-  (flet ((find-color (name)
+  (which-flet ((find-color (name)
            (let* ((index (if window-system
                              (if solarized-degrade
                                  3
@@ -143,7 +150,7 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
               (bg-violet `(:background ,violet))
               (bg-blue `(:background ,blue))
               (bg-cyan `(:background ,cyan))
-              
+
               (fg-base03 `(:foreground ,base03))
               (fg-base02 `(:foreground ,base02))
               (fg-base01 `(:foreground ,base01))
