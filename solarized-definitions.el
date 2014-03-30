@@ -42,7 +42,8 @@ down in order to expand or compress the tonal range displayed."
 
 (defcustom solarized-broken-srgb (if (and (eq system-type 'darwin)
                                           (eq window-system 'ns))
-                                     t
+                                     (not (and (boundp 'ns-use-srgb-colorspace)
+                                               ns-use-srgb-colorspace))
                                    nil)
   "Emacs bug #8402 results in incorrect color handling on Macs. If this is t
 \(the default on Macs), Solarized works around it with alternative colors.
