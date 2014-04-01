@@ -86,7 +86,7 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
 
 (defun solarized-color-definitions (mode)
   (which-flet ((find-color (name)
-           (let* ((index (if window-system
+           (let ((index (if window-system
                              (if solarized-degrade
                                  3
                                (if solarized-broken-srgb 2 1))
