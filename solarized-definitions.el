@@ -201,6 +201,7 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
              (isearch ((t (,@fmt-stnd ,@fg-orange ,@bg-back)))) ; IncSearch
              (isearch-fail ((t (,@fmt-stnd ,@fg-orange ,@bg-back)))) ; IncSearch
              (lazy-highlight ((t (,@fmt-revr ,@fg-yellow ,@bg-back)))) ; Search
+             (match ((t (,@fmt-revr ,@fg-yellow ,@bg-back)))) ; Occur
              (link ((t (,@fmt-undr ,@fg-violet))))
              (link-visited ((t (,@fmt-undr ,@fg-magenta))))
              (menu ((t (,@fg-base0 ,@bg-base02))))
