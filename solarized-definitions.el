@@ -80,7 +80,8 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
 (defvar which-flet
   "This variable will store either flet or cl-flet depending on the Emacs
   version. flet was deprecated in in 24.3")
-(if (and (> emacs-major-version 24) (> emacs-minor-version 2))
+(if (or (> emacs-major-version 24)
+        (and (>= emacs-major-version 24) (> emacs-minor-version 2)))
     (fset 'which-flet 'cl-flet)
   (fset 'which-flet 'flet))
 
