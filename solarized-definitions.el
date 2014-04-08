@@ -363,6 +363,9 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
              (widget-single-line-field ((t (:inherit widget-field))))
              ;; extra modules
              ;; -------------
+	     ;; ace-jump-mode
+	     (ace-jump-face-background ((t (,@fmt-none ,@fg-base01))))
+	     (ace-jump-face-foreground ((t (,@fmt-bold ,@fg-red))))
 	     ;; bm visual bookmarks
 	     (bm-fringe-face ((t (,@bg-orange ,@fg-base03))))
 	     (bm-fringe-persistent-face ((t (,@bg-blue ,@fg-base03))))
