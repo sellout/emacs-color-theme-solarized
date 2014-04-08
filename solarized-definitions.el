@@ -503,6 +503,10 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
              (slime-repl-output-mouseover-face ((t (:box (:color ,base3)))))
              (slime-style-warning-face ((t (,@fmt-bold ,@fg-orange))))
              (slime-warning-face ((t (,@fmt-bold ,@fg-red)))) ; WarningMsg
+             ;; tabbar
+             (tabbar-selected ((t (,@bg-blue ,@fg-base02))))
+             (tabbar-unselected ((t (,@bg-base0 ,@fg-base02))))
+             (tabbar-modified ((t (,@bg-green ,@fg-base02))))
              ;; whitespace
              (whitespace-empty ((t (,@fg-red))))
              (whitespace-hspace ((t (,@fg-orange))))
