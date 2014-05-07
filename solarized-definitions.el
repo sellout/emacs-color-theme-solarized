@@ -94,7 +94,9 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
                            (case (display-color-cells)
                              (16 4)
                              (8  5)
-                             (otherwise 3)))))
+                             (otherwise (if (find name '(base03 base02 base2 base3))
+                                            4
+                                          3))))))
              (nth index (assoc name solarized-colors)))))
     (let ((base03      (find-color 'base03))
           (base02      (find-color 'base02))
