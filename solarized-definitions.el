@@ -249,7 +249,7 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
                 (custom-comment-tag (,@fg-base1 ,@bg-base02))
                 (custom-documentation (:inherit default))
                 (custom-group-tag (,@fg-base1))
-                (custom-group-tag-1 (,fmt-bold ,@fg-base1))
+                (custom-group-tag-1 (,@fmt-bold ,@fg-base1))
                 (custom-invalid (,@fmt-revr ,@fg-red ,@bg-back))
                 (custom-link (,@fg-violet))
                 (custom-state (,@fg-green))
