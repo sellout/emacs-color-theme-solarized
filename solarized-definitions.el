@@ -507,6 +507,15 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
              (tabbar-selected ((t (,@bg-blue ,@fg-base02))))
              (tabbar-unselected ((t (,@bg-base0 ,@fg-base02))))
              (tabbar-modified ((t (,@bg-green ,@fg-base02))))
+             ;;magit next branch
+             (magit-diff-added ((t (,@bg-back ,@fg-green))))
+             (magit-diff-removed ((t (,@bg-back ,@fg-red))))
+             (magit-diff-context ((t (,@bg-back ,@fg-base1))))
+             (magit-diff-added-highlight ((t (,@bg-base02 ,@fg-green))))
+             (magit-diff-removed-highlight ((t (,@bg-base02 ,@fg-red))))
+             (magit-diff-context-highlight ((t (,@bg-base02 ,@fg-base1))))
+             (magit-hunk-heading ((t (,@bg-base03 ,@fg-base1))))
+             (magit-section-highlight ((t (,@bg-base02))))
              ;; whitespace
              (whitespace-empty ((t (,@fg-red))))
              (whitespace-hspace ((t (,@fg-orange))))
