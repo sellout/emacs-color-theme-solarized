@@ -550,10 +550,10 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
 	     (term-color-white ((t ( ,@fg-base00))))
              ;; company
              (company-tooltip ((t (,@fg-base00 ,@bg-base02))))
-             (company-tooltip-selection ((t (,@fg-base1 ,@bg-base02))))
+             (company-tooltip-selection ((t (,@fg-base2 ,@bg-base01))))
              (company-tooltip-mouse ((t (,@fg-base1 ,@bg-base02))))
-             (company-tooltip-common ((t (,@fg-base1 ,@bg-base02))))
-             (company-tooltip-common-selection ((t (,@fg-base1 ,@bg-base02))))
+             (company-tooltip-common ((t (,@fg-blue ,@bg-base02))))
+             (company-tooltip-common-selection ((t (,@fg-blue ,@bg-base01))))
              (company-tooltip-annotation ((t (,@fg-yellow ,@bg-base02))))
              (company-scrollbar-fg ((t (,@bg-base0))))
              (company-scrollbar-bg ((t (,@bg-base02))))
