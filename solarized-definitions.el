@@ -548,6 +548,13 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
              ;;flyspell
              (flyspell-incorrect ((t (,@fg-red))))
              (flyspell-duplicate ((t (,@fg-yellow))))
+             ;; rst-mode
+             (rst-level-1 ((t (,@bg-base03 ,@fg-base1))))
+             (rst-level-2 ((t (,@bg-base03 ,@fg-base1))))
+             (rst-level-3 ((t (,@bg-base01 ,@fg-base02))))
+             (rst-level-4 ((t (,@bg-base01 ,@fg-base02))))
+             (rst-level-5 ((t (,@bg-base02 ,@fg-base01))))
+             (rst-level-6 ((t (,@bg-base02 ,@fg-base01))))
 	     ;;ansi-term
 	     (term-color-black ((t ( ,@fg-base02))))
 	     (term-color-red ((t ( ,@fg-red))))
