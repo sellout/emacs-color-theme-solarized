@@ -507,6 +507,15 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
              (tabbar-selected ((t (,@bg-blue ,@fg-base02))))
              (tabbar-unselected ((t (,@bg-base0 ,@fg-base02))))
              (tabbar-modified ((t (,@bg-green ,@fg-base02))))
+             ;;magit next branch
+             (magit-diff-added ((t (,@bg-back ,@fg-green))))
+             (magit-diff-removed ((t (,@bg-back ,@fg-red))))
+             (magit-diff-context ((t (,@bg-back ,@fg-base1))))
+             (magit-diff-added-highlight ((t (,@bg-base02 ,@fg-green))))
+             (magit-diff-removed-highlight ((t (,@bg-base02 ,@fg-red))))
+             (magit-diff-context-highlight ((t (,@bg-base02 ,@fg-base1))))
+             (magit-hunk-heading ((t (,@bg-base03 ,@fg-base1))))
+             (magit-section-highlight ((t (,@bg-base02))))
              ;; whitespace
              (whitespace-empty ((t (,@fg-red))))
              (whitespace-hspace ((t (,@fg-orange))))
@@ -539,6 +548,13 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
              ;;flyspell
              (flyspell-incorrect ((t (,@fg-red))))
              (flyspell-duplicate ((t (,@fg-yellow))))
+             ;; rst-mode
+             (rst-level-1 ((t (,@bg-base03 ,@fg-base1))))
+             (rst-level-2 ((t (,@bg-base03 ,@fg-base1))))
+             (rst-level-3 ((t (,@bg-base01 ,@fg-base02))))
+             (rst-level-4 ((t (,@bg-base01 ,@fg-base02))))
+             (rst-level-5 ((t (,@bg-base02 ,@fg-base01))))
+             (rst-level-6 ((t (,@bg-base02 ,@fg-base01))))
 	     ;;ansi-term
 	     (term-color-black ((t ( ,@fg-base02))))
 	     (term-color-red ((t ( ,@fg-red))))
@@ -547,7 +563,19 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
 	     (term-color-blue ((t ( ,@fg-blue))))
 	     (term-color-magenta ((t ( ,@fg-magenta))))
 	     (term-color-cyan ((t ( ,@fg-cyan))))
-	     (term-color-white ((t ( ,@fg-base00)))))
+	     (term-color-white ((t ( ,@fg-base00))))
+             ;; company
+             (company-tooltip ((t (,@fg-base00 ,@bg-base02))))
+             (company-tooltip-selection ((t (,@fg-base2 ,@bg-base01))))
+             (company-tooltip-mouse ((t (,@fg-base1 ,@bg-base02))))
+             (company-tooltip-common ((t (,@fg-blue ,@bg-base02))))
+             (company-tooltip-common-selection ((t (,@fg-blue ,@bg-base01))))
+             (company-tooltip-annotation ((t (,@fg-yellow ,@bg-base02))))
+             (company-scrollbar-fg ((t (,@bg-base0))))
+             (company-scrollbar-bg ((t (,@bg-base02))))
+             (company-preview ((t (,@bg-green))))
+             (company-preview-common ((t (,@bg-base02))))
+             (company-template-field ((t (,@fg-base03 ,@bg-yellow)))))
 
             ((foreground-color . ,(when (<= 16 (display-color-cells)) base0))
              (background-color . ,back)
