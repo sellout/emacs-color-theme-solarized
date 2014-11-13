@@ -55,6 +55,35 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
 ;; FIXME: The Generic RGB colors will actually vary from device to device, but
 ;;        hopefully these are closer to the intended colors than the sRGB values
 ;;        that Emacs seems to dislike
+
+(defcustom solarized-theme-hook nil
+  "Hook run when Solarized themes are applied. Specifically:
+
+    - Run after `color-theme-solarized', ie. when the color-theme is applied.
+
+    - Run after `solarized-load-theme', ie. when the Emacs custom theme is loaded.
+
+    - Run whenever `solarized-update-definitions' is run.
+
+    - It is not run after `load-theme'. You should use `solarized-load-theme'
+      to trigger the hook instead.
+
+This allows the base colors to be used in context of the theme. For
+example:
+
+    (defun my-custom-org-setup ()
+      (setq org-todo-keyword-faces
+            `((\"TODO\" . (:foreground ,solarized-orange))
+              (\"HOLD\" . (:foreground ,solarized-base3))
+              (\"DONE\" . (:foreground ,solarized-base01))))
+      (font-lock-fontify-buffer))
+    (add-hook 'solarized-theme-hook 'my-custom-org-setup)
+
+Note - font-lock is not refreshed automatically.
+"
+  :type 'hook
+  :group 'solarized)
+  
 (defvar solarized-colors           ; ANSI(Solarized terminal)
   ;; name     sRGB      Gen RGB   256       16              8
   '((base03  "#002b36" "#042028" "#1c1c1c" "brightblack"   "black")
@@ -76,6 +105,93 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
   "This is a table of all the colors used by the Solarized color theme. Each
    column is a different set, one of which will be chosen based on term
    capabilities, etc.")
+
+;; Make color variables globally accessible. When a theme is enabled (either
+;; using color-theme or Emacs custom themes), these values are overwritten with
+;; their theme-specific equivalents from the solarized-colors table.
+(defvar solarized-base03 nil)
+(defvar solarized-base02 nil)
+(defvar solarized-base01 nil)
+(defvar solarized-base00 nil)
+(defvar solarized-base0 nil)
+(defvar solarized-base1 nil)
+(defvar solarized-base2 nil)
+(defvar solarized-base3 nil)
+(defvar solarized-yellow nil)
+(defvar solarized-orange nil)
+(defvar solarized-red nil)
+(defvar solarized-magenta nil)
+(defvar solarized-violet nil)
+(defvar solarized-blue nil)
+(defvar solarized-cyan nil)
+(defvar solarized-green nil)
+
+(defun solarized-update-definitions (mode)
+  "Update the Solarized global color definitions (eg. solarized-base01) for the
+given background mode ('light | 'dark). This gives access to the background-specific color
+variables when a custom Solarized theme is not enabled. "
+  (interactive "Slight or dark? ")
+  (let* ((defs (solarized-color-definitions mode))
+         (theme-vars (mapcar (lambda (def) (list (car def) (cdr def)))
+                             (second defs))))
+    (setq solarized-base03 (nth 1 (assoc 'solarized-base03 theme-vars)))
+    (setq solarized-base02 (nth 1 (assoc 'solarized-base02 theme-vars)))
+    (setq solarized-base01 (nth 1 (assoc 'solarized-base01 theme-vars)))
+    (setq solarized-base00 (nth 1 (assoc 'solarized-base00 theme-vars)))
+    (setq solarized-base0 (nth 1 (assoc 'solarized-base0 theme-vars)))
+    (setq solarized-base1 (nth 1 (assoc 'solarized-base1 theme-vars)))
+    (setq solarized-base2 (nth 1 (assoc 'solarized-base2 theme-vars)))
+    (setq solarized-base3 (nth 1 (assoc 'solarized-base3 theme-vars)))
+    (setq solarized-yellow (nth 1 (assoc 'solarized-yellow theme-vars)))
+    (setq solarized-orange (nth 1 (assoc 'solarized-orange theme-vars)))
+    (setq solarized-red (nth 1 (assoc 'solarized-red theme-vars)))
+    (setq solarized-magenta (nth 1 (assoc 'solarized-magenta theme-vars)))
+    (setq solarized-violet (nth 1 (assoc 'solarized-violet theme-vars)))
+    (setq solarized-blue (nth 1 (assoc 'solarized-blue theme-vars)))
+    (setq solarized-cyan (nth 1 (assoc 'solarized-cyan theme-vars)))
+    (setq solarized-green (nth 1 (assoc 'solarized-green theme-vars))))
+  (run-hooks 'solarized-theme-hook))
+
+(defun solarized-load-theme (mode)
+  "A wrapper around load-theme that runs `solarized-theme-hook'after the theme is
+applied. Mode is 'light or 'dark."
+  (interactive "Slight or dark? ")
+  (load-theme (intern (concat "solarized-" (symbol-name mode))))
+  (run-hooks 'solarized-theme-hook))
+
+(defun solarized-list-colors-display ()
+  "Display the current Solarized color values in the *Colors* buffer."
+  (interactive)
+  (pop-to-buffer (get-buffer-create "*Colors*"))
+  (setq buffer-read-only nil)
+  (erase-buffer)
+  (goto-char 0)
+  (let ((colors '(solarized-base03
+                  solarized-base02
+                  solarized-base01
+                  solarized-base00
+                  solarized-base0
+                  solarized-base1
+                  solarized-base2
+                  solarized-base3
+                  solarized-yellow
+                  solarized-orange
+                  solarized-red
+                  solarized-magenta
+                  solarized-violet
+                  solarized-blue
+                  solarized-cyan
+                  solarized-green)))
+    (dolist (this-sym colors)
+      (move-beginning-of-line nil)
+      (insert (propertize (format "%s" this-sym)
+                           'face (list :background (symbol-value this-sym))))
+      (move-to-column 20 t)
+      (insert (propertize (format " %s" this-sym)
+                          'face (list :foreground (symbol-value this-sym))))
+      (move-to-column 40 t)
+      (insert (format "%s" (symbol-value this-sym)))
+      (insert "\n"))))
 
 (defvar which-flet
   "This variable will store either flet or cl-flet depending on the Emacs
@@ -132,6 +248,7 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
               ((eq 'low solarized-contrast)
                (setf back      base02
                      opt-under t)))
+
         ;; NOTE: We try to turn an 8-color term into a 10-color term by not
         ;;       using default background and foreground colors, expecting the
         ;;       user to have the right colors set for them.
@@ -549,7 +666,25 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
 	     (term-color-cyan ((t ( ,@fg-cyan))))
 	     (term-color-white ((t ( ,@fg-base00)))))
 
-            ((foreground-color . ,(when (<= 16 (display-color-cells)) base0))
+            ;; Update the global color variables for the custom theme.
+            ((solarized-base03 .  ,base03)
+             (solarized-base02 .  ,base02)
+             (solarized-base01 .  ,base01)
+             (solarized-base00 .  ,base00)
+             (solarized-base0 .   ,base0)
+             (solarized-base1 .   ,base1)
+             (solarized-base2 .   ,base2)
+             (solarized-base3 .   ,base3)
+             (solarized-yellow .  ,yellow)
+             (solarized-orange .  ,orange)
+             (solarized-red .     ,red)
+             (solarized-magenta . ,magenta)
+             (solarized-violet .  ,violet)
+             (solarized-blue .    ,blue)
+             (solarized-cyan .    ,cyan)
+             (solarized-green .   ,green)
+
+             (foreground-color . ,(when (<= 16 (display-color-cells)) base0))
              (background-color . ,back)
              (background-mode . ,mode)
              (cursor-color . ,(when (<= 16 (display-color-cells))
@@ -572,5 +707,8 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
 (when (boundp 'custom-theme-load-path)
   (add-to-list 'custom-theme-load-path
                (file-name-as-directory (file-name-directory load-file-name))))
+
+;; Set the nil color variables
+(solarized-update-definitions 'dark)
 
 (provide 'solarized-definitions)
