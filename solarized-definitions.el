@@ -551,7 +551,7 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
 
             ((foreground-color . ,(when (<= 16 (display-color-cells)) base0))
              (background-color . ,back)
-             (background-mode . ,mode)
+             (background-mode . ,(symbol-name mode))
              (cursor-color . ,(when (<= 16 (display-color-cells))
                                 base0))
 	     (ansi-color-names-vector . [,base02 ,red ,green ,yellow ,blue ,magenta ,cyan ,base00]))))))))
