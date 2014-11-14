@@ -68,6 +68,23 @@ colorscheme. To do so, simply customize the `solarized-termcolor` variable to
 Again, I recommend just changing your terminal colors to Solarized values 
 either manually or via one of the many terminal schemes available for import.
 
+Utility variables and functions
+-------------------------------
+
+* All color values are globally accessible as `solarized-base01`, `solarized-blue`,
+  and so forth. These variables are updated when a theme is selected.
+
+* `(solarized-update-definitions)` manually updates the variables for
+  the chosen scheme, so they're still accessible even when you haven't
+  enabled a Solarized theme.
+  
+* `solarized-theme-hook` runs when the color variables are updated. This allows you to
+  rerun any code that uses the base colors with their new values.
+  `(solarized-load-theme)` is required as an alternative to `(load-theme
+  'solarized-[light|dark])` if you want to trigger this hook.
+
+* `(solarized-list-colors-display)` shows the color values in the `*Colors*` buffer.
+
 Advanced Configuration
 ----------------------
 

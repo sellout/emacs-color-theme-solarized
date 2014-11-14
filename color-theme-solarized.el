@@ -34,7 +34,10 @@ Ported to Emacs by Greg Pfeil, http://ethanschoonover.com/solarized."
        (solarized-color-definitions mode)
      `(,(intern (concat "color-theme-solarized-" (symbol-name mode)))
        ,variables
-       ,@faces))))
+       ,@faces)))
+
+    ;; Manually update the color variables
+    (solarized-update-definitions mode))
 
 ;;;###autoload
 (defun color-theme-solarized-dark ()
