@@ -41,9 +41,8 @@ Installation & Usage
 
 1. Download and install [color-theme].
 2. Add the `emacs-color-theme-solarized` directory to your Emacs `load-path`.
-3. Add `(require 'color-theme-solarized)` to your Emacs init file (usually `~/.emacs`).
+3. Add `(require 'color-theme-solarized)` and `(color-theme-solarized)` to your Emacs init file (usually `~/.emacs`).
 3. Reload the init file, or restart Emacs.
-4. Use the usual [color-theme] mechanism to select one of the Solarized themes, or `M-x color-theme-solarized`.
 
 ### all versions
 
