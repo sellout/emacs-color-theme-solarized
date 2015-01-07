@@ -28,18 +28,15 @@ build :
 	       (add-to-list 'custom-theme-load-path \"./\") \
 	       (load-theme 'solarized t))"
 
-init :
-	mkdir -p $(TEST_DIR)
-
-test-dep-1 : init
+test-dep-1 :
 	@cd $(TEST_DIR)                                      && \
 	$(EMACS) $(EMACS_BATCH)  -L . -L .. -l $(TEST_DEP_1) || \
 	(echo "Can't load test dependency $(TEST_DEP_1).el, run 'make downloads' to fetch it" ; exit 1)
 
-downloads : init
+downloads :
 	$(CURL) '$(TEST_DEP_1_STABLE_URL)' > $(TEST_DIR)/$(TEST_DEP_1).el
 
-downloads-latest : init
+downloads-latest :
 	$(CURL) '$(TEST_DEP_1_LATEST_URL)' > $(TEST_DIR)/$(TEST_DEP_1).el
 
 autoloads :
