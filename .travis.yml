@@ -47,7 +47,6 @@ matrix:
   allow_failures:
 #   - env: EMACS=xemacs21
     - env: EMACS=emacs22
-    - env: EMACS=emacs23
     - env: EMACS=emacs-snapshot
 
 ###
