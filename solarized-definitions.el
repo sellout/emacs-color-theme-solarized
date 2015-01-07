@@ -207,7 +207,8 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
           (fmt-revb `(:weight ,bold  :slant normal  :underline nil        :inverse-video t))
           (fmt-revbb `(:weight ,bright-bold :slant normal :underline nil  :inverse-video t))
           (fmt-revbbu `(:weight ,bright-bold :slant normal  :underline ,underline :inverse-video t)))
-      (setf ansi-color-names-vector [,base02 ,red ,green ,yellow ,blue ,magenta ,cyan ,base00])
+      (eval-after-load 'ansi-color
+        '(setf ansi-color-names-vector [,base02 ,red ,green ,yellow ,blue ,magenta ,cyan ,base00]))
       (mapcar (lambda (face) (apply 'create-face-spec face))
               `(;; basic
                 (default (,@fg-base0 ,@bg-back))   ; Normal
