@@ -1,3 +1,6 @@
+(eval-when-compile
+  (require 'cl))
+
 (defconst solarized-description
   "Color theme by Ethan Schoonover, created 2011-03-24.
 Ported to Emacs by Greg Pfeil, http://ethanschoonover.com/solarized.")
