@@ -8,7 +8,7 @@
 ;;; 1. Install the color-theme package
 ;;;   (http://www.emacswiki.org/cgi-bin/wiki/ColorTheme)
 ;;; 2. Load this file
-;;; 3. M-x color-theme-solarized-[dark|light]
+;;; 3. M-x color-theme-solarized
 
 (let ((current-file-name (or load-file-name buffer-file-name)))
   (if current-file-name
