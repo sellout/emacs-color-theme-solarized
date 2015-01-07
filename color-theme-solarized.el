@@ -35,4 +35,17 @@ Ported to Emacs by Greg Pfeil, http://ethanschoonover.com/solarized."
                "Solarized"
                ,solarized-description))
 
+;;;###autoload
+(defun color-theme-solarized-dark ()
+  "Color theme by Ethan Schoonover, created 2011-03-24.
+Ported to Emacs by Greg Pfeil, http://ethanschoonover.com/solarized."
+  (declare (obsolete color-theme-solarized "2013-05-01"))
+  (color-theme-solarized))
+;;;###autoload
+(defun color-theme-solarized-light ()
+  "Color theme by Ethan Schoonover, created 2011-03-24.
+Ported to Emacs by Greg Pfeil, http://ethanschoonover.com/solarized."
+  (declare (obsolete color-theme-solarized "2013-05-01"))
+  (color-theme-solarized))
+
 (provide 'color-theme-solarized)

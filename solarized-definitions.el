@@ -554,4 +554,11 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
   (add-to-list 'custom-theme-load-path
                (file-name-as-directory (file-name-directory load-file-name))))
 
+(defmacro create-solarized-theme (name description color-definitions)
+  `(progn
+     (deftheme ,name ,description)
+     (apply 'custom-theme-set-faces
+            ',name ,color-definitions)
+     (provide-theme ',name)))
+
 (provide 'solarized-definitions)
