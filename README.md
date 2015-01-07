@@ -83,6 +83,7 @@ but does include several variables that can be customized.
 
     variable name            default   optional
     --------------------------------------------
+    solarized-termcolors =   16    |   256
     solarized-degrade    =   nil   |   t
     solarized-bold       =   t     |   nil
     solarized-underline  =   t     |   nil
@@ -93,6 +94,19 @@ but does include several variables that can be customized.
     --------------------------------------------
 
 ### Option Details
+
+*   solarized-termcolors
+
+    Some 256-color terminals also allow you to set and use the standard 16
+    colors in addition to the fixed 256-color palette. This option only
+    applies when your terminal is in 256-color mode. If set to 16 (the
+    default) it will try to use the exact Solarized colors (assuming that
+    you've set these colors to the correct Solarized values either manually or
+    by importing one of the many colorscheme available for popular
+    terminal emulators). If it’s set to 256, then Solarized will use a
+    degraded version of the Solarized palette by displaying the closest colors
+    in the terminal's default 256 colors as shown in [Xterm's color
+    chart](http://en.wikipedia.org/wiki/File:Xterm_color_chart.png).
 
 *   solarized-degrade
 

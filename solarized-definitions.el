@@ -5,6 +5,15 @@
   "Color theme by Ethan Schoonover, created 2011-03-24.
 Ported to Emacs by Greg Pfeil, http://ethanschoonover.com/solarized.")
 
+(defcustom solarized-termcolors 16
+  "This is set to 16 by default, meaning that Solarized will attempt to use the
+standard 16 colors of your terminal emulator. You will need to set those colors
+to the correct Solarized values either manually or by importing one of the many
+colorscheme available for popular terminal emulators and Xdefaults."
+  :type 'integer
+  :options '(16 256)
+  :group 'solarized)
+
 (defcustom solarized-degrade nil
   "For test purposes only; when in GUI mode, forces Solarized to use the 256
 degraded color mode to test the approximate color values for accuracy."
@@ -124,7 +133,8 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
                                              (solarized-broken-srgb 2)
                                              (t                     1))))
            (((background dark) (type tty) (min-colors 256))
-            ,(solarized-face-for-index facespec 3))
+            ,(solarized-face-for-index facespec
+                                       (if (= solarized-termcolors 16) 4 3)))
            (((background dark) (type tty) (min-colors  16))
             ,(solarized-face-for-index facespec 4))
            (((background dark) (type tty) (min-colors   8))
@@ -136,7 +146,9 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
                                              (t                     1))
                                        t))
            (((background light) (type tty) (min-colors 256))
-            ,(solarized-face-for-index facespec 3 t))
+            ,(solarized-face-for-index facespec
+                                       (if (= solarized-termcolors 16) 4 3)
+                                       t))
            (((background light) (type tty) (min-colors  16))
             ,(solarized-face-for-index facespec 4 t))
            (((background light) (type tty) (min-colors   8))
