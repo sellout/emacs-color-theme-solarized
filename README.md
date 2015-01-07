@@ -119,10 +119,11 @@ but does include several variables that can be customized.
 *   solarized-broken-srgb
 
     Emacs [bug #8402](http://debbugs.gnu.org/cgi/bugreport.cgi?bug=8402)
-    results in incorrect color handling on Macs. If this is `t` (the default
-    on Macs), Solarized works around it with alternative colors. However,
-    these colors are not totally portable, so you may be able to edit the
-    "Gen RGB" column in `solarized-definitions.el` to improve them further.
+    results in incorrect color handling on Macs. If you are using Emacs on a
+    Mac, we try to determine this value automatically. If this is `t` (the
+    default on Macs), Solarized works around it with alternative colors.
+    However, these colors are not totally portable, so you may be able to edit
+    the "Gen RGB" column in `solarized-definitions.el` to improve them further.
 
 Code Notes
 ----------
