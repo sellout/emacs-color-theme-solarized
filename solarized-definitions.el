@@ -216,7 +216,7 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
                 (error (,@fmt-bold ,@fg-red))      ; Error
                 (escape-glyph-face (,@fg-red))
                 (fringe (,@fg-base01 ,@bg-base02))
-                (linum (,@fg-base01 ,@bg-base02))
+                (linum (,@fmt-none ,@fg-base01 ,@bg-base02))
                 (header-line (,@fg-base0 ,@bg-base02 ,@fmt-revbb)) ; Pmenu
                 (highlight (,@bg-base02))
                 (hl-line (:underline ,opt-under ,@bg-base02)) ; CursorLine
