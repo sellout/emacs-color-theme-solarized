@@ -338,6 +338,7 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
                 (info-xref (,@fmt-undr ,@fg-blue))
                 (info-xref-visited (,@fg-magenta :inherit info-xref))
                 ;; org
+                (org-block-background (,@bg-base02))
                 (org-hide (,@fg-base03))
                 (org-todo (,@fmt-bold ,@fg-base03 ,@bg-red))
                 (org-done (,@fmt-bold ,@fg-green))
