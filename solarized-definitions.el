@@ -173,7 +173,7 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
           (bg-violet '(:background violet))
           (bg-blue '(:background blue))
           (bg-cyan '(:background cyan))
-          
+
           (fg-base03 '(:foreground base03))
           (fg-base02 '(:foreground base02))
           (fg-base01 '(:foreground base01))
@@ -356,17 +356,24 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
                 (outline-6 (,@fmt-none ,@fg-base01))
                 (outline-7 (,@fmt-none ,@fg-orange))
                 (outline-8 (,@fmt-none ,@fg-violet))
-                ;; speedbar
-                (speedbar-button-face (,@fmt-none ,@fg-base1))
-                (speedbar-directory-face (,@fmt-none ,@fg-orange))
-                (speedbar-file-face (,@fmt-none ,@fg-green))
-                (speedbar-highlight-face (,@bg-base02))
-                (speedbar-selected-face (,@fmt-undr ,@fg-yellow))
-                (speedbar-separator-face (,@fmt-stnd))
-                (speedbar-tag-face (,@fmt-none ,@fg-blue))
                 ;; show-paren - MatchParen
                 (show-paren-match (,@fmt-bold ,@fg-cyan ,@bg-base02))
                 (show-paren-mismatch (,@fmt-bold ,@fg-red ,@bg-base01))
+                ;; speedbar
+                ;; (speedbar-button-face (,@fmt-none ,@fg-base1))
+                (speedbar-button-face
+                 (,@fg-base1 ,@bg-base02
+                             :box (:line-width 2 :style released-button)))
+                (speedbar-directory-face (,@fmt-none ,@fg-blue))
+                (speedbar-file-face (,@fmt-none ,@fg-green))
+                ;; (speedbar-highlight-face (,@bg-base02))
+                (speedbar-highlight-face
+                 (,@fmt-revr ,@fg-base1 ,@bg-base02
+                             :inherit speedbar-button-face))
+                ;; (speedbar-selected-face (,@fmt-undr ,@fg-yellow))
+                (speedbar-selected-face (,@fmt-none ,@bg-base02 ,@fg-green))
+                (speedbar-separator-face (,@fmt-stnd))
+                (speedbar-tag-face (,@fmt-none ,@fg-blue))
                 ;; widgets
                 (widget-field
                  (,@fg-base1 ,@bg-base02 :box (:line-width 1 :color base2)
@@ -489,7 +496,8 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
                 (minimap-semantic-type-face (,bg-base3))
                 (minimap-semantic-variable-face (,bg-base3))
                 ;; parenface
-                (paren-face (,@fg-base01))
+                (paren-face (,@fg-base01)) ; NB: local, don’t commit
+                (parenthesis (,@fg-base01)) ; NB: local, don’t commit
                 ;; rainbow-delimiters
                 (rainbow-delimiters-depth-1-face (,@fg-cyan))
                 (rainbow-delimiters-depth-2-face (,@fg-yellow))
@@ -507,18 +515,6 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
                 (slime-repl-output-mouseover-face (:box (:color base3)))
                 (slime-style-warning-face (,@fmt-bold ,@fg-orange))
                 (slime-warning-face (,@fmt-bold ,@fg-red)) ; WarningMsg
-                ;; speedbar
-                (speedbar-button-face
-                 (,@fg-base1 ,@bg-base02
-                             :box (:line-width 2 :style released-button)))
-                (speedbar-directory-face (,@fmt-none ,@fg-blue))
-                (speedbar-file-face (,@fmt-none ,@fg-green))
-                (speedbar-highlight-face
-                 (,@fmt-revr ,@fg-base1 ,@bg-base02
-                             :inherit speedbar-button-face))
-                (speedbar-selected-face (,@fmt-none ,@bg-base02 ,@fg-green))
-                (speedbar-separator-face (,@fmt-stnd))
-                (speedbar-tag-face (,@fmt-none ,@fg-blue))
                 ;; whitespace
                 (whitespace-empty (,@fg-red))
                 (whitespace-hspace (,@fg-orange))
