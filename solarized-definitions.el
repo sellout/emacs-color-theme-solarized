@@ -77,7 +77,6 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
    column is a different set, one of which will be chosen based on term
    capabilities, etc.")
 
-
 (defun solarized-face-for-index (facespec index &optional light)
   "Creates a face from facespec where the colors use the names from
   `solarized-colors`."
@@ -198,15 +197,16 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
           (fmt-undb `(:weight ,bold  :slant normal  :underline ,underline :inverse-video nil))
           (fmt-undi `(:weight normal                :underline ,underline :inverse-video nil))
           (fmt-uopt `(:weight normal :slant normal  :underline ,opt-under :inverse-video nil))
-          ;; FIXME: not quite the same
-          (fmt-curl `(:weight normal :slant normal  :underline t          :inverse-video nil))
+          ;; FIXME: don’t hardcode the SRGB color names
+          (fmt-curl-red    `(:weight normal :slant normal :underline (:color "#dc322f" :style wave) :inverse-video nil))
+          (fmt-curl-yellow `(:weight normal :slant normal :underline (:color "#b58900" :style wave) :inverse-video nil))
           (fmt-ital `(:weight normal :slant ,italic :underline nil        :inverse-video nil))
           ;; FIXME: not quite the same
           (fmt-stnd `(:weight normal :slant normal  :underline nil        :inverse-video t))
           (fmt-revr `(:weight normal :slant normal  :underline nil        :inverse-video t))
           (fmt-revb `(:weight ,bold  :slant normal  :underline nil        :inverse-video t))
           (fmt-revbb `(:weight ,bright-bold :slant normal :underline nil  :inverse-video t))
-          (fmt-revbbu `(:weight ,bright-bold :slant normal  :underline ,underline :inverse-video t)))
+          (fmt-revbbu `(:weight ,bright-bold :slant normal :underline ,underline :inverse-video t)))
       (eval-after-load 'ansi-color
         '(setf ansi-color-names-vector [,base02 ,red ,green ,yellow ,blue ,magenta ,cyan ,base00]))
       (mapcar (lambda (face) (apply 'create-face-spec face))
@@ -389,8 +389,8 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
                 (bm-fringe-face (,@bg-orange ,@fg-base03))
                 (bm-fringe-persistent-face (,@bg-blue ,@fg-base03))
                 ;; Flymake
-                (flymake-errline (,@fmt-revr ,@fg-red ,@bg-back)) ; ErrorMsg
-                (flymake-warnline (,@fmt-bold ,@fg-red ,@bg-back)) ; WarningMsg
+                (flymake-errline (,@fmt-bold ,@fg-red)) ; Error
+                (flymake-warnline (,@fmt-bold ,@fg-red))
                 ;; column-marker
                 (column-marker-1 (,@bg-base01))
                 (column-marker-2 (,@bg-cyan))
@@ -547,8 +547,8 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
                 (font-latex-warning-face (,@fg-red))
                 (font-latex-sectioning-5-face (,@fg-violet))
                 ;;flyspell
-                (flyspell-incorrect (,@fg-red))
-                (flyspell-duplicate (,@fg-yellow))
+                (flyspell-incorrect (,@fmt-curl-red)) ; SpellBad
+                (flyspell-duplicate (,@fmt-curl-yellow))
                 ;;ansi-term
                 (term-color-black (,@fg-base02))
                 (term-color-red (,@fg-red))
