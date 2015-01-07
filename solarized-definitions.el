@@ -41,7 +41,7 @@ down in order to expand or compress the tonal range displayed."
   :group 'solarized)
 
 (defcustom solarized-broken-srgb
-  (if (eq system-type 'darwin)
+  (if (and (eq system-type 'darwin) (eq window-system 'ns))
       (not (and (boundp 'ns-use-srgb-colorspace)
                 ns-use-srgb-colorspace))
     nil)
@@ -225,9 +225,11 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
                 (lazy-highlight (,@fmt-revr ,@fg-yellow ,@bg-back)) ; Search
                 (link (,@fmt-undr ,@fg-violet))
                 (link-visited (,@fmt-undr ,@fg-magenta))
+                (match ((t (,@fmt-revr ,@fg-yellow ,@bg-back)))) ; Occur
                 (menu (,@fg-base0 ,@bg-base02))
                 (minibuffer-prompt (,@fmt-bold ,@fg-cyan)) ; Question
-                (mode-line (,@fg-base1 ,@bg-base02 ,@fmt-revbb :box nil)) ; StatusLine
+                (mode-line ; StatusLine
+                 (,@fg-base1 ,@bg-base02 ,@fmt-revbb :box nil))
                 (mode-line-inactive    ; StatusLineNC
                  (,@fg-base00 ,@bg-base02 ,@fmt-revbb :box nil))
                 (region (,@fg-base01 ,@bg-base03 ,@fmt-revbb)) ; Visual
@@ -273,15 +275,15 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
                        (diff-removed (,@fmt-bold ,@fg-red))
                        (diff-refine-change (,@fmt-undr ,@fg-blue ,@bg-back))))
                     (normal
-                     `((diff-added (,@fmt-bold ,@fg-green ,@bg-base02))
-                       (diff-changed (,@fmt-bold ,@fg-yellow ,@bg-base02))
-                       (diff-removed (,@fmt-bold ,@fg-red ,@bg-base02))
-                       (diff-refine-change (,@fmt-bold ,@fg-blue ,@bg-base02)))
-                     ;; FIXME: use these non-bold versions for TTY frames
-                     `((diff-added (,@fg-green ,@bg-base02))
-                       (diff-changed (,@fg-yellow ,@bg-base02))
-                       (diff-removed (,@fg-red ,@bg-base02))
-                       (diff-refine-change (,@fg-blue ,@bg-base02)))))
+                     (if window-system
+                         `((diff-added (,@fmt-bold ,@fg-green ,@bg-base02))
+                           (diff-changed (,@fmt-bold ,@fg-yellow ,@bg-base02))
+                           (diff-removed (,@fmt-bold ,@fg-red ,@bg-base02))
+                           (diff-refine-change (,@fmt-bold ,@fg-blue ,@bg-base02)))
+                       `((diff-added (,@fg-green ,@bg-base02))
+                         (diff-changed (,@fg-yellow ,@bg-base02))
+                         (diff-removed (,@fg-red ,@bg-base02))
+                         (diff-refine-change (,@fg-blue ,@bg-base02))))))
                 (diff-file-header (,@bg-back))
                 (diff-header (,@fg-base1 ,@bg-back))
                 ;; IDO
@@ -314,13 +316,15 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
                 (font-lock-keyword-face (,@fmt-none ,@fg-green)) ; Statement
                 (font-lock-string-face (,@fmt-none ,@fg-cyan)) ; Constant
                 (font-lock-type-face (,@fmt-none ,@fg-yellow)) ; Type
-                (font-lock-variable-name-face (,@fmt-none ,@fg-blue)) ; Identifier
+                (font-lock-variable-name-face ; Identifier
+                 (,@fmt-none ,@fg-blue))
                 (font-lock-warning-face (,@fmt-bold ,@fg-red)) ; Error
                 (font-lock-doc-face (,@fmt-ital ,@fg-base01)) ; Comment
                 (font-lock-doc-string-face ; Comment (XEmacs-only)
                  (,@fmt-ital ,@fg-base01))
                 (font-lock-color-constant-face (,@fmt-none ,@fg-green))
-                (font-lock-comment-delimiter-face (,@fmt-ital ,@fg-base01)) ; Comment
+                (font-lock-comment-delimiter-face ; Comment
+                 (,@fmt-ital ,@fg-base01))
                 (font-lock-preprocessor-face (,@fmt-none ,@fg-orange)) ; PreProc
                 (font-lock-reference-face (,@fmt-none ,@fg-cyan))
                 (font-lock-negation-char-face (,@fmt-none ,@fg-red))
@@ -438,7 +442,8 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
                 (gnus-group-news-2-empty (,@fg-blue))
                 (gnus-group-news-low (,@fmt-bold ,@fg-violet))
                 (gnus-group-news-low-empty (,@fg-violet))
-                (gnus-emphasis-highlight-words (,@fmt-none ,fg-yellow)) ; highlight
+                (gnus-emphasis-highlight-words ; highlight
+                 (,@fmt-none ,fg-yellow))
                 (gnus-header-content (,@fmt-none ,@fg-base01)) ; hdrdefault
                 (gnus-header-from (,@fmt-none ,@fg-base00)) ; header ^From
                 (gnus-header-name (,@fmt-none ,@fg-base01)) ; hdrdefault
@@ -451,7 +456,8 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
                 (gnus-server-opened (,@fmt-bold ,@fg-cyan))
                 (gnus-signature (,@fmt-none ,@fg-base01)) ; signature
                 (gnus-splash (,@fg-base2))
-                (gnus-summary-cancelled (,@fmt-none ,@fg-red)) ; deleted messages
+                (gnus-summary-cancelled ; deleted messages
+                 (,@fmt-none ,@fg-red))
                 (gnus-summary-high-ancient
                  (,@fmt-bold :inherit gnus-summary-normal-ancient))
                 (gnus-summary-high-read
@@ -472,11 +478,14 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
                  (,@fmt-ital :inherit gnus-summary-normal-ancient))
                 (gnus-summary-low-undownloaded
                  (,@fmt-ital :inherit gnus-summary-normal-ancient))
-                (gnus-summary-normal-ancient (,@fmt-none ,@fg-blue)) ; old messages
-                (gnus-summary-normal-read (,@fmt-none ,@fg-base01)) ; read messages
+                (gnus-summary-normal-ancient ; old messages
+                 (,@fmt-none ,@fg-blue))
+                (gnus-summary-normal-read ; read messages
+                 (,@fmt-none ,@fg-base01))
                 (gnus-summary-normal-ticked (,@fmt-none ,@fg-red)) ; flagged
                 (gnus-summary-normal-undownloaded (,@fmt-none ,@fg-base2))
-                (gnus-summary-normal-unread (,@fmt-none ,@fg-blue)) ; unread messages
+                (gnus-summary-normal-unread ; unread messages
+                 (,@fmt-none ,@fg-blue))
                 (gnus-summary-selected ; indicator
                  (,@fmt-none ,@fg-base03 ,@bg-yellow))
                 ;; Message
