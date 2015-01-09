@@ -232,6 +232,7 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
                 (header-line (,@fg-base0 ,@bg-base02 ,@fmt-revbb)) ; Pmenu
                 (highlight (,@bg-base02))
                 (hl-line (:underline ,opt-under ,@bg-base02)) ; CursorLine
+                (col-highlight (:underline ,opt-under ,@bg-base02))
                 (isearch (,@fmt-stnd ,@fg-orange ,@bg-back)) ; IncSearch
                 (isearch-fail (,@fmt-stnd ,@fg-orange ,@bg-back)) ; IncSearch
                 (lazy-highlight (,@fmt-revr ,@fg-yellow ,@bg-back)) ; Search
