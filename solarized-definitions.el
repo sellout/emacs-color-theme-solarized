@@ -232,7 +232,6 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
                 (header-line (,@fg-base0 ,@bg-base02 ,@fmt-revbb)) ; Pmenu
                 (highlight (,@bg-base02))
                 (hl-line (:underline ,opt-under ,@bg-base02)) ; CursorLine
-                (col-highlight (:underline ,opt-under ,@bg-base02))
                 (isearch (,@fmt-stnd ,@fg-orange ,@bg-back)) ; IncSearch
                 (isearch-fail (,@fmt-stnd ,@fg-orange ,@bg-back)) ; IncSearch
                 (lazy-highlight (,@fmt-revr ,@fg-yellow ,@bg-back)) ; Search
@@ -399,6 +398,9 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
                 (widget-single-line-field (:inherit widget-field))
                 ;; extra modules
                 ;; -------------
+                ;; col-highlight -- Highlight the current column.
+                ;; http://www.emacswiki.org/emacs/col-highlight.el
+                (col-highlight (,@bg-base02))
                 ;; ace-jump-mode
                 (ace-jump-face-background (,@fmt-none ,@fg-base01))
                 (ace-jump-face-foreground (,@fmt-bold ,@fg-red))
