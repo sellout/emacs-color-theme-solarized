@@ -402,6 +402,9 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
                 (widget-single-line-field (:inherit widget-field))
                 ;; extra modules
                 ;; -------------
+                ;; col-highlight -- Highlight the current column.
+                ;; http://www.emacswiki.org/emacs/col-highlight.el
+                (col-highlight (,@bg-base02))
                 ;; ace-jump-mode
                 (ace-jump-face-background (,@fmt-none ,@fg-base01))
                 (ace-jump-face-foreground (,@fmt-bold ,@fg-red))
