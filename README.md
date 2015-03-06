@@ -46,7 +46,7 @@ Installation & Usage
 
 ### all versions
 
-To switch between the light and dark variations of Solarized, set the frame’s `background-mode`. This can be accomplished globally using `M-x customize-variable frame-background-mode` or on a per-frame basis with `(set-frame-parameter nil 'background-mode 'light)` (or `'dark`). Remember to call `enable-theme` after changing the background mode to update the state of the theme.
+To switch between the light and dark variations of Solarized, set the frame’s `background-mode`. This can be accomplished globally using `M-x customize-variable frame-background-mode` or on a per-frame basis with `(set-frame-parameter nil 'background-mode 'light)` (or `'dark`).  If you're in a terminal, you must also set the terminal parameter with `(set-terminal-parameter nil 'background-mode 'light)` (or `'dark`). Remember to call `enable-theme` after changing the background mode to update the state of the theme.
 
 This allows you to have a mix of light and dark frames. I tend to use light frames in the GUI and dark frames in my terminal, so I use the following code:
 
