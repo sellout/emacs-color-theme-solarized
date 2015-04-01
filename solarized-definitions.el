@@ -241,7 +241,7 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
                 (lazy-highlight (,@fmt-revr ,@fg-yellow ,@bg-back)) ; Search
                 (link (,@fmt-undr ,@fg-violet))
                 (link-visited (,@fmt-undr ,@fg-magenta))
-                (match ((t (,@fmt-revr ,@fg-yellow ,@bg-back)))) ; Occur
+                (match (,@fmt-revr ,@fg-yellow ,@bg-back)) ; Occur
                 (menu (,@fg-base0 ,@bg-base02))
                 (minibuffer-prompt (,@fmt-bold ,@fg-cyan)) ; Question
                 (mode-line ; StatusLine
