@@ -648,6 +648,12 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
                 (slime-repl-output-mouseover-face (:box (:color base3)))
                 (slime-style-warning-face (,@fmt-bold ,@fg-orange))
                 (slime-warning-face (,@fmt-bold ,@fg-red)) ; WarningMsg
+                ;; smartparens
+                (sp-pair-overlay-face (,@bg-base02))
+                (sp-wrap-overlay-face (,@bg-base02))
+                (sp-wrap-tag-overlay-face (,@bg-base02))
+                (sp-show-pair-match-face (,@fg-magenta ,@bg-back))
+                (sp-show-pair-mismatch-face (,@bg-red ,@fg-base02))
                 ;; whitespace
                 (whitespace-empty (,@fg-red))
                 (whitespace-hspace (,@fg-orange))
