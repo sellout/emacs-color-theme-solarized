@@ -229,19 +229,22 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
               `(;; basic
                 (default (,@fg-base0 ,@bg-back))   ; Normal
                 (cursor (,@fg-base03 ,@bg-base0))  ; Cursor
-                (error (,@fmt-bold ,@fg-red))      ; Error
+                (shadow (,@fg-base01))
+                (link (,@fmt-undr ,@fg-violet))    ; Underlined
+                (link-visited (,@fmt-undr ,@fg-magenta))
+                (match (,@fmt-revr ,@fg-yellow))   ; Search
+                (error (,@fmt-revr ,@fg-red))      ; ErrorMsg
+                (warning (,@fmt-bold ,@fg-red))    ; WarningMsg
+                (success (,@fg-blue))              ; MoreMsg
                 (escape-glyph-face (,@fg-red))
                 (fringe (,@fg-base01 ,@bg-base02))
-                (linum (,@fmt-none ,@fg-base01 ,@bg-base02))
+                (linum (,@fg-base01 ,@bg-base02))
                 (header-line (,@fg-base0 ,@bg-base02 ,@fmt-revbb)) ; Pmenu
                 (highlight (,@bg-base02))
                 (hl-line (:underline ,opt-under ,@bg-base02)) ; CursorLine
                 (isearch (,@fmt-stnd ,@fg-orange ,@bg-back)) ; IncSearch
-                (isearch-fail (,@fmt-stnd ,@fg-orange ,@bg-back)) ; IncSearch
-                (lazy-highlight (,@fmt-revr ,@fg-yellow ,@bg-back)) ; Search
-                (link (,@fmt-undr ,@fg-violet))
-                (link-visited (,@fmt-undr ,@fg-magenta))
-                (match (,@fmt-revr ,@fg-yellow ,@bg-back)) ; Occur
+                (isearch-fail (:inherit error)) ; ErrorMsg
+                (lazy-highlight (:inherit match)) ; Search
                 (menu (,@fg-base0 ,@bg-base02))
                 (minibuffer-prompt (,@fmt-bold ,@fg-cyan)) ; Question
                 (mode-line ; StatusLine
@@ -351,8 +354,8 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
                 (font-lock-other-emphasized-face (,@fmt-bldi ,@fg-violet))
                 (font-lock-regexp-grouping-backslash (,@fmt-none ,@fg-yellow))
                 ;; info
-                (info-xref (,@fmt-undr ,@fg-blue))
-                (info-xref-visited (,@fg-magenta :inherit info-xref))
+                (info-xref (:inherit link))
+                (info-xref-visited (:inherit link-visited))
                 ;; org
                 (org-block-background (,@bg-base02))
                 (org-hide (,@fg-base03))
@@ -367,14 +370,14 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
                 (org-cancelled-kwd-face (,@fg-green ,@bg-base03))
                 (org-delegated-kwd-face (,@fg-cyan ,@bg-base03))
                 (org-default (:inherit default))
-                (org-level-1 (,@fmt-bold ,@fg-blue))
-                (org-level-2 (,@fmt-bold ,@fg-yellow))
-                (org-level-3 (,@fmt-bold ,@fg-cyan))
-                (org-level-4 (,@fmt-bold ,@fg-red))
-                (org-level-5 (,@fg-green))
-                (org-level-6 (,@fg-magenta))
-                (org-level-7 (,@fg-base0))
-                (org-level-8 (,@fg-base01))
+                (org-level-1 (:inherit outline-1))
+                (org-level-2 (:inherit outline-2))
+                (org-level-3 (:inherit outline-3))
+                (org-level-4 (:inherit outline-4))
+                (org-level-5 (:inherit outline-5))
+                (org-level-6 (:inherit outline-6))
+                (org-level-7 (:inherit outline-7))
+                (org-level-8 (:inherit outline-8))
                 (org-special-keyword (,@fmt-ital ,@fg-base01))
                 (org-drawer (,@fmt-bold ,@fg-blue))
                 (org-column (,@fmt-revr ,@fg-cyan))
@@ -413,15 +416,15 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
                 (org-latex-and-related(,@fg-orange))
                 ;; table
                 (table-cell (,@fmt-none ,@fg-base0 ,@bg-back))
-                ;; outline - pandocBlockQuoteLeader*
-                (outline-1 (,@fmt-none ,@fg-blue))
-                (outline-2 (,@fmt-none ,@fg-cyan))
-                (outline-3 (,@fmt-none ,@fg-yellow))
-                (outline-4 (,@fmt-none ,@fg-red))
-                (outline-5 (,@fmt-none ,@fg-base0))
-                (outline-6 (,@fmt-none ,@fg-base01))
-                (outline-7 (,@fmt-none ,@fg-orange))
-                (outline-8 (,@fmt-none ,@fg-violet))
+                ;; outline - pandocBlockQuoteLeader[1–6]
+                (outline-1 (,@fg-blue))
+                (outline-2 (,@fg-cyan))
+                (outline-3 (,@fg-yellow))
+                (outline-4 (,@fg-red))
+                (outline-5 (,@fg-base0))
+                (outline-6 (,@fg-base01))
+                (outline-7 (,@fg-orange))
+                (outline-8 (,@fg-violet))
                 ;; show-paren - MatchParen
                 (show-paren-match (,@fmt-bold ,@fg-cyan ,@bg-base02))
                 (show-paren-mismatch (,@fmt-bold ,@fg-red ,@bg-base01))
@@ -447,6 +450,13 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
                 (widget-single-line-field (:inherit widget-field))
                 ;; extra modules
                 ;; -------------
+                ;; alert
+                (alert-urgent (,@fg-red))
+                (alert-high (,@fg-orange))
+                (alert-moderate (,@fg-yellow))
+                (alert-normal (,@fg-green))
+                (alert-low (,@fg-blue))
+                (alert-trivial (,@fg-violet))
                 ;; col-highlight -- Highlight the current column.
                 ;; http://www.emacswiki.org/emacs/col-highlight.el
                 (col-highlight (,@bg-base02))
@@ -485,18 +495,18 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
                 (git-gutter:modified (,@fg-violet))
                 (git-gutter:added (,@fg-green))
                 (git-gutter:deleted (,@fg-red))
-                ;; gnus - these are taken from mutt, not VIM
-                (gnus-cite-1 (,@fmt-none ,@fg-blue))    ; quoted
-                (gnus-cite-2 (,@fmt-none ,@fg-cyan))    ; quoted1
-                (gnus-cite-3 (,@fmt-none ,@fg-yellow))  ; quoted2
-                (gnus-cite-4 (,@fmt-none ,@fg-red))     ; quoted3
-                (gnus-cite-5 (,@fmt-none ,@fg-orange))  ; quoted4
-                (gnus-cite-6 (,@fmt-none ,@fg-violet))
-                (gnus-cite-7 (,@fmt-none ,@fg-green))
-                (gnus-cite-8 (,@fmt-none ,@fg-magenta))
-                (gnus-cite-9 (,@fmt-none ,@fg-base00))
-                (gnus-cite-10 (,@fmt-none ,@fg-base01))
-                (gnus-cite-11 (,@fmt-none ,@fg-base02))
+                ;; gnus - these are mostly taken from mutt, not VIM
+                (gnus-cite-1 (:inherit outline-1))
+                (gnus-cite-2 (:inherit outline-2))
+                (gnus-cite-3 (:inherit outline-3))
+                (gnus-cite-4 (:inherit outline-4))
+                (gnus-cite-5 (:inherit outline-5))
+                (gnus-cite-6 (:inherit outline-6))
+                (gnus-cite-7 (:inherit outline-7))
+                (gnus-cite-8 (:inherit outline-8))
+                (gnus-cite-9 (,@fg-green))
+                (gnus-cite-10 (,@fg-magenta))
+                (gnus-cite-11 (,@fg-base02))
                 (gnus-group-mail-1 (,@fmt-bold ,@fg-base3))
                 (gnus-group-mail-1-empty (,@fg-base3))
                 (gnus-group-mail-2 (,@fmt-bold ,@fg-base2))
@@ -612,6 +622,21 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
                 (helm-time-zone-home (,@fg-red))
                 (helm-visible-mark (,@fmt-bold ,@bg-back ,@fg-magenta))
                 (helm-w3m-bookmarks (:inherit helm-bookmark-w3m))
+                ;; markdown
+                (markdown-bold-face (:inherit bold))
+                (markdown-header-delimiter-face (:inherit shadow))
+                (markdown-header-face (:inherit outline-1))
+                (markdown-header-face-1 (:inherit outline-1))
+                (markdown-header-face-2 (:inherit outline-2))
+                (markdown-header-face-3 (:inherit outline-3))
+                (markdown-header-face-4 (:inherit outline-4))
+                (markdown-header-face-5 (:inherit outline-5))
+                (markdown-header-face-6 (:inherit outline-6))
+                (markdown-header-rule-face (:inherit shadow))
+                (markdown-italic-face (:inherit italic))
+                (markdown-link-face (:inherit shadow))
+                (markdown-link-title-face (:inherit link))
+                (markdown-url-face (:inherit link))
                 ;; Message
                 (message-mml (,@fg-blue))
                 (message-cited-text (,@fg-base2))
@@ -629,18 +654,21 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
                 (minimap-semantic-type-face (,bg-base3))
                 (minimap-semantic-variable-face (,bg-base3))
                 ;; parenface
-                (paren-face (,@fg-base01)) ; NB: local, don’t commit
-                (parenthesis (,@fg-base01)) ; NB: local, don’t commit
+                (parenface-bracket-face (:inherit shadow))
+                (parenface-curly-face (:inherit shadow))
+                (parenface-paren-face (:inherit shadow))
+                ;; paren-face
+                (parenthesis (:inherit shadow))
                 ;; rainbow-delimiters
-                (rainbow-delimiters-depth-1-face (,@fg-cyan))
-                (rainbow-delimiters-depth-2-face (,@fg-yellow))
-                (rainbow-delimiters-depth-3-face (,@fg-blue))
-                (rainbow-delimiters-depth-4-face (,@fg-red))
-                (rainbow-delimiters-depth-5-face (,@fg-green))
-                (rainbow-delimiters-depth-6-face (,@fg-blue))
-                (rainbow-delimiters-depth-7-face (,@fg-orange))
-                (rainbow-delimiters-depth-8-face (,@fg-magenta))
-                (rainbow-delimiters-depth-9-face (,@fg-base0))
+                (rainbow-delimiters-depth-1-face (:inherit outline-1))
+                (rainbow-delimiters-depth-2-face (:inherit outline-2))
+                (rainbow-delimiters-depth-3-face (:inherit outline-3))
+                (rainbow-delimiters-depth-4-face (:inherit outline-4))
+                (rainbow-delimiters-depth-5-face (:inherit outline-5))
+                (rainbow-delimiters-depth-6-face (:inherit outline-6))
+                (rainbow-delimiters-depth-7-face (:inherit outline-7))
+                (rainbow-delimiters-depth-8-face (:inherit outline-8))
+                (rainbow-delimiters-depth-9-face (,@fg-green))
                 ;; slime
                 (slime-error-face (,@fmt-revr ,@fg-red)) ; ErrorMsg
                 (slime-note-face (,@fg-yellow))
@@ -680,12 +708,12 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
                 (flyspell-incorrect (,@fmt-curl-red)) ; SpellBad
                 (flyspell-duplicate (,@fmt-curl-yellow))
                 ;; rst-mode
-                (rst-level-1 (,@bg-base03 ,@fg-base1))
-                (rst-level-2 (,@bg-base03 ,@fg-base1))
-                (rst-level-3 (,@bg-base01 ,@fg-base02))
-                (rst-level-4 (,@bg-base01 ,@fg-base02))
-                (rst-level-5 (,@bg-base02 ,@fg-base01))
-                (rst-level-6 (,@bg-base02 ,@fg-base01))
+                (rst-level-1 (:inherit outline-1))
+                (rst-level-2 (:inherit outline-2))
+                (rst-level-3 (:inherit outline-3))
+                (rst-level-4 (:inherit outline-4))
+                (rst-level-5 (:inherit outline-5))
+                (rst-level-6 (:inherit outline-6))
                 ;;ansi-term
                 (term-color-black (,@fg-base02))
                 (term-color-red (,@fg-red))
