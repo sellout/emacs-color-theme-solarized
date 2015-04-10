@@ -1,8 +1,7 @@
 (eval-when-compile
   (unless (require 'cl-lib nil t)
     (require 'cl)
-    (defalias 'cl-case 'case)
-    (defalias 'cl-copy-list 'copy-list))
+    (defalias 'cl-case 'case))
   )
 
 (defconst solarized-description
@@ -93,7 +92,7 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
 (defun solarized-face-for-index (facespec index &optional light)
   "Creates a face from facespec where the colors use the names from
   `solarized-colors`."
-  (let ((new-fontspec (cl-copy-list facespec)))
+  (let ((new-fontspec (copy-sequence facespec)))
     (dolist (property '(:foreground :background :color))
       (let ((color-name (plist-get new-fontspec property)))
         (when color-name
