@@ -733,7 +733,13 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
                 (company-scrollbar-bg (,@bg-base02))
                 (company-preview (,@bg-green))
                 (company-preview-common (,@bg-base02))
-                (company-template-field (,@fg-base03 ,@bg-yellow)))))))
+                (company-template-field (,@fg-base03 ,@bg-yellow))
+                ;; hydra
+                (hydra-face-red (,@fmt-bold ,@fg-red))
+                (hydra-face-blue (,@fmt-bold ,@fg-blue))
+                (hydra-face-amaranth (,@fmt-bold ,@fg-orange))
+                (hydra-face-pink (,@fmt-bold ,@fg-magenta))
+                (hydra-face-teal (,@fmt-bold ,@fg-cyan)))))))
 
 ;;;###autoload
 (when (boundp 'custom-theme-load-path)
