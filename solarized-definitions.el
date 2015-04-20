@@ -739,7 +739,11 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
                 (hydra-face-blue (,@fmt-bold ,@fg-blue))
                 (hydra-face-amaranth (,@fmt-bold ,@fg-orange))
                 (hydra-face-pink (,@fmt-bold ,@fg-magenta))
-                (hydra-face-teal (,@fmt-bold ,@fg-cyan)))))))
+                (hydra-face-teal (,@fmt-bold ,@fg-cyan))
+                ;; guide-key
+                (guide-key/prefix-command-face (,@fg-blue))
+                (guide-key/highlight-command-face (,@fg-orange))
+                (guide-key/key-face (,@fg-green)))))))
 
 ;;;###autoload
 (when (boundp 'custom-theme-load-path)
