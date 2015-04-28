@@ -669,6 +669,11 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
                 (rainbow-delimiters-depth-7-face (:inherit outline-7))
                 (rainbow-delimiters-depth-8-face (:inherit outline-8))
                 (rainbow-delimiters-depth-9-face (,@fg-green))
+                ;; powerline
+                (powerline-active1 (,@fg-base00 :inherit mode-line))
+                (powerline-active2 (,@fg-base0 :inherit mode-line))
+                (powerline-inactive1 (,@fg-base02 ,@bg-base1 :inherit mode-line-inactive))
+                (powerline-inactive2 (,@fg-base01 :inherit mode-line-inactive))
                 ;; slime
                 (slime-error-face (,@fmt-revr ,@fg-red)) ; ErrorMsg
                 (slime-note-face (,@fg-yellow))
