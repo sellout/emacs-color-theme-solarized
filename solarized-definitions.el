@@ -1,8 +1,7 @@
 (eval-when-compile
   (unless (require 'cl-lib nil t)
     (require 'cl)
-    (defalias 'cl-case 'case)
-    (defalias 'cl-copy-list 'copy-list))
+    (defalias 'cl-case 'case))
   )
 
 (defconst solarized-description
@@ -93,7 +92,7 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
 (defun solarized-face-for-index (facespec index &optional light)
   "Creates a face from facespec where the colors use the names from
   `solarized-colors`."
-  (let ((new-fontspec (cl-copy-list facespec)))
+  (let ((new-fontspec (copy-sequence facespec)))
     (dolist (property '(:foreground :background :color))
       (let ((color-name (plist-get new-fontspec property)))
         (when color-name
@@ -739,7 +738,17 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
                 (company-scrollbar-bg (,@bg-base02))
                 (company-preview (,@bg-green))
                 (company-preview-common (,@bg-base02))
-                (company-template-field (,@fg-base03 ,@bg-yellow)))))))
+                (company-template-field (,@fg-base03 ,@bg-yellow))
+                ;; hydra
+                (hydra-face-red (,@fmt-bold ,@fg-red))
+                (hydra-face-blue (,@fmt-bold ,@fg-blue))
+                (hydra-face-amaranth (,@fmt-bold ,@fg-orange))
+                (hydra-face-pink (,@fmt-bold ,@fg-magenta))
+                (hydra-face-teal (,@fmt-bold ,@fg-cyan))
+                ;; guide-key
+                (guide-key/prefix-command-face (,@fg-blue))
+                (guide-key/highlight-command-face (,@fg-orange))
+                (guide-key/key-face (,@fg-green)))))))
 
 ;;;###autoload
 (when (boundp 'custom-theme-load-path)

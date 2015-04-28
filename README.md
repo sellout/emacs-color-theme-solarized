@@ -53,9 +53,9 @@ This allows you to have a mix of light and dark frames. I tend to use light fram
 ```common-lisp
 (add-hook 'after-make-frame-functions
           (lambda (frame)
-            (set-frame-parameter frame
-                                 'background-mode
-                                 (if (display-graphic-p frame) 'light 'dark))
+            (let ((mode (if (display-graphic-p frame) 'light 'dark)))
+              (set-frame-parameter frame 'background-mode mode)
+              (set-terminal-parameter frame 'background-mode mode))
             (enable-theme 'solarized)))
 ```
 
