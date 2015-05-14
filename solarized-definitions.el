@@ -302,6 +302,8 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
                          (diff-changed (,@fg-yellow ,@bg-base02))
                          (diff-removed (,@fg-red ,@bg-base02))
                          (diff-refine-change (,@fg-blue ,@bg-base02))))))
+                (diff-refine-added (:inherit diff-added ,@fmt-revr))
+                (diff-refine-removed (:inherit diff-removed ,@fmt-revr))
                 (diff-file-header (,@bg-back))
                 (diff-header (,@fg-base1 ,@bg-back))
                 ;; IDO
