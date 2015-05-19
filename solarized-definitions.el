@@ -750,7 +750,20 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
                 ;; guide-key
                 (guide-key/prefix-command-face (,@fg-blue))
                 (guide-key/highlight-command-face (,@fg-orange))
-                (guide-key/key-face (,@fg-green)))))))
+                (guide-key/key-face (,@fg-green))
+                ;; magit
+                (magit-log-sha1 (,@fg-red))
+                (magit-branch (,@fg-yellow))
+                (magit-tag (,@fg-green))
+                (magit-diff-file-header (,@fg-blue))
+                (magit-diff-hunk-header (:inherit default))
+                (magit-log-author (,@fg-cyan))
+                (magit-log-head-label-remote (,@fg-green))
+                (magit-log-head-label-tags (,@fg-orange))
+                (magit-log-head-label-local (,@fg-yellow))
+                (magit-log-head-label-head (,@fg-violet))
+                (magit-process-ok (,@fg-green :inherit magit-section-title))
+                (magit-process-ng (,@fg-red :inherit magit-section-title)))))))
 
 ;;;###autoload
 (when (boundp 'custom-theme-load-path)
