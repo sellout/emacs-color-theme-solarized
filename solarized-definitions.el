@@ -304,7 +304,8 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
                          (diff-refine-change (,@fg-blue ,@bg-base02))))))
                 (diff-refine-added (:inherit diff-added ,@fmt-revr))
                 (diff-refine-removed (:inherit diff-removed ,@fmt-revr))
-                (diff-file-header (,@bg-back))
+                (diff-file-header (:inherit default ,@fg-blue))
+                (diff-hunk-header (:inherit default))
                 (diff-header (,@fg-base1 ,@bg-back))
                 ;; IDO
                 (ido-only-match (,@fg-green))
@@ -755,8 +756,6 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
                 (magit-log-sha1 (,@fg-red))
                 (magit-branch (,@fg-yellow))
                 (magit-tag (,@fg-green))
-                (magit-diff-file-header (,@fg-blue))
-                (magit-diff-hunk-header (:inherit default))
                 (magit-log-author (,@fg-cyan))
                 (magit-log-head-label-remote (,@fg-green))
                 (magit-log-head-label-tags (,@fg-orange))
