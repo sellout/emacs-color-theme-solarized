@@ -732,10 +732,10 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
                 (term-color-white (,@fg-base00))
                 ;; company
                 (company-tooltip (,@fg-base00 ,@bg-base02))
-                (company-tooltip-selection (,@fg-base1 ,@bg-base02))
+                (company-tooltip-selection (,@fg-green ,@bg-base02))
                 (company-tooltip-mouse (,@fg-base1 ,@bg-base02))
-                (company-tooltip-common (,@fg-blue ,@bg-base02))
-                (company-tooltip-common-selection (,@fg-blue ,@bg-base01))
+                (company-tooltip-common (,@fg-blue ,@bg-base02 ,@fmt-undr))
+                (company-tooltip-common-selection (,@fg-green ,@bg-base02 ,@fmt-undr))
                 (company-tooltip-annotation (,@fg-yellow ,@bg-base02))
                 (company-scrollbar-fg (,@bg-base0))
                 (company-scrollbar-bg (,@bg-base02))
