@@ -762,7 +762,13 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
                 (magit-log-head-label-local (,@fg-yellow))
                 (magit-log-head-label-head (,@fg-violet))
                 (magit-process-ok (,@fg-green :inherit magit-section-title))
-                (magit-process-ng (,@fg-red :inherit magit-section-title)))))))
+                (magit-process-ng (,@fg-red :inherit magit-section-title))
+                ;; undo-tree
+                (undo-tree-visualizer-current-face (,@fg-orange))
+                (undo-tree-visualizer-default-face (:inherit shadow))
+                (undo-tree-visualizer-active-branch-face (:inherit default))
+                (undo-tree-visualizer-unmodified-face (,@fg-cyan))
+                (undo-tree-visualizer-register-face (,@fg-yellow)))))))
 
 ;;;###autoload
 (when (boundp 'custom-theme-load-path)
