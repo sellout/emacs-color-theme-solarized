@@ -1,3 +1,4 @@
+[![Stories in Ready](https://badge.waffle.io/sellout/emacs-color-theme-solarized.png?label=ready&title=Ready)](https://waffle.io/sellout/emacs-color-theme-solarized)
 Solarized Colorscheme for Emacs
 ===============================
 
