@@ -215,6 +215,8 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
           ;; FIXME: don’t hardcode the SRGB color names
           (fmt-curl-red    `(                        :underline (:color "#dc322f" :style wave)))
           (fmt-curl-yellow `(                        :underline (:color "#b58900" :style wave)))
+          (fmt-curl-magenta `(                       :underline (:color "#d33682" :style wave)))
+          (fmt-curl-cyan `(                          :underline (:color "#2aa198" :style wave)))
           (fmt-ital   `(              :slant ,italic))
           ;; FIXME: not quite the same
           (fmt-stnd   `(                                                   :inverse-video t))
@@ -700,6 +702,10 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
                 (whitespace-trailing (,@fmt-bold ,@fg-red ,@bg-base02))
                 (whitespace-highlight-face (,@fg-red ,@bg-blue))
                 (whitespace-line (,@fg-magenta))
+                ;; writegood
+                (writegood-weasels-face (,@fmt-curl-cyan ,@fg-cyan))
+                (writegood-passive-voice-face (,@fg-magenta))
+                (writegood-duplicates-face (:inherit error))
                 ;; rcirc
                 (rcirc-my-nick (,@fg-blue))
                 (rcirc-nick-in-message (,@fg-orange))
