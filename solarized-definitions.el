@@ -702,6 +702,7 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
                 (whitespace-trailing (,@fmt-bold ,@fg-red ,@bg-base02))
                 (whitespace-highlight-face (,@fg-red ,@bg-blue))
                 (whitespace-line (,@fg-magenta))
+                (whitespace-newline (:inherit shadow :slant normal))
                 ;; writegood
                 (writegood-weasels-face (,@fmt-curl-cyan ,@fg-cyan))
                 (writegood-passive-voice-face (,@fg-magenta))
