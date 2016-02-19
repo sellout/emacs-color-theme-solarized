@@ -774,7 +774,9 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
                 (undo-tree-visualizer-default-face (:inherit shadow))
                 (undo-tree-visualizer-active-branch-face (:inherit default))
                 (undo-tree-visualizer-unmodified-face (,@fg-cyan))
-                (undo-tree-visualizer-register-face (,@fg-yellow)))))))
+                (undo-tree-visualizer-register-face (,@fg-yellow))
+                ;; haskell
+                (haskell-keyword-face (,@fg-cyan)))))))
 
 ;;;###autoload
 (when (boundp 'custom-theme-load-path)
