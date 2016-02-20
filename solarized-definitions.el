@@ -777,7 +777,15 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
                 (undo-tree-visualizer-unmodified-face (,@fg-cyan))
                 (undo-tree-visualizer-register-face (,@fg-yellow))
                 ;; haskell
-                (haskell-keyword-face (,@fg-cyan)))))))
+                (haskell-keyword-face (,@fg-cyan))
+                ;; web-mode
+                (web-mode-current-column-highlight-face (,@bg-base02))
+                (web-mode-current-element-highlight-face (,@fg-magenta ,@bg-base02 :weight bold))
+                (web-mode-keyword-face (,@fg-green :weight bold))
+                (web-mode-constant-face (,@fg-violet))
+                (web-mode-html-tag-face (,@fg-blue :weight bold))
+                (web-mode-html-attr-name-face (,@fg-yellow))
+                (web-mode-html-attr-value-face (,@fg-orange)))))))
 
 ;;;###autoload
 (when (boundp 'custom-theme-load-path)
