@@ -430,8 +430,8 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
                 (outline-7 (,@fg-orange))
                 (outline-8 (,@fg-violet))
                 ;; show-paren - MatchParen
-                (show-paren-match (,@fmt-bold ,@fg-cyan ,@bg-base02))
-                (show-paren-mismatch (,@fmt-bold ,@fg-red ,@bg-base01))
+                (show-paren-match (,@fmt-bold ,@fg-magenta ,@bg-base02))
+                (show-paren-mismatch (,@fmt-revb ,@fg-red))
                 ;; speedbar
                 ;; (speedbar-button-face (,@fmt-none ,@fg-base1))
                 (speedbar-button-face
