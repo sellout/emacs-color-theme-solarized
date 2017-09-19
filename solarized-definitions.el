@@ -281,6 +281,8 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
                 (custom-link (,@fg-violet))
                 (custom-state (,@fg-green))
                 (custom-variable-tag (,@fg-base1))
+                ;; diary
+                (diary (,@fg-yellow))
                 ;; diff - DiffAdd, DiffChange, DiffDelete, and DiffText
                 ,@(cl-case solarized-diff-mode
                     (high
