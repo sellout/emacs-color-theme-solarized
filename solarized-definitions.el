@@ -323,9 +323,10 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
                 (dired-symlink (,@fg-green))
                 (dired-warning (,@fmt-bold ,@fg-red))
                 ;; IDO
+                (ido-first-match (,@fmt-bold ,@fg-green))
+                (ido-indicator (,@fmt-revr ,@fg-red))
                 (ido-only-match (,@fg-green))
                 (ido-subdir (,@fg-blue))
-                (ido-first-match (,@fmt-bold ,@fg-green))
                 ;; emacs-wiki
                 (emacs-wiki-bad-link-face (,@fmt-undr ,@fg-red))
                 (emacs-wiki-link-face (,@fmt-undr ,@fg-blue))
