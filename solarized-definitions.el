@@ -237,7 +237,7 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
                 (error (,@fmt-revr ,@fg-red))      ; ErrorMsg
                 (warning (,@fmt-bold ,@fg-red))    ; WarningMsg
                 (success (,@fg-blue))              ; MoreMsg
-                (escape-glyph-face (,@fg-red))
+                (escape-glyph (,@fg-red))
                 (fringe (,@fg-base01 ,@bg-base02))
                 (linum (,@fg-base01 ,@bg-base02))
                 (header-line (,@fg-base0 ,@bg-base02 ,@fmt-revbb)) ; Pmenu
@@ -287,23 +287,22 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
                      `((diff-added (,@fmt-revr ,@fg-green))
                        (diff-changed (,@fmt-revr ,@fg-yellow))
                        (diff-removed (,@fmt-revr ,@fg-red))
-                       (diff-refine-change
-                        (,@fmt-revr ,@fg-blue ,@bg-back))))
+                       (diff-refine-changed (,@fmt-revr ,@fg-blue ,@bg-back))))
                     (low
                      `((diff-added (,@fmt-undr ,@fg-green))
                        (diff-changed (,@fmt-undr ,@fg-yellow))
                        (diff-removed (,@fmt-bold ,@fg-red))
-                       (diff-refine-change (,@fmt-undr ,@fg-blue ,@bg-back))))
+                       (diff-refine-changed (,@fmt-undr ,@fg-blue ,@bg-back))))
                     (normal
                      (if window-system
                          `((diff-added (,@fmt-bold ,@fg-green ,@bg-base02))
                            (diff-changed (,@fmt-bold ,@fg-yellow ,@bg-base02))
                            (diff-removed (,@fmt-bold ,@fg-red ,@bg-base02))
-                           (diff-refine-change (,@fmt-bold ,@fg-blue ,@bg-base02)))
+                           (diff-refine-changed (,@fmt-bold ,@fg-blue ,@bg-base02)))
                        `((diff-added (,@fg-green ,@bg-base02))
                          (diff-changed (,@fg-yellow ,@bg-base02))
                          (diff-removed (,@fg-red ,@bg-base02))
-                         (diff-refine-change (,@fg-blue ,@bg-base02))))))
+                         (diff-refine-changed (,@fg-blue ,@bg-base02))))))
                 (diff-refine-added (:inherit diff-added ,@fmt-revr))
                 (diff-refine-removed (:inherit diff-removed ,@fmt-revr))
                 (diff-file-header (:inherit default ,@fg-blue))
