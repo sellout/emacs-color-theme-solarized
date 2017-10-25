@@ -249,9 +249,9 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
                 (menu (,@fg-base0 ,@bg-base02))
                 (minibuffer-prompt (,@fmt-bold ,@fg-cyan)) ; Question
                 (mode-line ; StatusLine
-                 (,@fg-base1 ,@bg-base02 ,@fmt-revbb :box nil))
+                 (,@fg-base03 ,@bg-base01 ,@fmt-revbb :box nil))
                 (mode-line-inactive    ; StatusLineNC
-                 (,@fg-base00 ,@bg-base02 ,@fmt-revbb :box nil))
+                 (,@fg-base03 ,@bg-base02 ,@fmt-revbb :box nil))
                 (region (,@fg-base01 ,@bg-base03 ,@fmt-revbb)) ; Visual
                 (secondary-selection (,@bg-base02))
                 (shadow (,@fg-base01))
