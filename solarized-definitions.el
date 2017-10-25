@@ -449,7 +449,7 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
                 (speedbar-tag-face (,@fmt-none ,@fg-blue))
                 ;; widgets
                 (widget-field
-                 (,@fg-base1 ,@bg-base02 :box (:line-width 1 :color base2)
+                 (,@fg-base1 ,@bg-base02 :box (:line-width 1 :color base02)
                              :inherit default))
                 (widget-single-line-field (:inherit widget-field))
                 ;; extra modules
