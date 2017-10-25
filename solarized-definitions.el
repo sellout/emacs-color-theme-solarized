@@ -281,6 +281,8 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
                 (custom-link (,@fg-violet))
                 (custom-state (,@fg-green))
                 (custom-variable-tag (,@fg-base1))
+                ;; diary
+                (diary (,@fg-yellow))
                 ;; diff - DiffAdd, DiffChange, DiffDelete, and DiffText
                 ,@(cl-case solarized-diff-mode
                     (high
@@ -306,13 +308,25 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
                          (diff-refine-change (,@fg-blue ,@bg-base02))))))
                 (diff-refine-added (:inherit diff-added ,@fmt-revr))
                 (diff-refine-removed (:inherit diff-removed ,@fmt-revr))
+                (diff-context (:inherit default))
                 (diff-file-header (:inherit default ,@fg-blue))
-                (diff-hunk-header (:inherit default))
                 (diff-header (,@fg-base1 ,@bg-back))
+                (diff-hunk-header (:inherit default))
+                ;; dired
+                (dired-directory (,@fg-blue))
+                (dired-flagged (,@fmt-revr ,@fg-red))
+                (dired-header (,@fg-yellow))
+                (dired-ignored (,@fg-base01))
+                (dired-mark (,@fg-cyan))
+                (dired-marked (,@fg-orange))
+                (dired-perm-write (,@fmt-ital ,@fg-base01))
+                (dired-symlink (,@fg-green))
+                (dired-warning (,@fmt-bold ,@fg-red))
                 ;; IDO
+                (ido-first-match (,@fmt-bold ,@fg-green))
+                (ido-indicator (,@fmt-revr ,@fg-red))
                 (ido-only-match (,@fg-green))
                 (ido-subdir (,@fg-blue))
-                (ido-first-match (,@fmt-bold ,@fg-green))
                 ;; emacs-wiki
                 (emacs-wiki-bad-link-face (,@fmt-undr ,@fg-red))
                 (emacs-wiki-link-face (,@fmt-undr ,@fg-blue))
@@ -358,6 +372,9 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
                 (font-lock-other-emphasized-face (,@fmt-bldi ,@fg-violet))
                 (font-lock-regexp-grouping-backslash (,@fmt-none ,@fg-yellow))
                 ;; info
+                (info-header-xref(,@fg-violet))
+                (info-menu-star(,@fg-red))
+                (info-node(,@fmt-bldi ,@fg-red))
                 (info-xref (:inherit link))
                 (info-xref-visited (:inherit link-visited))
                 ;; org
@@ -429,6 +446,9 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
                 (outline-6 (,@fg-base01))
                 (outline-7 (,@fg-orange))
                 (outline-8 (,@fg-violet))
+                ;; sh
+                (sh-heredoc (,@fg-yellow))
+                (sh-quoted-exec (,@fg-magenta))
                 ;; show-paren - MatchParen
                 (show-paren-match (,@fmt-bold ,@fg-cyan ,@bg-base02))
                 (show-paren-mismatch (,@fmt-bold ,@fg-red ,@bg-base01))
