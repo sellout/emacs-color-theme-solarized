@@ -747,7 +747,7 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
                 (company-scrollbar-fg (,@bg-base0))
                 (company-scrollbar-bg (,@bg-base02))
                 (company-preview (,@bg-green))
-                (company-preview-common (,@bg-base02))
+                (company-preview-common (,@fg-base01 ,@bg-base02))
                 (company-template-field (,@fg-base03 ,@bg-yellow))
                 ;; hydra
                 (hydra-face-red (,@fmt-bold ,@fg-red))
