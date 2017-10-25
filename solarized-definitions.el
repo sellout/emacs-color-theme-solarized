@@ -405,6 +405,7 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
                 (org-formula (:weight bold :slant italic ,@fg-red))
                 (org-code (,@fg-base01))
                 (org-document-title (,@fmt-bold ,@fg-cyan))
+                (org-document-info (,@fg-cyan))
                 (org-document-info-keyword (,@fg-base01))
                 (org-block (,@fg-base01))
                 (org-verbatim (,@fmt-undr ,@fg-base01))
