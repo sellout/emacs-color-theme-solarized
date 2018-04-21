@@ -584,6 +584,7 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
                 (helm-bookmark-man (,@fg-violet))
                 (helm-bookmark-w3m (,@fg-yellow))
                 (helm-bookmarks-su (,@fg-orange))
+                (helm-buffer-directory (:inherit helm-ff-directory))
                 (helm-buffer-not-saved (,@fg-orange))
                 (helm-buffer-process (,@fg-magenta))
                 (helm-buffer-saved-out (,@fmt-revr ,@fg-red ,@bg-back))
@@ -628,6 +629,10 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
                 (helm-time-zone-home (,@fg-red))
                 (helm-visible-mark (,@fmt-bold ,@bg-back ,@fg-magenta))
                 (helm-w3m-bookmarks (:inherit helm-bookmark-w3m))
+                (helm-swoop-target-line-face (:inherit region))
+                (helm-swoop-target-line-block-face (:inherit helm-match-item))
+                (helm-swoop-target-word-face (:inherit helm-match))
+                (helm-swoop-line-number-face (:inherit helm-grep-lineno))
                 ;; markdown
                 (markdown-bold-face (:inherit bold))
                 (markdown-header-delimiter-face (:inherit shadow))
