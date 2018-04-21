@@ -468,8 +468,10 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
                 (ace-jump-face-background (,@fmt-none ,@fg-base01))
                 (ace-jump-face-foreground (,@fmt-bold ,@fg-red))
                 ;; bm visual bookmarks
-                (bm-fringe-face (,@bg-orange ,@fg-base03))
-                (bm-fringe-persistent-face (,@bg-blue ,@fg-base03))
+                (bm-face (,@bg-base02 nil))
+                (bm-persistent-face (,@bg-base02 nil))
+                (bm-fringe-face (,@bg-base01 nil))
+                (bm-fringe-persistent-face (,@bg-base01 nil))
                 ;; Flymake
                 (flymake-errline (,@fmt-bold ,@fg-red)) ; Error
                 (flymake-warnline (,@fmt-bold ,@fg-red))
