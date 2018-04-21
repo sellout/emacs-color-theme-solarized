@@ -785,6 +785,10 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
                 (undo-tree-visualizer-register-face (,@fg-yellow))
                 ;; haskell
                 (haskell-keyword-face (,@fg-cyan))
+                ;; which-func
+                (which-func (,@bg-base02))
+                ;; rbenv
+                (rbenv-active-ruby-face (,@bg-base02))
                 ;; dired+
                 (diredp-compressed-file-suffix (,@fg-blue))
                 (diredp-date-time (,@fg-cyan))
