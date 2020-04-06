@@ -240,7 +240,8 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
                 (escape-glyph-face (,@fg-red))
                 (fringe (,@fg-base01 ,@bg-base02))
                 (linum (,@fg-base01 ,@bg-base02))
-                (header-line (,@fg-base0 ,@bg-base02 ,@fmt-revbb)) ; Pmenu
+                (header-line (,@fg-base0 ,@bg-base02 ,@fmt-revbb
+                                         :box (:line-width 2 :color base02))) ; Pmenu
                 (highlight (,@bg-base02))
                 (hl-line (:underline ,opt-under ,@bg-base02)) ; CursorLine
                 (isearch (,@fmt-stnd ,@fg-orange ,@bg-back)) ; IncSearch
@@ -248,10 +249,19 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
                 (lazy-highlight (:inherit match)) ; Search
                 (menu (,@fg-base0 ,@bg-base02))
                 (minibuffer-prompt (,@fmt-bold ,@fg-cyan)) ; Question
-                (mode-line ; StatusLine
-                 (,@fg-base1 ,@bg-base02 ,@fmt-revbb :box nil))
-                (mode-line-inactive    ; StatusLineNC
-                 (,@fg-base00 ,@bg-base02 ,@fmt-revbb :box nil))
+                ;; (mode-line ; StatusLine
+                ;;  (,@fg-base1 ,@bg-base02 ,@fmt-revbb :box nil))
+                ;; (mode-line-inactive    ; StatusLineNC
+                ;;  (,@fg-base00 ,@bg-base02 ,@fmt-revbb :box nil))
+                (mode-line (,@fg-base1 ,@bg-base02
+                                       :box (:line-width 1 :color base0)))
+                (mode-line-buffer-id (,@fmt-bold ,@fg-magenta :background nil))
+                (mode-line-inactive (:inherit mode-line
+                                              ,@fg-base01
+                                              ,@bg-base02
+                                              :box (:line-width 1 :color base01)))
+		(mode-line-emphasis (,@fmt-ital))
+		(mode-line-highlight (,@fmt-bold ,@fg-violet :box nil))
                 (region (,@fg-base01 ,@bg-base03 ,@fmt-revbb)) ; Visual
                 (secondary-selection (,@bg-base02))
                 (shadow (,@fg-base01))
@@ -776,6 +786,26 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
                 (undo-tree-visualizer-active-branch-face (:inherit default))
                 (undo-tree-visualizer-unmodified-face (,@fg-cyan))
                 (undo-tree-visualizer-register-face (,@fg-yellow))
+                ;; mu4e
+                (mu4e-header-highlight-face (:underline nil :inherit region))
+                (mu4e-header-marks-face (:underline nil ,@fg-yellow))
+                (mu4e-flagged-face (,@fg-orange :inherit nil))
+                (mu4e-replied-face (,@fg-blue :inherit nil))
+                (mu4e-unread-face (,@fg-green :inherit nil))
+                (mu4e-cited-1-face (:inherit outline-1))
+                (mu4e-cited-2-face (:inherit outline-2))
+                (mu4e-cited-3-face (:inherit outline-3))
+                (mu4e-cited-4-face (:inherit outline-4))
+                (mu4e-cited-5-face (:inherit outline-5))
+                (mu4e-cited-6-face (:inherit outline-6))
+                (mu4e-cited-7-face (:inherit outline-7))
+                (mu4e-ok-face (,@fg-green))
+                (mu4e-view-contact-face (:inherit nil ,@fg-yellow))
+                (mu4e-view-link-face (:inherit link))
+                (mu4e-view-url-number-face (:inherit nil ,@fg-cyan))
+                (mu4e-view-attach-number-face (:inherit nil ,@fg-orange))
+                (mu4e-highlight-face (:inherit highlight))
+                (mu4e-title-face (:inherit nil ,@fg-green))
                 ;; haskell
                 (haskell-keyword-face (,@fg-cyan)))))))
 
