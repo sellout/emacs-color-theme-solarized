@@ -252,7 +252,7 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
                  (,@fg-base1 ,@bg-base02 ,@fmt-revbb :box nil))
                 (mode-line-inactive    ; StatusLineNC
                  (,@fg-base00 ,@bg-base02 ,@fmt-revbb :box nil))
-                (region (,@fg-base01 ,@bg-base03 ,@fmt-revbb)) ; Visual
+                (region (:background base02 :foreground nil :inverse-video nil))
                 (secondary-selection (,@bg-base02))
                 (shadow (,@fg-base01))
                 (trailing-whitespace (,@fmt-revr ,@fg-red))
@@ -624,7 +624,7 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
                 (helm-selection (:inherit region))
                 (helm-selection-line (:inherit secondary-selection))
                 (helm-separator (,@fg-red))
-                (helm-source-header (:inherit helm-header))
+                (helm-source-header (,@fmt-bold ,@fg-cyan))
                 (helm-time-zone-current (,@fg-green))
                 (helm-time-zone-home (,@fg-red))
                 (helm-visible-mark (,@fmt-bold ,@bg-back ,@fg-magenta))
