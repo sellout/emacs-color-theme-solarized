@@ -252,7 +252,7 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
                  (,@fg-base1 ,@bg-base02 ,@fmt-revbb :box nil))
                 (mode-line-inactive    ; StatusLineNC
                  (,@fg-base00 ,@bg-base02 ,@fmt-revbb :box nil))
-                (region (,@fg-base01 ,@bg-base03 ,@fmt-revbb)) ; Visual
+                (region (:background base02 :foreground nil :inverse-video nil))
                 (secondary-selection (,@bg-base02))
                 (shadow (,@fg-base01))
                 (trailing-whitespace (,@fmt-revr ,@fg-red))
@@ -468,8 +468,10 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
                 (ace-jump-face-background (,@fmt-none ,@fg-base01))
                 (ace-jump-face-foreground (,@fmt-bold ,@fg-red))
                 ;; bm visual bookmarks
-                (bm-fringe-face (,@bg-orange ,@fg-base03))
-                (bm-fringe-persistent-face (,@bg-blue ,@fg-base03))
+                (bm-face (,@bg-base02 nil))
+                (bm-persistent-face (,@bg-base02 nil))
+                (bm-fringe-face (,@bg-base01 nil))
+                (bm-fringe-persistent-face (,@bg-base01 nil))
                 ;; Flymake
                 (flymake-errline (,@fmt-bold ,@fg-red)) ; Error
                 (flymake-warnline (,@fmt-bold ,@fg-red))
@@ -582,6 +584,7 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
                 (helm-bookmark-man (,@fg-violet))
                 (helm-bookmark-w3m (,@fg-yellow))
                 (helm-bookmarks-su (,@fg-orange))
+                (helm-buffer-directory (:inherit helm-ff-directory))
                 (helm-buffer-not-saved (,@fg-orange))
                 (helm-buffer-process (,@fg-magenta))
                 (helm-buffer-saved-out (,@fmt-revr ,@fg-red ,@bg-back))
@@ -621,11 +624,15 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
                 (helm-selection (:inherit region))
                 (helm-selection-line (:inherit secondary-selection))
                 (helm-separator (,@fg-red))
-                (helm-source-header (:inherit helm-header))
+                (helm-source-header (,@fmt-bold ,@fg-cyan))
                 (helm-time-zone-current (,@fg-green))
                 (helm-time-zone-home (,@fg-red))
                 (helm-visible-mark (,@fmt-bold ,@bg-back ,@fg-magenta))
                 (helm-w3m-bookmarks (:inherit helm-bookmark-w3m))
+                (helm-swoop-target-line-face (:inherit region))
+                (helm-swoop-target-line-block-face (:inherit helm-match-item))
+                (helm-swoop-target-word-face (:inherit helm-match))
+                (helm-swoop-line-number-face (:inherit helm-grep-lineno))
                 ;; markdown
                 (markdown-bold-face (:inherit bold))
                 (markdown-header-delimiter-face (:inherit shadow))
@@ -777,7 +784,36 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
                 (undo-tree-visualizer-unmodified-face (,@fg-cyan))
                 (undo-tree-visualizer-register-face (,@fg-yellow))
                 ;; haskell
-                (haskell-keyword-face (,@fg-cyan)))))))
+                (haskell-keyword-face (,@fg-cyan))
+                ;; which-func
+                (which-func (,@bg-base02))
+                ;; rbenv
+                (rbenv-active-ruby-face (,@bg-base02))
+                ;; dired+
+                (diredp-compressed-file-suffix (,@fg-blue))
+                (diredp-date-time (,@fg-cyan))
+                (diredp-deletion (,@fg-red ,@fmt-bold :inverse-video t))
+                (diredp-deletion-file-name (:inherit highlight ,@fg-red))
+                (diredp-dir-name (:inherit dired-directory))
+                (diredp-dir-heading (:inherit dired-header ,@fmt-bold))
+                (diredp-dir-priv (,@fg-cyan :background nil))
+                (diredp-exec-priv (,@fg-blue :background nil))
+                (diredp-executable-tag (,@fg-red :background nil))
+                (diredp-file-name (:inherit default))
+                (diredp-file-suffix (,@fg-green))
+                (diredp-flag-mark (,@fg-green :inverse-video t))
+                (diredp-flag-mark-line (:background nil :inherit highlight ,@fmt-bold))
+                (diredp-ignored-file-name (:inherit dired-ignored))
+                (diredp-link-priv (,@fg-violet :background nil))
+                (diredp-mode-line-flagged (,@fg-red))
+                (diredp-mode-line-marked (,@fg-green))
+                (diredp-no-priv (:background nil))
+                (diredp-number (,@fg-yellow))
+                (diredp-other-priv (,@fg-magenta :background nil))
+                (diredp-rare-priv (,@fg-red :background nil))
+                (diredp-read-priv (,@fg-green :background nil))
+                (diredp-symlink (:inherit dired-symlink))
+                (diredp-write-priv (,@fg-yellow :background nil)))))))
 
 ;;;###autoload
 (when (boundp 'custom-theme-load-path)
