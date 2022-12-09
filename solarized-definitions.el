@@ -814,7 +814,15 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
                 (diredp-rare-priv (,@fg-red :background nil))
                 (diredp-read-priv (,@fg-green :background nil))
                 (diredp-symlink (:inherit dired-symlink))
-                (diredp-write-priv (,@fg-yellow :background nil)))))))
+                (diredp-write-priv (,@fg-yellow :background nil))
+                ;; ein (emacs ipython notebook)
+                (ein:basecell-input-area-face (,@bg-back))
+                (ein:codecell-input-area-face (,@bg-back))
+                (ein:htmlcell-input-area-face (,@bg-back))
+                (ein:markdowncell-input-area-face (,@bg-back))
+                (ein:rawcell-input-area-face (,@bg-back))
+                (ein:cell-output-area (:inherit region))
+                (ein:cell-output-area-error (:inherit region)))))))
 
 ;;;###autoload
 (when (boundp 'custom-theme-load-path)
