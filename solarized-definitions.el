@@ -595,6 +595,7 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
                 (helm-ff-directory (,@bg-back ,@fg-blue))
                 (helm-ff-executable (,@fmt-bold ,@fg-green))
                 (helm-ff-file (:inherit default))
+                (helm-ff-file-extension (,@fg-yellow))
                 (helm-ff-invalid-symlink (,@bg-base02 ,@fg-red))
                 (helm-ff-prefix (,@fmt-revr ,@fg-yellow))
                 (helm-ff-symlink (,@fmt-bold ,@fg-cyan))
