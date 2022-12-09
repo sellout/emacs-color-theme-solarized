@@ -165,7 +165,7 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
         (italic      (if solarized-italic 'italic 'unspecified)))
     (cond ((eq 'high solarized-contrast)
            (let ((orig-base3 base3))
-             (rotatef base01 base00 base0 base1 base2 base3)
+             (cl-rotatef base01 base00 base0 base1 base2 base3)
              (setf base3 orig-base3)))
           ((eq 'low solarized-contrast)
            (setf back      base02
