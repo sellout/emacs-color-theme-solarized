@@ -222,8 +222,6 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
           (fmt-revb   `(:weight ,bold                                      :inverse-video t))
           (fmt-revbb  `(:weight ,bright-bold                               :inverse-video t))
           (fmt-revbbu `(:weight ,bright-bold         :underline ,underline :inverse-video t)))
-      (eval-after-load 'ansi-color
-        '(setf ansi-color-names-vector [,base02 ,red ,green ,yellow ,blue ,magenta ,cyan ,base00]))
       (mapcar (lambda (face) (apply 'create-face-spec face))
               `(;; basic
                 (default (,@fg-base0 ,@bg-back))   ; Normal
@@ -720,15 +718,23 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
                 (rst-level-4 (:inherit outline-4))
                 (rst-level-5 (:inherit outline-5))
                 (rst-level-6 (:inherit outline-6))
-                ;;ansi-term
-                (term-color-black (,@fg-base02))
-                (term-color-red (,@fg-red))
-                (term-color-green (,@fg-green))
-                (term-color-yellow (,@fg-yellow))
-                (term-color-blue (,@fg-blue))
-                (term-color-magenta (,@fg-magenta))
-                (term-color-cyan (,@fg-cyan))
-                (term-color-white (,@fg-base00))
+                ;;ansi-color
+                (ansi-color-cyan (,@fg-cyan ,@bg-cyan))
+                (ansi-color-blue (,@fg-blue ,@bg-blue))
+                (ansi-color-magenta (,@fg-magenta ,@bg-magenta))
+                (ansi-color-red (,@fg-red ,@bg-red))
+                (ansi-color-yellow (,@fg-yellow ,@bg-yellow))
+                (ansi-color-green (,@fg-green ,@bg-green))
+                (ansi-color-black (,@fg-base02 ,@bg-base02))
+                (ansi-color-white (,@fg-base2 ,@bg-base2))
+                (ansi-color-bright-cyan (,@fg-base1 ,@bg-base1))
+                (ansi-color-bright-blue (,@fg-base0 ,@bg-base0))
+                (ansi-color-bright-magenta (,@fg-violet ,@bg-violet))
+                (ansi-color-bright-red (,@fg-orange ,@bg-orange))
+                (ansi-color-bright-yellow (,@fg-base00 ,@bg-base00))
+                (ansi-color-bright-green (,@fg-base01 ,@bg-base01))
+                (ansi-color-bright-black (,@fg-base03 ,@bg-base03))
+                (ansi-color-bright-white (,@fg-base3 ,@bg-base3))
                 ;; company
                 (company-tooltip (,@fg-base00 ,@bg-base02))
                 (company-tooltip-selection (,@fg-base1 ,@bg-base02))
@@ -762,6 +768,14 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
      (deftheme ,name ,description)
      (apply 'custom-theme-set-faces
             ',name ,color-definitions)
+     (custom-theme-set-variables
+      ',name
+      ;; This is obsolete, but something might still be referencing it.
+      '(ansi-color-names-vector
+        ,(apply #'vector
+                (mapcar (lambda (color-name)
+                          (nth 1 (assoc color-name solarized-colors)))
+                        '(base02 red green yellow blue magenta cyan base2)))))
      (provide-theme ',name)))
 
 (provide 'solarized-definitions)
