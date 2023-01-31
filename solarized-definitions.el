@@ -1,24 +1,27 @@
+;;; solarized-definitions.el --- Solarized theme color assignments -*- lexical-binding:t -*-
+
 (eval-when-compile
   (unless (require 'cl-lib nil t)
     (require 'cl)
-    (defalias 'cl-case 'case))
-  )
+    (defalias 'cl-case 'case)))
 
 (defconst solarized-description
   "Color theme by Ethan Schoonover, created 2011-03-24.
 Ported to Emacs by Greg Pfeil, http://ethanschoonover.com/solarized.")
 
 (defcustom solarized-termcolors 16
-  "This is set to 16 by default, meaning that Solarized will attempt to use the
+  "The number of colors to use on 256-color terminals.
+This is set to 16 by default, meaning that Solarized will attempt to use the
 standard 16 colors of your terminal emulator. You will need to set those colors
 to the correct Solarized values either manually or by importing one of the many
-colorscheme available for popular terminal emulators and Xdefaults."
+colorschemes available for popular terminal emulators and Xdefaults."
   :type 'integer
   :options '(16 256)
   :group 'solarized)
 
 (defcustom solarized-degrade nil
-  "For test purposes only; when in GUI mode, forces Solarized to use the 256
+  "Use only 256 colors on graphic displays.
+For test purposes only; when in GUI mode, forces Solarized to use the 256
 degraded color mode to test the approximate color values for accuracy."
   :type 'boolean
   :group 'solarized)
@@ -45,9 +48,10 @@ degraded color mode to test the approximate color values for accuracy."
   :group 'solarized)
 
 (defcustom solarized-contrast 'normal
-  "Stick with normal! It's been carefully tested. Setting this option to high or
-low does use the same Solarized palette but simply shifts some values up or
-down in order to expand or compress the tonal range displayed."
+  "Adjust the contrast level of Solarized.
+Stick with normal! It's been carefully tested. Setting this option to high or
+low does use the same Solarized palette but simply shifts some values up or down
+in order to expand or compress the tonal range displayed."
   :type 'symbol
   :options '(high normal low)
   :group 'solarized)
@@ -57,10 +61,12 @@ down in order to expand or compress the tonal range displayed."
       (not (and (boundp 'ns-use-srgb-colorspace)
                 ns-use-srgb-colorspace))
     nil)
-  "Emacs bug #8402 results in incorrect color handling on Macs. If this is t
-\(the default on Macs), Solarized works around it with alternative colors.
-However, these colors are not totally portable, so you may be able to edit
-the \"Gen RGB\" column in solarized-definitions.el to improve them further."
+  "Whether sRGB is broken on your system.
+If you are on a Mac and have either Emacs prior to 24.4 or Mac OS prior to 10.7
+this should be t (the default is usually correct). Solarized works around this
+issue by using with alternative colors. However, these colors are not totally
+portable, so you may be able to edit the “Gen RGB” column in
+solarized-definitions.el to improve them further."
   :type 'boolean
   :group 'solarized)
 
@@ -85,13 +91,14 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
     (blue    "#268bd2" "#2075c7" "#0087ff" "blue"          "blue")
     (cyan    "#2aa198" "#259185" "#00afaf" "cyan"          "cyan")
     (green   "#859900" "#728a05" "#5f8700" "green"         "green"))
-  "This is a table of all the colors used by the Solarized color theme. Each
-   column is a different set, one of which will be chosen based on term
-   capabilities, etc.")
+  "This is a table of all the colors used by the Solarized color theme.
+Each column is a different set, one of which will be chosen based on term
+capabilities, etc.")
 
 (defun solarized-face-for-index (facespec index &optional light)
-  "Creates a face from facespec where the colors use the names from
-  `solarized-colors`."
+  "Replace the Solarized symbols in FACESPEC with the colors in column INDEX.
+The colors are looked up in ‘solarized-colors’, and base colors are inverted if
+LIGHT is non-nil."
   (let ((new-fontspec (copy-sequence facespec)))
     (dolist (property '(:foreground :background :color))
       (let ((color-name (plist-get new-fontspec property)))
@@ -130,6 +137,9 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
     new-fontspec))
 
 (defun create-face-spec (name facespec)
+  "Generate a full face-spec for face NAME from the Solarized FACESPEC.
+This generates the spec across a variety of displays from the FACESPEC, which
+contains Solarized symbols."
   `(,name ((((background dark) (type graphic))
             ,(solarized-face-for-index facespec
                                        (cond (solarized-degrade     3)
@@ -158,6 +168,7 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
             ,(solarized-face-for-index facespec 5 t)))))
 
 (defun solarized-color-definitions ()
+  "Produces the set of face-specs for all faces defined by this theme."
   (let ((bold        (if solarized-bold 'bold        'unspecified))
         (bright-bold (if solarized-bold 'unspecified 'bold))
         (underline   (if solarized-underline t 'unspecified))
@@ -764,10 +775,12 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
                (file-name-as-directory (file-name-directory load-file-name))))
 
 (defmacro create-solarized-theme (name description color-definitions)
+  "Define the theme from the provided pieces.
+NAME is a bare symbol, DESCRIPTION is the text that will be presented to users,
+and COLOR-DEFINITIONS is the list of face-specs that comprise the theme."
   `(progn
      (deftheme ,name ,description)
-     (apply 'custom-theme-set-faces
-            ',name ,color-definitions)
+     (apply #'custom-theme-set-faces ',name ,color-definitions)
      (custom-theme-set-variables
       ',name
       ;; This is obsolete, but something might still be referencing it.
@@ -779,3 +792,4 @@ the \"Gen RGB\" column in solarized-definitions.el to improve them further."
      (provide-theme ',name)))
 
 (provide 'solarized-definitions)
+;;; solarized-definitions.el ends here
