@@ -1,4 +1,3 @@
-[![Stories in Ready](https://badge.waffle.io/sellout/emacs-color-theme-solarized.png?label=ready&title=Ready)](https://waffle.io/sellout/emacs-color-theme-solarized)
 Solarized Colorscheme for Emacs
 ===============================
 
@@ -7,8 +6,8 @@ Stolen from Ethan Schoonover <es@ethanschoonover.com> by Greg Pfeil <greg@techno
 Visit the [Solarized homepage]
 ------------------------------
 
-See the [Solarized homepage] for screenshots, 
-details and colorscheme versions for Vim, Mutt, popular terminal emulators and 
+See the [Solarized homepage] for screenshots,
+details and colorscheme versions for Vim, Mutt, popular terminal emulators and
 other applications.
 
 Screenshots
@@ -19,7 +18,7 @@ Screenshots
 Downloads
 ---------
 
-If you have come across this colorscheme via the [Emacs-only repository] on 
+If you have come across this colorscheme via the [Emacs-only repository] on
 github, see the link above to the Solarized homepage or visit the main [Solarized repository].
 
 The [Emacs-only repository] is kept in sync with the main [Solarized repository]. Issues, bug reports, changelogs that are not specific to the Emacs implementation should be submitted to the main [Solarized repository].
@@ -73,7 +72,7 @@ a set compatible with the terminal's default limited 256 color palette
 (whereas by using the terminal's 16 ANSI color values, you would
 see the correct, specific values for the Solarized palette).
 
-Again, I recommend just changing your terminal colors to Solarized values 
+Again, I recommend just changing your terminal colors to Solarized values
 either manually or via one of the many terminal schemes available for import.
 
 Advanced Configuration
@@ -116,21 +115,21 @@ but does include several variables that can be customized.
 
 *   solarized-bold | solarized-underline | solarized-italic
 
-    If you wish to stop Solarized from displaying bold, underlined or 
+    If you wish to stop Solarized from displaying bold, underlined or
     italicized typefaces, simply set the appropriate variable to `nil`.
 
 *   solarized-contrast
 
-    Stick with normal! It's been carefully tested. Setting this option to high 
+    Stick with normal! It's been carefully tested. Setting this option to high
     or low does use the same Solarized palette but simply shifts some values
     up or down in order to expand or compress the tonal range displayed.
 
 *   solarized-visibility
 
     Special characters such as trailing whitespace, tabs, newlines, when
-    displayed using `:set list` can be set to one of three levels depending on 
+    displayed using `:set list` can be set to one of three levels depending on
     your needs. Default value is `normal` with `high` and `low` options.
-    
+
 *   solarized-broken-srgb
 
     Emacs [bug #8402](http://debbugs.gnu.org/cgi/bugreport.cgi?bug=8402)
@@ -148,7 +147,7 @@ I have attempted to modularize the creation of Emacs colorschemes in this script
 The Values
 ----------
 
-L\*a\*b values are canonical (White D65, Reference D50), other values are 
+L\*a\*b values are canonical (White D65, Reference D50), other values are
 matched in sRGB space.
 
     SOLARIZED HEX     16/8 TERMCOL  XTERM/HEX   L*A*B      RGB         HSB
@@ -169,7 +168,7 @@ matched in sRGB space.
     blue      #268bd2  4/4 blue      33 #0087ff 55 -10 -45  38 139 210 205  82  82
     cyan      #2aa198  6/6 cyan      37 #00afaf 60 -35 -05  42 161 152 175  74  63
     green     #859900  2/2 green     64 #5f8700 60 -20  65 133 153   0  68 100  60
-    
+
 ### Bug Reporting
 
 Here are some things to keep in mind when submitting a bug report:
