@@ -112,10 +112,8 @@ LIGHT is non-nil."
                          (and (eq property :foreground)
                               (member color-name '(base0 base1)))))
             (setf color-name nil))
-          (when (eq color-name 'back)
-            (setf color-name 'base03))
           (when light
-            (setf color-name
+            (setq color-name
                   (cl-case color-name
                     (base03 'base3)
                     (base02 'base2)
@@ -125,7 +123,20 @@ LIGHT is non-nil."
                     (base1 'base01)
                     (base2 'base02)
                     (base3 'base03)
+                    (back 'base03)
                     (otherwise color-name))))
+          (cond ((eq 'high solarized-contrast)
+                 (setq color-name
+                       (cl-case color-name
+                         (base01 'base00)
+                         (base00 'base0)
+                         (base0 'base1)
+                         (base1 'base2)
+                         (base2 'base3)
+                         ; (back 'back)
+                         (otherwise color-name))))
+                ((eq 'low solarized-contrast)
+                 (if (eq color-name 'back) (setq color-name 'base02))))
           (plist-put new-fontspec
                      property
                      (nth index (assoc color-name solarized-colors))))))
@@ -141,46 +152,39 @@ LIGHT is non-nil."
 This generates the spec across a variety of displays from the FACESPEC, which
 contains Solarized symbols."
   `(,name ((((background dark) (type graphic))
-            ,(solarized-face-for-index facespec
-                                       (cond (solarized-degrade     3)
-                                             (solarized-broken-srgb 2)
-                                             (t                     1))))
+            ,@(solarized-face-for-index facespec
+                                        (cond (solarized-degrade     3)
+                                              (solarized-broken-srgb 2)
+                                              (t                     1))))
            (((background dark) (type tty) (min-colors 256))
-            ,(solarized-face-for-index facespec
-                                       (if (= solarized-termcolors 16) 4 3)))
+            ,@(solarized-face-for-index facespec
+                                        (if (= solarized-termcolors 16) 4 3)))
            (((background dark) (type tty) (min-colors  16))
-            ,(solarized-face-for-index facespec 4))
+            ,@(solarized-face-for-index facespec 4))
            (((background dark) (type tty) (min-colors   8))
-            ,(solarized-face-for-index facespec 5))
+            ,@(solarized-face-for-index facespec 5))
            (((background light) (type graphic))
-            ,(solarized-face-for-index facespec
-                                       (cond (solarized-degrade     3)
-                                             (solarized-broken-srgb 2)
-                                             (t                     1))
-                                       t))
+            ,@(solarized-face-for-index facespec
+                                        (cond (solarized-degrade     3)
+                                              (solarized-broken-srgb 2)
+                                              (t                     1))
+                                        t))
            (((background light) (type tty) (min-colors 256))
-            ,(solarized-face-for-index facespec
-                                       (if (= solarized-termcolors 16) 4 3)
-                                       t))
+            ,@(solarized-face-for-index facespec
+                                        (if (= solarized-termcolors 16) 4 3)
+                                        t))
            (((background light) (type tty) (min-colors  16))
-            ,(solarized-face-for-index facespec 4 t))
+            ,@(solarized-face-for-index facespec 4 t))
            (((background light) (type tty) (min-colors   8))
-            ,(solarized-face-for-index facespec 5 t)))))
+            ,@(solarized-face-for-index facespec 5 t)))))
 
 (defun solarized-color-definitions ()
   "Produces the set of face-specs for all faces defined by this theme."
   (let ((bold        (if solarized-bold 'bold        'unspecified))
         (bright-bold (if solarized-bold 'unspecified 'bold))
         (underline   (if solarized-underline t 'unspecified))
-        (opt-under   'unspecified)
+        (opt-under   (if (eq solarized-contrast 'low) t 'unspecified))
         (italic      (if solarized-italic 'italic 'unspecified)))
-    (cond ((eq 'high solarized-contrast)
-           (let ((orig-base3 base3))
-             (rotatef base01 base00 base0 base1 base2 base3)
-             (setf base3 orig-base3)))
-          ((eq 'low solarized-contrast)
-           (setf back      base02
-                 opt-under t)))
     (let ((bg-back   '(:background back))
           (bg-base03 '(:background base03))
           (bg-base02 '(:background base02))
