@@ -26,7 +26,6 @@ The [Emacs-only repository] is kept in sync with the main [Solarized repository]
 [Solarized homepage]:    http://ethanschoonover.com/solarized
 [Solarized repository]:  https://github.com/altercation/solarized
 [Emacs-only repository]:  https://github.com/sellout/emacs-color-theme-solarized
-[color-theme]: http://www.nongnu.org/color-theme
 
 Installation & Usage
 --------------------
@@ -35,13 +34,6 @@ Installation & Usage
 
 1. Add the `emacs-color-theme-solarized` directory to your Emacs `custom-theme-load-path`.
 2. Add `(load-theme 'solarized t)` to your Emacs init file.
-3. Reload the init file, or restart Emacs.
-
-### [color-theme] \(pre-Emacs 24\)
-
-1. Download and install [color-theme].
-2. Add the `emacs-color-theme-solarized` directory to your Emacs `load-path`.
-3. Add `(require 'color-theme-solarized)` and `(color-theme-solarized)` to your Emacs init file (usually `~/.emacs`).
 3. Reload the init file, or restart Emacs.
 
 ### all versions
@@ -180,7 +172,6 @@ matched in sRGB space.
 Here are some things to keep in mind when submitting a bug report:
 
 *   include the output of `M-x version` in your report,
-*   mention whether you’re using color-theme or the Emacs 24 theme,
 *   include the names of Emacs faces that you have a problem with (`M-: (face-at-point)` and `M-x describe-face` will tell you the name of the face at point),
 *   include the output of `M-: (display-color-cells)` (that lets us know which set of colors your Emacs is using),
 *   screenshots are very helpful (before and after if you made a change),
