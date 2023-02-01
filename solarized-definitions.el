@@ -230,6 +230,8 @@ contains Solarized symbols."
           ;; FIXME: don’t hardcode the SRGB color names
           (fmt-curl-red    `(                        :underline (:color "#dc322f" :style wave)))
           (fmt-curl-yellow `(                        :underline (:color "#b58900" :style wave)))
+          (fmt-curl-magenta `(                       :underline (:color "#d33682" :style wave)))
+          (fmt-curl-cyan `(                          :underline (:color "#2aa198" :style wave)))
           (fmt-ital   `(              :slant ,italic))
           ;; FIXME: not quite the same
           (fmt-stnd   `(                                                   :inverse-video t))
@@ -317,7 +319,8 @@ contains Solarized symbols."
                          (diff-refine-change (,@fg-blue ,@bg-base02))))))
                 (diff-refine-added (:inherit diff-added ,@fmt-revr))
                 (diff-refine-removed (:inherit diff-removed ,@fmt-revr))
-                (diff-file-header (,@bg-back))
+                (diff-file-header (:inherit default ,@fg-blue))
+                (diff-hunk-header (:inherit default))
                 (diff-header (,@fg-base1 ,@bg-back))
                 ;; IDO
                 (ido-only-match (,@fg-green))
@@ -712,6 +715,11 @@ contains Solarized symbols."
                 (whitespace-trailing (,@fmt-bold ,@fg-red ,@bg-base02))
                 (whitespace-highlight-face (,@fg-red ,@bg-blue))
                 (whitespace-line (,@fg-magenta))
+                (whitespace-newline (:inherit shadow :slant normal))
+                ;; writegood
+                (writegood-weasels-face (,@fmt-curl-cyan ,@fg-cyan))
+                (writegood-passive-voice-face (,@fg-magenta))
+                (writegood-duplicates-face (:inherit error))
                 ;; rcirc
                 (rcirc-my-nick (,@fg-blue))
                 (rcirc-nick-in-message (,@fg-orange))
@@ -752,10 +760,10 @@ contains Solarized symbols."
                 (ansi-color-bright-white (,@fg-base3 ,@bg-base3))
                 ;; company
                 (company-tooltip (,@fg-base00 ,@bg-base02))
-                (company-tooltip-selection (,@fg-base1 ,@bg-base02))
+                (company-tooltip-selection (,@fg-green ,@bg-base02))
                 (company-tooltip-mouse (,@fg-base1 ,@bg-base02))
-                (company-tooltip-common (,@fg-blue ,@bg-base02))
-                (company-tooltip-common-selection (,@fg-blue ,@bg-base01))
+                (company-tooltip-common (,@fg-blue ,@bg-base02 ,@fmt-undr))
+                (company-tooltip-common-selection (,@fg-green ,@bg-base02 ,@fmt-undr))
                 (company-tooltip-annotation (,@fg-yellow ,@bg-base02))
                 (company-scrollbar-fg (,@bg-base0))
                 (company-scrollbar-bg (,@bg-base02))
@@ -771,7 +779,26 @@ contains Solarized symbols."
                 ;; guide-key
                 (guide-key/prefix-command-face (,@fg-blue))
                 (guide-key/highlight-command-face (,@fg-orange))
-                (guide-key/key-face (,@fg-green)))))))
+                (guide-key/key-face (,@fg-green))
+                ;; magit
+                (magit-log-sha1 (,@fg-red))
+                (magit-branch (,@fg-yellow))
+                (magit-tag (,@fg-green))
+                (magit-log-author (,@fg-cyan))
+                (magit-log-head-label-remote (,@fg-green))
+                (magit-log-head-label-tags (,@fg-orange))
+                (magit-log-head-label-local (,@fg-yellow))
+                (magit-log-head-label-head (,@fg-violet))
+                (magit-process-ok (,@fg-green :inherit magit-section-title))
+                (magit-process-ng (,@fg-red :inherit magit-section-title))
+                ;; undo-tree
+                (undo-tree-visualizer-current-face (,@fg-orange))
+                (undo-tree-visualizer-default-face (:inherit shadow))
+                (undo-tree-visualizer-active-branch-face (:inherit default))
+                (undo-tree-visualizer-unmodified-face (,@fg-cyan))
+                (undo-tree-visualizer-register-face (,@fg-yellow))
+                ;; haskell
+                (haskell-keyword-face (,@fg-cyan)))))))
 
 ;;;###autoload
 (when (boundp 'custom-theme-load-path)
