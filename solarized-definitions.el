@@ -140,10 +140,17 @@ LIGHT is non-nil."
           (plist-put new-fontspec
                      property
                      (nth index (assoc color-name solarized-colors))))))
-    (when (plist-get new-fontspec :box)
+    (when (consp (plist-get new-fontspec :box))
       (plist-put new-fontspec
                  :box
-                 (solarized-face-for-index (plist-get new-fontspec :box) index
+                 (solarized-face-for-index (plist-get new-fontspec :box)
+                                           index
+                                           light)))
+    (when (consp (plist-get new-fontspec :underline))
+      (plist-put new-fontspec
+                 :underline
+                 (solarized-face-for-index (plist-get new-fontspec :underline)
+                                           index
                                            light)))
     new-fontspec))
 
@@ -227,11 +234,10 @@ contains Solarized symbols."
           (fmt-undb   `(:weight ,bold                :underline ,underline))
           (fmt-undi   `(              :slant ,italic :underline ,underline))
           (fmt-uopt   `(                             :underline ,opt-under))
-          ;; FIXME: don’t hardcode the SRGB color names
-          (fmt-curl-red    `(                        :underline (:color "#dc322f" :style wave)))
-          (fmt-curl-yellow `(                        :underline (:color "#b58900" :style wave)))
-          (fmt-curl-magenta `(                       :underline (:color "#d33682" :style wave)))
-          (fmt-curl-cyan `(                          :underline (:color "#2aa198" :style wave)))
+          (fmt-curl-red    '(                        :underline (:color red :style wave)))
+          (fmt-curl-violet '(                        :underline (:color violet :style wave)))
+          (fmt-curl-cyan   '(                        :underline (:color cyan :style wave)))
+          (fmt-curl-yellow '(                        :underline (:color yellow :style wave)))
           (fmt-ital   `(              :slant ,italic))
           ;; FIXME: not quite the same
           (fmt-stnd   `(                                                   :inverse-video t))
