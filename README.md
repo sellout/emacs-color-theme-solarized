@@ -50,13 +50,19 @@ To switch between the light and dark variations of Solarized, set the frame’s 
 
 This allows you to have a mix of light and dark frames. I tend to use light frames in the GUI and dark frames in my terminal, so I use the following code:
 
-```common-lisp
+```emacs-lisp
 (add-hook 'after-make-frame-functions
           (lambda (frame)
-            (let ((mode (if (display-graphic-p frame) 'light 'dark)))
-              (set-frame-parameter frame 'background-mode mode)
-              (set-terminal-parameter frame 'background-mode mode))
-            (enable-theme 'solarized)))
+            (solarized-update-background-mode
+             (if (display-graphic-p frame) 'light 'dark)
+             (list frame))))
+```
+Similarly, you can switch between background modes with `M-x solarized-toggle-background-mode`.
+
+If you use [Emacs Plus](https://github.com/d12frosted/homebrew-emacs-plus), you can keep the mode in sync with the OS with
+```emacs-lisp
+(add-hook 'ns-system-appearance-change-functions
+          #'solarized-update-background-mode)
 ```
 
 ### IMPORTANT NOTE FOR TERMINAL USERS:
