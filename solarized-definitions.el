@@ -1,4 +1,4 @@
-;;; solarized-definitions.el --- Solarized theme color assignments -*- lexical-binding:t -*-
+;;; solarized-definitions.el --- Solarized theme color assignments -*- lexical-binding: t -*-
 
 (eval-when-compile
   (unless (require 'cl-lib nil t)
@@ -95,6 +95,34 @@ solarized-definitions.el to improve them further."
 Each column is a different set, one of which will be chosen based on term
 capabilities, etc.")
 
+(defun solarized--current-colors (light)
+  "Attempt to mimic the Vim version’s color configuration.
+If LIGHT is non-nil, invert the base faces."
+  (let ((current-colors
+         (cons
+          (cons 'back (copy-sequence (cdr (assoc 'base03 solarized-colors))))
+          (mapcar #'copy-sequence (copy-sequence solarized-colors)))))
+    (if light
+        (setf (cdr (assoc 'base03 current-colors)) (cdr (assoc 'base3 solarized-colors))
+              (cdr (assoc 'base02 current-colors)) (cdr (assoc 'base2 solarized-colors))
+              (cdr (assoc 'base01 current-colors)) (cdr (assoc 'base1 solarized-colors))
+              (cdr (assoc 'base00 current-colors)) (cdr (assoc 'base0 solarized-colors))
+              (cdr (assoc 'base0 current-colors)) (cdr (assoc 'base00 solarized-colors))
+              (cdr (assoc 'base1 current-colors)) (cdr (assoc 'base01 solarized-colors))
+              (cdr (assoc 'base2 current-colors)) (cdr (assoc 'base02 solarized-colors))
+              (cdr (assoc 'base3 current-colors)) (cdr (assoc 'base03 solarized-colors))
+              (cdr (assoc 'back current-colors)) (cdr (assoc 'base03 current-colors))))
+    (cond ((eq 'high solarized-contrast)
+           (setf (cdr (assoc 'base01 current-colors)) (cdr (assoc 'base00 current-colors))
+                 (cdr (assoc 'base00 current-colors)) (cdr (assoc 'base0 current-colors))
+                 (cdr (assoc 'base0 current-colors)) (cdr (assoc 'base1 current-colors))
+                 (cdr (assoc 'base1 current-colors)) (cdr (assoc 'base2 current-colors))
+                 (cdr (assoc 'base2 current-colors)) (cdr (assoc 'base3 current-colors))
+                 (cdr (assoc 'back current-colors)) (cdr (assoc 'back current-colors))))
+          ((eq 'low solarized-contrast)
+           (setf (cdr (assoc 'back current-colors)) (cdr (assoc 'base02 current-colors)))))
+    current-colors))
+
 (defun solarized-face-for-index (facespec index &optional light)
   "Replace the Solarized symbols in FACESPEC with the colors in column INDEX.
 The colors are looked up in ‘solarized-colors’, and base colors are inverted if
@@ -102,44 +130,20 @@ LIGHT is non-nil."
   (let ((new-fontspec (copy-sequence facespec)))
     (dolist (property '(:foreground :background :color))
       (let ((color-name (plist-get new-fontspec property)))
-        (when color-name
-          ;; NOTE: We try to turn an 8-color term into a 10-color term by not
-          ;;       using default background and foreground colors, expecting the
-          ;;       user to have the right colors set for them.
-          (when (and (= index 5)
-                     (or (and (eq property :background)
-                              (eq color-name 'back))
-                         (and (eq property :foreground)
-                              (member color-name '(base0 base1)))))
-            (setf color-name nil))
-          (when light
-            (setq color-name
-                  (cl-case color-name
-                    (base03 'base3)
-                    (base02 'base2)
-                    (base01 'base1)
-                    (base00 'base0)
-                    (base0 'base00)
-                    (base1 'base01)
-                    (base2 'base02)
-                    (base3 'base03)
-                    (back 'base03)
-                    (otherwise color-name))))
-          (cond ((eq 'high solarized-contrast)
-                 (setq color-name
-                       (cl-case color-name
-                         (base01 'base00)
-                         (base00 'base0)
-                         (base0 'base1)
-                         (base1 'base2)
-                         (base2 'base3)
-                         ; (back 'back)
-                         (otherwise color-name))))
-                ((eq 'low solarized-contrast)
-                 (if (eq color-name 'back) (setq color-name 'base02))))
+        (when (and color-name (symbolp color-name))
           (plist-put new-fontspec
                      property
-                     (nth index (assoc color-name solarized-colors))))))
+                     ;; NOTE: We try to turn an 8-color term into a 10-color term by not
+                     ;;       using default background and foreground colors, expecting the
+                     ;;       user to have the right colors set for them.
+                     (unless (and (= index 5)
+                                  (or (and (eq property :background)
+                                           (eq color-name 'back))
+                                      (and (eq property :foreground)
+                                           (member color-name '(base0 base1)))))
+                       (nth index
+                            (assoc color-name
+                                   (solarized--current-colors light))))))))
     (when (consp (plist-get new-fontspec :box))
       (plist-put new-fontspec
                  :box
@@ -154,36 +158,45 @@ LIGHT is non-nil."
                                            light)))
     new-fontspec))
 
+(defun dark-and-light (display plist index)
+  "Return a list of faces, distinguishing between dark and light if necessary."
+  (let ((dark (solarized-face-for-index plist index))
+        (light (solarized-face-for-index plist index t)))
+    (if (equal dark light)
+        (list (list display dark))
+      (list (list (cons '(background dark) display) dark)
+            (list (cons '(background light) display) light)))))
+
+(defun 8-and-16 (plist)
+  "Return a list of faces, distinguishing between dark and light if necessary."
+  (let ((eight (dark-and-light '() plist 5))
+        (sixteen (dark-and-light '() plist 4)))
+    (append
+     (unless (equal eight sixteen)
+       (mapcar (lambda (spec)
+                 (setf (car spec)
+                       (append '((type tty) (min-colors 16)) (car spec)))
+                 spec)
+               sixteen))
+     (mapcar (lambda (spec)
+               (setf (car spec)
+                     (append '((type tty) (min-colors 8)) (car spec)))
+               spec)
+             eight))))
+
 (defun create-face-spec (name facespec)
   "Generate a full face-spec for face NAME from the Solarized FACESPEC.
 This generates the spec across a variety of displays from the FACESPEC, which
 contains Solarized symbols."
-  `(,name ((((background dark) (type graphic))
-            ,@(solarized-face-for-index facespec
-                                        (cond (solarized-degrade     3)
-                                              (solarized-broken-srgb 2)
-                                              (t                     1))))
-           (((background dark) (type tty) (min-colors 256))
-            ,@(solarized-face-for-index facespec
-                                        (if (= solarized-termcolors 16) 4 3)))
-           (((background dark) (type tty) (min-colors  16))
-            ,@(solarized-face-for-index facespec 4))
-           (((background dark) (type tty) (min-colors   8))
-            ,@(solarized-face-for-index facespec 5))
-           (((background light) (type graphic))
-            ,@(solarized-face-for-index facespec
-                                        (cond (solarized-degrade     3)
-                                              (solarized-broken-srgb 2)
-                                              (t                     1))
-                                        t))
-           (((background light) (type tty) (min-colors 256))
-            ,@(solarized-face-for-index facespec
-                                        (if (= solarized-termcolors 16) 4 3)
-                                        t))
-           (((background light) (type tty) (min-colors  16))
-            ,@(solarized-face-for-index facespec 4 t))
-           (((background light) (type tty) (min-colors   8))
-            ,@(solarized-face-for-index facespec 5 t)))))
+  `(,name (,@(dark-and-light '((type graphic))
+                             facespec
+                             (cond (solarized-degrade     3)
+                                   (solarized-broken-srgb 2)
+                                   (t                     1)))
+           ;; only produce 256-color term-specific settings if ‘solarized-termcolors’ is 256
+           ,@(when (= solarized-termcolors 256)
+               (dark-and-light '((type tty) (min-colors 256)) facespec 3))
+           ,@(8-and-16 facespec))))
 
 (defun solarized-color-definitions ()
   "Produces the set of face-specs for all faces defined by this theme."
@@ -817,18 +830,20 @@ contains Solarized symbols."
   "Define the theme from the provided pieces.
 NAME is a bare symbol, DESCRIPTION is the text that will be presented to users,
 and COLOR-DEFINITIONS is the list of face-specs that comprise the theme."
-  `(progn
-     (deftheme ,name ,description)
-     (apply #'custom-theme-set-faces ',name ,color-definitions)
+  `(let ((name ,name)
+         (description ,description)
+         (color-definitions ,color-definitions))
+     (custom-declare-theme name (custom-make-theme-feature name) description)
+     (apply #'custom-theme-set-faces name color-definitions)
      (custom-theme-set-variables
-      ',name
+      name
       ;; This is obsolete, but something might still be referencing it.
       '(ansi-color-names-vector
         ,(apply #'vector
                 (mapcar (lambda (color-name)
                           (nth 1 (assoc color-name solarized-colors)))
                         '(base02 red green yellow blue magenta cyan base2)))))
-     (provide-theme ',name)))
+     (provide-theme name)))
 
 (provide 'solarized-definitions)
 ;;; solarized-definitions.el ends here
