@@ -285,26 +285,26 @@ Inspired by `org-combine-plists'."
             (fmt-revb  (plist-merge NONE reverse bold))
             (fmt-revbb (plist-merge NONE reverse bright-bold))
 
-            ;; TODO: instead of checking `window-system`, generate multiple
+            ;; TODO: instead of checking ‘window-system’, generate multiple
             ;;       face-spec elements.
             (sp-none                      '())
-            (sp-back    (if window-system '(:color back) '()))
-            (sp-base03  (if window-system '(:color base03) '()))
-            (sp-base02  (if window-system '(:color base02) '()))
-            (sp-base01  (if window-system '(:color base01) '()))
-            (sp-base00  (if window-system '(:color base00) '()))
-            (sp-base0   (if window-system '(:color base0) '()))
-            (sp-base1   (if window-system '(:color base1) '()))
-            (sp-base2   (if window-system '(:color base2) '()))
-            (sp-base3   (if window-system '(:color base3) '()))
-            (sp-green   (if window-system '(:color green) '()))
-            (sp-yellow  (if window-system '(:color yellow) '()))
-            (sp-orange  (if window-system '(:color orange) '()))
-            (sp-red     (if window-system '(:color red) '()))
+            (sp-back    (if window-system '(:color back)    '()))
+            (sp-base03  (if window-system '(:color base03)  '()))
+            (sp-base02  (if window-system '(:color base02)  '()))
+            (sp-base01  (if window-system '(:color base01)  '()))
+            (sp-base00  (if window-system '(:color base00)  '()))
+            (sp-base0   (if window-system '(:color base0)   '()))
+            (sp-base1   (if window-system '(:color base1)   '()))
+            (sp-base2   (if window-system '(:color base2)   '()))
+            (sp-base3   (if window-system '(:color base3)   '()))
+            (sp-green   (if window-system '(:color green)   '()))
+            (sp-yellow  (if window-system '(:color yellow)  '()))
+            (sp-orange  (if window-system '(:color orange)  '()))
+            (sp-red     (if window-system '(:color red)     '()))
             (sp-magenta (if window-system '(:color magenta) '()))
-            (sp-violet  (if window-system '(:color violet) '()))
-            (sp-blue    (if window-system '(:color blue) '()))
-            (sp-cyan    (if window-system '(:color cyan) '())))
+            (sp-violet  (if window-system '(:color violet)  '()))
+            (sp-blue    (if window-system '(:color blue)    '()))
+            (sp-cyan    (if window-system '(:color cyan)    '())))
         (cl-flet ((fmt-undr   (sp) (plist-merge NONE         (underline sp)))
                   (fmt-undb   (sp) (plist-merge NONE         (underline sp) bold))
                   (fmt-undi   (sp) (plist-merge NONE         (underline sp)))
@@ -463,10 +463,7 @@ Inspired by `org-combine-plists'."
                     (org-headline-done (,@fg-base01))
                     (org-priority (,@fmt-ital ,@fg-base01))
                     (org-checkbox (,@fmt-bold))
-                    (org-table (,@fg-cyan))
                     (org-formula (,@fmt-bldi ,@fg-red))
-                    (org-code (,@fg-base01))
-                    (org-document-title (,@fmt-bold ,@fg-cyan))
                     (org-document-info (,@fg-cyan))
                     (org-document-info-keyword (,@fg-base01))
                     (org-block (,@fg-base01))
@@ -481,8 +478,6 @@ Inspired by `org-combine-plists'."
                     (org-agenda-restriction-lock (,@fmt-revr ,@fg-base03 ,@bg-cyan))
                     (org-time-grid (,@fg-yellow))
                     (org-latex-and-related (,@fg-orange))
-                    ;; table
-                    (table-cell (,@fg-blue ,@bg-none ,@fmt-none)) ; pandocTable
                     ;; show-paren
                     (show-paren-match    (,@fmt-bold ,@fg-cyan ,@bg-base01))
                     (show-paren-mismatch (,@fmt-bold ,@fg-red  ,@bg-base01)) ; MatchParen
@@ -550,6 +545,7 @@ Inspired by `org-combine-plists'."
                     (magenta (,@fg-magenta))
                     (prompt (,@fmt-bold ,@fg-cyan ,@bg-none)) ; Question
                     (red (,@fg-red))
+                    (table (,@fg-blue ,@bg-none ,@fmt-none)) ; pandocTable
                     (text-verbatim (,@fg-yellow ,@bg-none ,@fmt-none)) ; pandocVerbatimBlock
                     (white (,@fg-base2))
                     (yellow (,@fg-yellow))
