@@ -392,7 +392,7 @@ Inspired by `org-combine-plists'."
                              (diff-refine-added (,@fmt-none ,@fg-blue ,@bg-base02))
                              (diff-refine-changed (,@fmt-none ,@fg-blue ,@bg-base02))
                              (diff-refine-removed (,@fmt-none ,@fg-blue ,@bg-base02)))))) ; sp-blue
-                    (diff-file-header (:inherit () ,@fg-blue))
+                    (diff-file-header (,@fg-blue))
                     (diff-header (,@fg-base1 ,@bg-back))
                     ;; IDO
                     (ido-only-match (,@fg-green))
@@ -430,6 +430,8 @@ Inspired by `org-combine-plists'."
                     (font-lock-exit-face (,@fmt-none ,@fg-red))
                     (font-lock-other-emphasized-face (,@fmt-bldi ,@fg-violet))
                     (font-lock-regexp-grouping-backslash (,@fmt-none ,@fg-yellow))
+                    ;; help
+                    (help-key-binding (,@fmt-none ,@fg-orange))
                     ;; org
                     (org-block-background (,@bg-base02))
                     (org-hide (,@fg-base03))
@@ -651,7 +653,6 @@ Inspired by `org-combine-plists'."
                     (helm-ls-git-modified-not-staged-face (,@fmt-ital ,@fg-base01))
                     (helm-ls-git-renamed-modified-face (,@fg-green))
                     (helm-ls-git-untracked-face (,@fg-red))
-                    (helm-M-x-key (,@fmt-none ,@fg-orange))
                     (helm-moccur-buffer (,@(fmt-undr ()) ,@fg-cyan))
                     (helm-separator (,@fg-red))
                     (helm-time-zone-current (,@fg-green))
@@ -759,7 +760,6 @@ Inspired by `org-combine-plists'."
                     ;; guide-key
                     (guide-key/prefix-command-face (,@fg-blue))
                     (guide-key/highlight-command-face (,@fg-orange))
-                    (guide-key/key-face (,@fg-green))
                     ;; magit
                     (magit-log-sha1 (,@fg-red))
                     (magit-branch (,@fg-yellow))
