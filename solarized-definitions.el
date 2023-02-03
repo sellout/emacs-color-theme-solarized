@@ -4,6 +4,7 @@
   (unless (require 'cl-lib nil t)
     (require 'cl)
     (defalias 'cl-case 'case)))
+(require 'interim-faces)
 
 (defconst solarized-description
   "Color theme by Ethan Schoonover, created 2011-03-24.
@@ -329,21 +330,16 @@ Inspired by `org-combine-plists'."
                     (highlight (,@bg-base02))
                     (hl-line (,@(fmt-uopt sp-base1) ,@fg-none ,@bg-base02)) ; CursorLine
                     (isearch (,@fmt-stnd ,@fg-orange ,@bg-none)) ; IncSearch
-                    (isearch-fail (:inherit (error)))
-                    (lazy-highlight (:inherit (match)))
                     (menu (,@fg-base0 ,@bg-base02))
-                    (minibuffer-prompt (,@fmt-bold ,@fg-cyan ,@bg-none)) ; Question
                     (mode-line (,@fg-base1 ,@bg-base02 ,@fmt-revbb)) ; StatusLine
                     (mode-line-inactive (,@fg-base00 ,@bg-base02 ,@fmt-revbb)) ; StatusLineNC
-                    (mode-line-buffer-id (:weight bold :inherit (mode-line)))
-                    (mode-line-buffer-id-inactive (:weight bold :inherit (mode-line-inactive)))
+                    ;; NB: gets layered on mode-line, so shouldn’t inherit.
+                    (mode-line-buffer-id (:weight bold))
                     (region (,@fg-base01 ,@bg-base03 ,@fmt-revbb)) ; Visual
                     (secondary-selection (,@bg-base02))
                     (shadow (,@fg-base01))
                     (trailing-whitespace (,@fmt-revr ,@fg-red))
                     (vertical-border (,@fg-base0))
-                    ;; comint
-                    (comint-highlight-prompt (,@fg-blue))
                     ;; compilation
                     (compilation-info (,@fmt-bold ,@fg-green))
                     (compilation-warning (,@fmt-bold ,@fg-orange))
@@ -359,11 +355,9 @@ Inspired by `org-combine-plists'."
                     (custom-changed (,@fmt-revr ,@fg-blue ,@bg-base3))
                     (custom-comment (,@fg-base1 ,@bg-base02))
                     (custom-comment-tag (,@fg-base1 ,@bg-base02))
-                    (custom-documentation (:inherit ()))
                     (custom-group-tag (,@fg-base1))
                     (custom-group-tag-1 (,@fmt-bold ,@fg-base1))
                     (custom-invalid (,@fmt-revr ,@fg-red ,@bg-back))
-                    (custom-link (:inherit (link)))
                     (custom-state (,@fg-green))
                     (custom-variable-tag (,@fg-base1))
                     ;; diff - DiffAdd, DiffChange, DiffDelete, and DiffText
@@ -372,12 +366,16 @@ Inspired by `org-combine-plists'."
                          `((diff-added (,@fmt-revr ,@fg-green ,@bg-none))
                            (diff-changed (,@fmt-revr ,@fg-yellow ,@bg-none))
                            (diff-removed (,@fmt-revr ,@fg-red ,@bg-none))
-                           (diff-refine-changed (,@fmt-revr ,@fg-blue ,@bg-none))))
+                           (diff-refine-added (,@fmt-revr ,@fg-blue ,@bg-none))
+                           (diff-refine-changed (,@fmt-revr ,@fg-blue ,@bg-none))
+                           (diff-refine-removed (,@fmt-revr ,@fg-blue ,@bg-none))))
                         (low
                          `((diff-added (,@(fmt-undr sp-green) ,@fg-green ,@bg-none))
                            (diff-changed (,@(fmt-undr sp-yellow) ,@fg-yellow ,@bg-none))
                            (diff-removed (,@fmt-bold ,@fg-red ,@bg-none))
-                           (diff-refine-changed (,@(fmt-undr sp-blue) ,@fg-blue ,@bg-none))))
+                           (diff-refine-added (,@(fmt-undr sp-blue) ,@fg-blue ,@bg-none))
+                           (diff-refine-changed (,@(fmt-undr sp-blue) ,@fg-blue ,@bg-none))
+                           (diff-refine-removed (,@(fmt-undr sp-blue) ,@fg-blue ,@bg-none))))
                         (normal
                          ;; TODO: Handle this by creating separate face-specs for
                          ;;       ‘graphic’ and ‘tty’ displays.
@@ -385,24 +383,21 @@ Inspired by `org-combine-plists'."
                              `((diff-added (,@fmt-bold ,@fg-green ,@bg-base02)) ; sp-green
                                (diff-changed (,@fmt-bold ,@fg-yellow ,@bg-base02)) ; sp-yellow
                                (diff-removed (,@fmt-bold ,@fg-red ,@bg-base02))
-                               (diff-refine-changed (,@fmt-bold ,@fg-blue ,@bg-base02))) ; sp-blue
+                               (diff-refine-added (,@fmt-bold ,@fg-blue ,@bg-base02))
+                               (diff-refine-changed (,@fmt-bold ,@fg-blue ,@bg-base02))
+                               (diff-refine-removed (,@fmt-bold ,@fg-blue ,@bg-base02))) ; sp-blue
                            `((diff-added (,@fmt-none ,@fg-green ,@bg-base02))    ; sp-green
                              (diff-changed (,@fmt-none ,@fg-yellow ,@bg-base02)) ; sp-yellow
                              (diff-removed (,@fmt-none ,@fg-red ,@bg-base02))
-                             (diff-refine-changed (,@fmt-none ,@fg-blue ,@bg-base02)))))) ; sp-blue
-                    (diff-refine-added (:inherit (diff-added) ,@fmt-revr))
-                    (diff-refine-removed (:inherit (diff-removed) ,@fmt-revr))
+                             (diff-refine-added (,@fmt-none ,@fg-blue ,@bg-base02))
+                             (diff-refine-changed (,@fmt-none ,@fg-blue ,@bg-base02))
+                             (diff-refine-removed (,@fmt-none ,@fg-blue ,@bg-base02)))))) ; sp-blue
                     (diff-file-header (:inherit () ,@fg-blue))
-                    (diff-hunk-header (:inherit ()))
                     (diff-header (,@fg-base1 ,@bg-back))
                     ;; IDO
                     (ido-only-match (,@fg-green))
                     (ido-subdir (,@fg-blue))
                     (ido-first-match (,@fmt-bold ,@fg-green))
-                    ;; emacs-wiki
-                    (emacs-wiki-bad-link-face (,@(fmt-undr ()) ,@fg-red))
-                    (emacs-wiki-link-face (:inherit (org-link)))
-                    (emacs-wiki-verbatim-face (:inherit (org-verbatim)))
                     ;; eshell
                     (eshell-ls-archive (,@fg-magenta))
                     (eshell-ls-backup (,@fg-yellow))
@@ -418,18 +413,14 @@ Inspired by `org-combine-plists'."
                     (eshell-prompt (,@fmt-bold ,@fg-green))
                     ;; font-lock
                     (font-lock-builtin-face           (,@fmt-none ,@fg-green  ,@bg-none)) ; Statement
-                    (font-lock-comment-face           (,@fmt-ital ,@fg-base01 ,@bg-none)) ; Comment
                     (font-lock-constant-face          (,@fmt-none ,@fg-cyan   ,@bg-none)) ; Constant
+                    (font-lock-doc-face               (,@fmt-ital ,@fg-base01 ,@bg-none)) ; Comment
                     (font-lock-function-name-face     (,@(link font-lock-variable-name-face))) ; Function
                     (font-lock-keyword-face           (,@(link font-lock-builtin-face)))  ; Keyword
                     (font-lock-string-face            (,@(link font-lock-constant-face))) ; String
                     (font-lock-type-face              (,@fmt-none ,@fg-yellow ,@bg-none)) ; Type
                     (font-lock-variable-name-face     (,@fmt-none ,@fg-blue   ,@bg-none)) ; Identifier
                     (font-lock-warning-face           (,@fmt-bold ,@fg-red    ,@bg-none)) ; Error
-                    (font-lock-doc-face               (:inherit (font-lock-comment-face)))
-                    (font-lock-doc-string-face        (:inherit (font-lock-string-face))) ; (XEmacs-only)
-                    (font-lock-color-constant-face    (:inherit (font-lock-comment-face)))
-                    (font-lock-comment-delimiter-face (:inherit (font-lock-comment-face)))
                     (font-lock-preprocessor-face      (,@fmt-none ,@fg-orange ,@bg-none)) ; PreProc
                     (font-lock-reference-face (,@fmt-none ,@fg-cyan))
                     (font-lock-negation-char-face (,@fmt-none ,@fg-red))
@@ -439,9 +430,6 @@ Inspired by `org-combine-plists'."
                     (font-lock-exit-face (,@fmt-none ,@fg-red))
                     (font-lock-other-emphasized-face (,@fmt-bldi ,@fg-violet))
                     (font-lock-regexp-grouping-backslash (,@fmt-none ,@fg-yellow))
-                    ;; info
-                    (info-xref (:inherit (link)))
-                    (info-xref-visited (:inherit (link-visited)))
                     ;; org
                     (org-block-background (,@bg-base02))
                     (org-hide (,@fg-base03))
@@ -455,22 +443,12 @@ Inspired by `org-combine-plists'."
                     (org-started-kwd-face (,@fg-yellow ,@bg-base03))
                     (org-cancelled-kwd-face (,@fg-green ,@bg-base03))
                     (org-delegated-kwd-face (,@fg-cyan ,@bg-base03))
-                    (org-default (:inherit ()))
-                    (org-level-1 (:inherit (outline-1)))
-                    (org-level-2 (:inherit (outline-2)))
-                    (org-level-3 (:inherit (outline-3)))
-                    (org-level-4 (:inherit (outline-4)))
-                    (org-level-5 (:inherit (outline-5)))
-                    (org-level-6 (:inherit (outline-6)))
-                    (org-level-7 (:inherit (outline-7)))
-                    (org-level-8 (:inherit (outline-8)))
                     (org-special-keyword (,@fmt-ital ,@fg-base01))
                     (org-drawer (,@fmt-bold ,@fg-blue))
                     (org-column (,@fmt-revr ,@fg-cyan))
                     (org-column-title (,@fmt-bold ,@fmt-revr))
                     (org-warning (,@fmt-bold ,@fg-red))
                     (org-archived (,@fg-base01))
-                    (org-link (:inherit (link)))
                     (org-footnote (,@fg-green ,@bg-none ,@fmt-none)) ; pandocFootnote
                     (org-ellipses (,@fg-yellow :strike-through t))
                     (org-target (,@(fmt-undr ())))
@@ -503,15 +481,6 @@ Inspired by `org-combine-plists'."
                     (org-latex-and-related (,@fg-orange))
                     ;; table
                     (table-cell (,@fg-blue ,@bg-none ,@fmt-none)) ; pandocTable
-                    ;; outline - pandocBlockQuoteLeader[1–6]
-                    (outline-1 (,@fg-blue   ,@bg-none ,@fmt-none))
-                    (outline-2 (,@fg-cyan   ,@bg-none ,@fmt-none))
-                    (outline-3 (,@fg-yellow ,@bg-none ,@fmt-none))
-                    (outline-4 (,@fg-red    ,@bg-none ,@fmt-none))
-                    (outline-5 (,@fg-base0  ,@bg-none ,@fmt-none))
-                    (outline-6 (,@fg-base01 ,@bg-none ,@fmt-none))
-                    (outline-7 (,@fg-orange ,@bg-none ,@fmt-none))
-                    (outline-8 (,@fg-violet ,@bg-none ,@fmt-none))
                     ;; show-paren
                     (show-paren-match    (,@fmt-bold ,@fg-cyan ,@bg-base01))
                     (show-paren-mismatch (,@fmt-bold ,@fg-red  ,@bg-base01)) ; MatchParen
@@ -534,9 +503,9 @@ Inspired by `org-combine-plists'."
                     (widget-field
                      (,@fg-base1 ,@bg-base02 :box (:line-width 1 :color base2)
                                  :inherit ()))
-                    (widget-single-line-field (:inherit (widget-field)))
-                    ;; extra modules
-                    ;; -------------
+
+                    ;; third-party packages
+
                     ;; alert
                     (alert-urgent (,@fg-red))
                     (alert-high (,@fg-orange))
@@ -560,6 +529,28 @@ Inspired by `org-combine-plists'."
                     (column-marker-1 (,@bg-base01))
                     (column-marker-2 (,@bg-cyan))
                     (column-marker-3 (,@bg-violet))
+                    ;; extended-faces
+                    (black (,@fg-base02))
+                    (blue (,@fg-blue))
+                    (cyan (,@fg-cyan))
+                    (green (,@fg-green))
+                    (level-1  (,@fg-blue    ,@bg-none ,@fmt-none)) ; pandocBlockQuoteLeader1
+                    (level-2  (,@fg-cyan    ,@bg-none ,@fmt-none)) ; pandocBlockQuoteLeader2
+                    (level-3  (,@fg-yellow  ,@bg-none ,@fmt-none)) ; pandocBlockQuoteLeader3
+                    (level-4  (,@fg-red     ,@bg-none ,@fmt-none)) ; pandocBlockQuoteLeader4
+                    (level-5  (,@fg-base0   ,@bg-none ,@fmt-none)) ; pandocBlockQuoteLeader5
+                    (level-6  (,@fg-base01  ,@bg-none ,@fmt-none)) ; pandocBlockQuoteLeader6
+                    (level-7  (,@fg-orange  ,@bg-none ,@fmt-none))
+                    (level-8  (,@fg-violet  ,@bg-none ,@fmt-none))
+                    (level-9  (,@fg-green   ,@bg-none ,@fmt-none))
+                    (level-10 (,@fg-magenta ,@bg-none ,@fmt-none))
+                    (level-11 (,@fg-base02  ,@bg-none ,@fmt-none))
+                    (magenta (,@fg-magenta))
+                    (prompt (,@fmt-bold ,@fg-cyan ,@bg-none)) ; Question
+                    (red (,@fg-red))
+                    (text-verbatim (,@fg-yellow ,@bg-none ,@fmt-none)) ; pandocVerbatimBlock
+                    (white (,@fg-base2))
+                    (yellow (,@fg-yellow))
                     ;; jabber
                     (jabber-activity-face (,@fmt-bold ,@fg-red))
                     (jabber-activity-personal-face (,@fmt-bold ,@fg-blue))
@@ -582,17 +573,6 @@ Inspired by `org-combine-plists'."
                     (git-gutter:added (,@fg-green))
                     (git-gutter:deleted (,@fg-red))
                     ;; gnus - these are mostly taken from mutt, not VIM
-                    (gnus-cite-1 (:inherit (outline-1)))
-                    (gnus-cite-2 (:inherit (outline-2)))
-                    (gnus-cite-3 (:inherit (outline-3)))
-                    (gnus-cite-4 (:inherit (outline-4)))
-                    (gnus-cite-5 (:inherit (outline-5)))
-                    (gnus-cite-6 (:inherit (outline-6)))
-                    (gnus-cite-7 (:inherit (outline-7)))
-                    (gnus-cite-8 (:inherit (outline-8)))
-                    (gnus-cite-9 (,@fg-green))
-                    (gnus-cite-10 (,@fg-magenta))
-                    (gnus-cite-11 (,@fg-base02))
                     (gnus-group-mail-1 (,@fmt-bold ,@fg-base3))
                     (gnus-group-mail-1-empty (,@fg-base3))
                     (gnus-group-mail-2 (,@fmt-bold ,@fg-base2))
@@ -623,26 +603,6 @@ Inspired by `org-combine-plists'."
                     (gnus-splash (,@fg-base2))
                     (gnus-summary-cancelled ; deleted messages
                      (,@fmt-none ,@fg-red))
-                    (gnus-summary-high-ancient
-                     (,@fmt-bold :inherit (gnus-summary-normal-ancient)))
-                    (gnus-summary-high-read
-                     (,@fmt-bold :inherit (gnus-summary-normal-read)))
-                    (gnus-summary-high-ticked
-                     (,@fmt-bold :inherit (gnus-summary-normal-ticked)))
-                    (gnus-summary-high-undownloaded
-                     (,@fmt-bold :inherit (gnus-summary-normal-undownloaded)))
-                    (gnus-summary-high-unread
-                     (,@fmt-bold :inherit (gnus-summary-normal-unread)))
-                    (gnus-summary-low-ancient
-                     (,@fmt-ital :inherit (gnus-summary-normal-ancient)))
-                    (gnus-summary-low-read
-                     (,@fmt-ital :inherit (gnus-summary-normal-ancient)))
-                    (gnus-summary-low-unread
-                     (,@fmt-ital :inherit (gnus-summary-normal-unread)))
-                    (gnus-summary-low-ticked
-                     (,@fmt-ital :inherit (gnus-summary-normal-ancient)))
-                    (gnus-summary-low-undownloaded
-                     (,@fmt-ital :inherit (gnus-summary-normal-ancient)))
                     (gnus-summary-normal-ancient ; old messages
                      (,@fmt-none ,@fg-blue))
                     (gnus-summary-normal-read ; read messages
@@ -657,8 +617,6 @@ Inspired by `org-combine-plists'."
                     (helm-apt-deinstalled (,@fg-base01))
                     (helm-apt-installed (,@fg-green))
                     (helm-bookmark-addressbook (,@fg-blue))
-                    (helm-bookmark-directory (:inherit (helm-ff-directory)))
-                    (helm-bookmark-file (:inherit (helm-ff-file)))
                     (helm-bookmark-gnus (,@fg-cyan))
                     (helm-bookmark-info (,@fg-green))
                     (helm-bookmark-man (,@fg-violet))
@@ -670,19 +628,15 @@ Inspired by `org-combine-plists'."
                     (helm-buffer-size (,@fg-base01))
                     (helm-candidate-number (,@fmt-bold ,@bg-base02 ,@fg-base1))
                     (helm-emms-playlist (,@fmt-none ,@fg-base01))
-                    (helm-etags+-highlight-face (:inherit (highlight)))
                     (helm-ff-directory (,@bg-back ,@fg-blue))
                     (helm-ff-executable (,@fmt-bold ,@fg-green))
-                    (helm-ff-file (:inherit ()))
                     (helm-ff-invalid-symlink (,@bg-base02 ,@fg-red))
                     (helm-ff-prefix (,@fmt-revr ,@fg-yellow))
                     (helm-ff-symlink (,@fmt-bold ,@fg-cyan))
-                    (helm-gentoo-match (:inherit (helm-match)))
                     (helm-grep-cmd-line (:inherit (diff-added)))
                     (helm-grep-file (,@(fmt-undr ()) ,@fg-cyan))
                     (helm-grep-finish (,@fg-green))
                     (helm-grep-lineno (,@fg-orange))
-                    (helm-grep-match (:inherit (helm-match)))
                     (helm-grep-running (,@fg-red))
                     (helm-helper (:inherit (helm-header)))
                     (helm-history-deleted (:inherit (helm-ff-invalid-symlink)))
@@ -698,31 +652,11 @@ Inspired by `org-combine-plists'."
                     (helm-ls-git-renamed-modified-face (,@fg-green))
                     (helm-ls-git-untracked-face (,@fg-red))
                     (helm-M-x-key (,@fmt-none ,@fg-orange))
-                    (helm-match (:inherit (match)))
                     (helm-moccur-buffer (,@(fmt-undr ()) ,@fg-cyan))
-                    (helm-selection (:inherit (region)))
-                    (helm-selection-line (:inherit (secondary-selection)))
                     (helm-separator (,@fg-red))
-                    (helm-source-header (:inherit (helm-header)))
                     (helm-time-zone-current (,@fg-green))
                     (helm-time-zone-home (,@fg-red))
                     (helm-visible-mark (,@fmt-bold ,@bg-back ,@fg-magenta))
-                    (helm-w3m-bookmarks (:inherit (helm-bookmark-w3m)))
-                    ;; markdown
-                    (markdown-bold-face (:inherit (bold)))
-                    (markdown-header-delimiter-face (:inherit (shadow)))
-                    (markdown-header-face (:inherit (outline-1)))
-                    (markdown-header-face-1 (:inherit (outline-1)))
-                    (markdown-header-face-2 (:inherit (outline-2)))
-                    (markdown-header-face-3 (:inherit (outline-3)))
-                    (markdown-header-face-4 (:inherit (outline-4)))
-                    (markdown-header-face-5 (:inherit (outline-5)))
-                    (markdown-header-face-6 (:inherit (outline-6)))
-                    (markdown-header-rule-face (:inherit (shadow)))
-                    (markdown-italic-face (:inherit (italic)))
-                    (markdown-link-face (:inherit (shadow)))
-                    (markdown-link-title-face (:inherit (link)))
-                    (markdown-url-face (:inherit (link)))
                     ;; Message
                     (message-mml (,@fg-blue))
                     (message-cited-text (,@fg-base2))
@@ -739,22 +673,6 @@ Inspired by `org-combine-plists'."
                     (minimap-semantic-function-face (,bg-base3))
                     (minimap-semantic-type-face (,bg-base3))
                     (minimap-semantic-variable-face (,bg-base3))
-                    ;; parenface
-                    (parenface-bracket-face (:inherit (shadow)))
-                    (parenface-curly-face (:inherit (shadow)))
-                    (parenface-paren-face (:inherit (shadow)))
-                    ;; paren-face
-                    (parenthesis (:inherit (shadow)))
-                    ;; rainbow-delimiters
-                    (rainbow-delimiters-depth-1-face (:inherit (outline-1)))
-                    (rainbow-delimiters-depth-2-face (:inherit (outline-2)))
-                    (rainbow-delimiters-depth-3-face (:inherit (outline-3)))
-                    (rainbow-delimiters-depth-4-face (:inherit (outline-4)))
-                    (rainbow-delimiters-depth-5-face (:inherit (outline-5)))
-                    (rainbow-delimiters-depth-6-face (:inherit (outline-6)))
-                    (rainbow-delimiters-depth-7-face (:inherit (outline-7)))
-                    (rainbow-delimiters-depth-8-face (:inherit (outline-8)))
-                    (rainbow-delimiters-depth-9-face (,@fg-green))
                     ;; powerline
                     (powerline-active1 (,@fg-base00 :inherit (mode-line)))
                     (powerline-active2 (,@fg-base0 :inherit (mode-line)))
@@ -788,12 +706,10 @@ Inspired by `org-combine-plists'."
                     ;; writegood
                     (writegood-weasels-face (,@(fmt-curl ()) ,@fg-cyan))
                     (writegood-passive-voice-face (,@fg-magenta))
-                    (writegood-duplicates-face (:inherit (error)))
                     ;; rcirc
                     (rcirc-my-nick (,@fg-blue))
                     (rcirc-nick-in-message (,@fg-orange))
                     (rcirc-other-nick (,@fg-green))
-                    (rcirc-prompt (,@fg-yellow))
                     (rcirc-bright-nick (,@fg-magenta))
                     (rcirc-server (,@fg-base1))
                     (rcirc-timestamp (,@fg-base01))
@@ -803,13 +719,6 @@ Inspired by `org-combine-plists'."
                     ;;flyspell
                     (flyspell-incorrect (,@(fmt-curl sp-red) ,@fg-none ,@bg-none)) ; SpellBad
                     (flyspell-duplicate (,@(fmt-curl sp-yellow)))
-                    ;; rst-mode
-                    (rst-level-1 (:inherit (outline-1)))
-                    (rst-level-2 (:inherit (outline-2)))
-                    (rst-level-3 (:inherit (outline-3)))
-                    (rst-level-4 (:inherit (outline-4)))
-                    (rst-level-5 (:inherit (outline-5)))
-                    (rst-level-6 (:inherit (outline-6)))
                     ;;ansi-color
                     (ansi-color-cyan (,@fg-cyan ,@bg-cyan))
                     (ansi-color-blue (,@fg-blue ,@bg-blue))
@@ -840,11 +749,13 @@ Inspired by `org-combine-plists'."
                     (company-preview-common (,@fg-base01 ,@bg-base02))
                     (company-template-field (,@fg-base03 ,@bg-yellow))
                     ;; hydra
-                    (hydra-face-red (,@fmt-bold ,@fg-red))
-                    (hydra-face-blue (,@fmt-bold ,@fg-blue))
-                    (hydra-face-amaranth (,@fmt-bold ,@fg-orange))
-                    (hydra-face-pink (,@fmt-bold ,@fg-magenta))
-                    (hydra-face-teal (,@fmt-bold ,@fg-cyan))
+                    ;; NB: take advantage of the two extra colors between blue and
+                    ;;     yellow.
+                    (hydra-face-teal     (,@fmt-bold ,@fg-cyan))
+                    (hydra-face-blue     (,@fmt-bold ,@fg-blue))
+                    (hydra-face-pink     (,@fmt-bold ,@fg-violet))
+                    (hydra-face-amaranth (,@fmt-bold ,@fg-magenta))
+                    (hydra-face-red      (,@fmt-bold ,@fg-red))
                     ;; guide-key
                     (guide-key/prefix-command-face (,@fg-blue))
                     (guide-key/highlight-command-face (,@fg-orange))
@@ -858,8 +769,15 @@ Inspired by `org-combine-plists'."
                     (magit-log-head-label-tags (,@fg-orange))
                     (magit-log-head-label-local (,@fg-yellow))
                     (magit-log-head-label-head (,@fg-violet))
-                    (magit-process-ok (,@fg-green :inherit (magit-section-title)))
-                    (magit-process-ng (,@fg-red :inherit (magit-section-title)))
+                    ;; transient
+                    ;; NB: take advantage of the two extra colors between blue and
+                    ;;     yellow.
+                    (transient-teal     (,@fg-cyan))
+                    (transient-blue     (,@fg-blue))
+                    (transient-purple   (,@fg-violet))
+                    (transient-pink     (,@fg-magenta))
+                    (transient-amaranth (,@fg-red))
+                    (transient-red      (,@fg-orange))
                     ;; undo-tree
                     (undo-tree-visualizer-current-face (,@fg-orange))
                     (undo-tree-visualizer-default-face (:inherit (shadow)))
