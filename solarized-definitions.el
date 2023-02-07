@@ -9,14 +9,18 @@
   "Color theme by Ethan Schoonover, created 2011-03-24.
 Ported to Emacs by Greg Pfeil, http://ethanschoonover.com/solarized.")
 
+(defgroup solarized nil
+  "Customizations for the Solarized theme."
+  :group 'faces
+  :prefix "solarized-")
+
 (defcustom solarized-termcolors 16
   "The number of colors to use on 256-color terminals.
 This is set to 16 by default, meaning that Solarized will attempt to use the
 standard 16 colors of your terminal emulator. You will need to set those colors
 to the correct Solarized values either manually or by importing one of the many
 colorschemes available for popular terminal emulators and Xdefaults."
-  :type 'integer
-  :options '(16 256)
+  :type '(choice (const 16) (const 256))
   :group 'solarized)
 
 (defcustom solarized-degrade nil
@@ -28,8 +32,7 @@ degraded color mode to test the approximate color values for accuracy."
 
 (defcustom solarized-diff-mode 'normal
   "Sets the level of highlighting to use in diff-like modes."
-  :type 'symbol
-  :options '(high normal low)
+  :type '(choice (const high) (const normal) (const low))
   :group 'solarized)
 
 (defcustom solarized-bold t
@@ -52,8 +55,7 @@ degraded color mode to test the approximate color values for accuracy."
 Stick with normal! It's been carefully tested. Setting this option to high or
 low does use the same Solarized palette but simply shifts some values up or down
 in order to expand or compress the tonal range displayed."
-  :type 'symbol
-  :options '(high normal low)
+  :type '(choice (const high) (const normal) (const low))
   :group 'solarized)
 
 (defcustom solarized-broken-srgb
