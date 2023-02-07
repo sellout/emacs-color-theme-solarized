@@ -823,29 +823,5 @@ contains Solarized symbols."
                 ;; haskell
                 (haskell-keyword-face (,@fg-cyan)))))))
 
-;;;###autoload
-(when (boundp 'custom-theme-load-path)
-  (add-to-list 'custom-theme-load-path
-               (file-name-as-directory (file-name-directory load-file-name))))
-
-(defmacro create-solarized-theme (name description color-definitions)
-  "Define the theme from the provided pieces.
-NAME is a bare symbol, DESCRIPTION is the text that will be presented to users,
-and COLOR-DEFINITIONS is the list of face-specs that comprise the theme."
-  `(let ((name ,name)
-         (description ,description)
-         (color-definitions ,color-definitions))
-     (custom-declare-theme name (custom-make-theme-feature name) description)
-     (apply #'custom-theme-set-faces name color-definitions)
-     (custom-theme-set-variables
-      name
-      ;; This is obsolete, but something might still be referencing it.
-      '(ansi-color-names-vector
-        ,(apply #'vector
-                (mapcar (lambda (color-name)
-                          (nth 1 (assoc color-name solarized-colors)))
-                        '(base02 red green yellow blue magenta cyan base2)))))
-     (provide-theme name)))
-
 (provide 'solarized-definitions)
 ;;; solarized-definitions.el ends here
