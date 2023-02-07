@@ -392,8 +392,7 @@ Inspired by `org-combine-plists'."
                              (diff-refine-added (,@fmt-none ,@fg-blue ,@bg-base02))
                              (diff-refine-changed (,@fmt-none ,@fg-blue ,@bg-base02))
                              (diff-refine-removed (,@fmt-none ,@fg-blue ,@bg-base02)))))) ; sp-blue
-                    (diff-file-header (,@fg-blue))
-                    (diff-header (,@fg-base1 ,@bg-back))
+                    (diff-header (,@fg-base1))
                     ;; IDO
                     (ido-only-match (,@fg-green))
                     (ido-subdir (,@fg-blue))
@@ -410,7 +409,6 @@ Inspired by `org-combine-plists'."
                     (eshell-ls-special (,@fg-violet))
                     (eshell-ls-symlink (,@fg-cyan))
                     (eshell-ls-unreadable (,@fg-base00))
-                    (eshell-prompt (,@fmt-bold ,@fg-green))
                     ;; font-lock
                     (font-lock-builtin-face           (,@fmt-none ,@fg-green  ,@bg-none)) ; Statement
                     (font-lock-constant-face          (,@fmt-none ,@fg-cyan   ,@bg-none)) ; Constant
@@ -566,6 +564,11 @@ Inspired by `org-combine-plists'."
                     (jabber-roster-user-offline (,@fg-base01))
                     (jabber-roster-user-online (,@fmt-bold ,@fg-blue))
                     (jabber-roster-user-xa (,@fmt-ital ,@fg-magenta))
+                    ;; git-commit
+                    (git-commit-branch-local    (,@fmt-bold ,@fg-magenta ,@bg-none)) ; gitcommitBranch
+                    (git-commit-branch-remote   (,@fmt-bold ,@fg-magenta ,@bg-none)) ; gitcommitBranch
+                    (git-commit-comment-file    (,@fmt-bold ,@fg-base0   ,@bg-none)) ; gitcommitFile
+                    (git-commit-comment-heading (,@fmt-ital ,@fg-base01  ,@bg-none)) ; gitcommitComment
                     ;; git-gutter
                     (git-gutter:modified (,@fg-violet))
                     (git-gutter:added (,@fg-green))
@@ -620,13 +623,13 @@ Inspired by `org-combine-plists'."
                     (helm-bookmark-man (,@fg-violet))
                     (helm-bookmark-w3m (,@fg-yellow))
                     (helm-bookmarks-su (,@fg-orange))
+                    (helm-buffer-directory (,@bg-back ,@fg-blue))
                     (helm-buffer-not-saved (,@fg-orange))
                     (helm-buffer-process (,@fg-magenta))
                     (helm-buffer-saved-out (,@fmt-revr ,@fg-red ,@bg-back))
                     (helm-buffer-size (,@fg-base01))
                     (helm-candidate-number (,@fmt-bold ,@bg-base02 ,@fg-base1))
                     (helm-emms-playlist (,@fmt-none ,@fg-base01))
-                    (helm-ff-directory (,@bg-back ,@fg-blue))
                     (helm-ff-executable (,@fmt-bold ,@fg-green))
                     (helm-ff-invalid-symlink (,@bg-base02 ,@fg-red))
                     (helm-ff-prefix (,@fmt-revr ,@fg-yellow))
@@ -654,6 +657,15 @@ Inspired by `org-combine-plists'."
                     (helm-time-zone-current (,@fg-green))
                     (helm-time-zone-home (,@fg-red))
                     (helm-visible-mark (,@fmt-bold ,@bg-back ,@fg-magenta))
+                    ;; lsp-headerline
+                    (lsp-headerline-breadcrumb-path-error-face (,@(fmt-curl sp-red)))
+                    (lsp-headerline-breadcrumb-path-hint-face (,@(fmt-curl sp-green)))
+                    (lsp-headerline-breadcrumb-path-info-face (,@(fmt-curl sp-green)))
+                    (lsp-headerline-breadcrumb-path-warning-face (,@(fmt-curl sp-yellow)))
+                    (lsp-headerline-breadcrumb-symbols-error-face (,@(fmt-curl sp-red)))
+                    (lsp-headerline-breadcrumb-symbols-hint-face (,@(fmt-curl sp-green)))
+                    (lsp-headerline-breadcrumb-symbols-info-face (,@(fmt-curl sp-green)))
+                    (lsp-headerline-breadcrumb-symbols-warning-face (,@(fmt-curl sp-yellow)))
                     ;; Message
                     (message-mml (,@fg-blue))
                     (message-cited-text (,@fg-base2))
@@ -688,6 +700,8 @@ Inspired by `org-combine-plists'."
                     (sp-wrap-tag-overlay-face (,@bg-base02))
                     (sp-show-pair-match-face (,@fg-magenta ,@bg-back))
                     (sp-show-pair-mismatch-face (,@bg-red ,@fg-base02))
+                    ;; which-key
+                    (which-key-group-description-face (,@fg-yellow))
                     ;; whitespace
                     (whitespace-empty (,@fg-red))
                     (whitespace-hspace (,@fg-orange))
@@ -714,8 +728,10 @@ Inspired by `org-combine-plists'."
                     (font-latex-warning-face (,@fg-red))
                     (font-latex-sectioning-5-face (,@fg-violet))
                     ;;flyspell
-                    (flyspell-incorrect (,@(fmt-curl sp-red) ,@fg-none ,@bg-none)) ; SpellBad
-                    (flyspell-duplicate (,@(fmt-curl sp-yellow)))
+                    ;; NB: kill inheritance here, to get rid of the overpowering
+                    ;;     ‘error’/‘warning’ faces from ‘inheritance’.
+                    (flyspell-incorrect (,@(fmt-curl sp-red)    ,@fg-none ,@bg-none :inherit ())) ; SpellBad
+                    (flyspell-duplicate (,@(fmt-curl sp-yellow) ,@fg-none ,@bg-none :inherit ()))
                     ;;ansi-color
                     (ansi-color-cyan (,@fg-cyan ,@bg-cyan))
                     (ansi-color-blue (,@fg-blue ,@bg-blue))
@@ -757,8 +773,11 @@ Inspired by `org-combine-plists'."
                     (guide-key/prefix-command-face (,@fg-blue))
                     (guide-key/highlight-command-face (,@fg-orange))
                     ;; magit
+                    (magit-branch-local          (,@fmt-bold ,@fg-magenta ,@bg-none)) ; gitcommitBranch
+                    (magit-branch-remote         (           ,@fg-green))
+                    (magit-diff-file-heading     (,@fmt-none ,@fg-base01  ,@bg-none)) ; gitcommitHeader
+                    (magit-diff-revision-summary (,@fmt-ital ,@fg-base01  ,@bg-none)) ; gitcommitComment
                     (magit-log-sha1 (,@fg-red))
-                    (magit-branch (,@fg-yellow))
                     (magit-tag (,@fg-green))
                     (magit-log-author (,@fg-cyan))
                     (magit-log-head-label-remote (,@fg-green))
