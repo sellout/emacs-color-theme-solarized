@@ -504,8 +504,10 @@ contains Solarized symbols."
                 (ace-jump-face-background (,@fmt-none ,@fg-base01))
                 (ace-jump-face-foreground (,@fmt-bold ,@fg-red))
                 ;; bm visual bookmarks
-                (bm-fringe-face (,@bg-orange ,@fg-base03))
-                (bm-fringe-persistent-face (,@bg-blue ,@fg-base03))
+                (bm-face ((t (,@bg-orange ,@fg-base03))))
+                (bm-fringe-face ((t (,@bg-orange ,@fg-base03))))
+                (bm-fringe-persistent-face ((t (,@bg-blue ,@fg-base03))))
+                (bm-persistent-face ((t (,@bg-blue ,@fg-base03))))
                 ;; Flymake
                 (flymake-errline (,@fmt-bold ,@fg-red)) ; Error
                 (flymake-warnline (,@fmt-bold ,@fg-red))
