@@ -508,6 +508,9 @@ Inspired by `org-combine-plists'."
                     (alert-normal (,@fg-green))
                     (alert-low (,@fg-blue))
                     (alert-trivial (,@fg-violet))
+                    ;; auto-dim-other-buffers
+                    (auto-dim-other-buffers-face (,@bg-base02)) ; match fringe
+                    (auto-dim-other-buffers-hide-face (,@fg-base02))
                     ;; col-highlight -- Highlight the current column.
                     ;; http://www.emacswiki.org/emacs/col-highlight.el
                     (col-highlight (,@bg-base02))
