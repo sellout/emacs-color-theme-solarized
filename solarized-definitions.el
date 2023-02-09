@@ -363,36 +363,39 @@ Inspired by `org-combine-plists'."
                     ;; diff - DiffAdd, DiffChange, DiffDelete, and DiffText
                     ,@(cl-case solarized-diff-mode
                         (high
-                         `((diff-added (,@fmt-revr ,@fg-green ,@bg-none))
-                           (diff-changed (,@fmt-revr ,@fg-yellow ,@bg-none))
-                           (diff-removed (,@fmt-revr ,@fg-red ,@bg-none))
-                           (diff-refine-added (,@fmt-revr ,@fg-blue ,@bg-none))
-                           (diff-refine-changed (,@fmt-revr ,@fg-blue ,@bg-none))
-                           (diff-refine-removed (,@fmt-revr ,@fg-blue ,@bg-none))))
+                         `((diff-added          (,@fmt-revr ,@fg-green  ,@bg-none))
+                           (diff-changed        (,@fmt-revr ,@fg-yellow ,@bg-none))
+                           (diff-removed        (,@fmt-revr ,@fg-red    ,@bg-none))
+                           (diff-refine-added   (,@fmt-revr ,@fg-blue   ,@bg-none))
+                           (diff-refine-changed (,@fmt-revr ,@fg-blue   ,@bg-none))
+                           (diff-refine-removed (,@fmt-revr ,@fg-blue   ,@bg-none))))
                         (low
-                         `((diff-added (,@(fmt-undr sp-green) ,@fg-green ,@bg-none))
-                           (diff-changed (,@(fmt-undr sp-yellow) ,@fg-yellow ,@bg-none))
-                           (diff-removed (,@fmt-bold ,@fg-red ,@bg-none))
-                           (diff-refine-added (,@(fmt-undr sp-blue) ,@fg-blue ,@bg-none))
-                           (diff-refine-changed (,@(fmt-undr sp-blue) ,@fg-blue ,@bg-none))
-                           (diff-refine-removed (,@(fmt-undr sp-blue) ,@fg-blue ,@bg-none))))
+                         `((diff-added          (,@(fmt-undr sp-green)  ,@fg-green  ,@bg-none))
+                           (diff-changed        (,@(fmt-undr sp-yellow) ,@fg-yellow ,@bg-none))
+                           (diff-removed        (,@fmt-bold             ,@fg-red    ,@bg-none))
+                           (diff-refine-added   (,@(fmt-undr sp-blue)   ,@fg-blue   ,@bg-none))
+                           (diff-refine-changed (,@(fmt-undr sp-blue)   ,@fg-blue   ,@bg-none))
+                           (diff-refine-removed (,@(fmt-undr sp-blue)   ,@fg-blue   ,@bg-none))))
                         (normal
                          ;; TODO: Handle this by creating separate face-specs for
                          ;;       ‘graphic’ and ‘tty’ displays.
                          (if window-system
-                             `((diff-added (,@fmt-bold ,@fg-green ,@bg-base02)) ; sp-green
-                               (diff-changed (,@fmt-bold ,@fg-yellow ,@bg-base02)) ; sp-yellow
-                               (diff-removed (,@fmt-bold ,@fg-red ,@bg-base02))
-                               (diff-refine-added (,@fmt-bold ,@fg-blue ,@bg-base02))
-                               (diff-refine-changed (,@fmt-bold ,@fg-blue ,@bg-base02))
-                               (diff-refine-removed (,@fmt-bold ,@fg-blue ,@bg-base02))) ; sp-blue
-                           `((diff-added (,@fmt-none ,@fg-green ,@bg-base02))    ; sp-green
-                             (diff-changed (,@fmt-none ,@fg-yellow ,@bg-base02)) ; sp-yellow
-                             (diff-removed (,@fmt-none ,@fg-red ,@bg-base02))
-                             (diff-refine-added (,@fmt-none ,@fg-blue ,@bg-base02))
-                             (diff-refine-changed (,@fmt-none ,@fg-blue ,@bg-base02))
-                             (diff-refine-removed (,@fmt-none ,@fg-blue ,@bg-base02)))))) ; sp-blue
+                             `((diff-added          (,@fmt-bold ,@fg-green  ,@bg-base02)) ; sp-green
+                               (diff-changed        (,@fmt-bold ,@fg-yellow ,@bg-base02)) ; sp-yellow
+                               (diff-removed        (,@fmt-bold ,@fg-red    ,@bg-base02))
+                               (diff-refine-added   (,@fmt-bold ,@fg-blue   ,@bg-base02))
+                               (diff-refine-changed (,@fmt-bold ,@fg-blue   ,@bg-base02))
+                               (diff-refine-removed (,@fmt-bold ,@fg-blue   ,@bg-base02))) ; sp-blue
+                           `((diff-added          (,@fmt-none ,@fg-green  ,@bg-base02)) ; sp-green
+                             (diff-changed        (,@fmt-none ,@fg-yellow ,@bg-base02)) ; sp-yellow
+                             (diff-removed        (,@fmt-none ,@fg-red    ,@bg-base02))
+                             (diff-refine-added   (,@fmt-none ,@fg-blue   ,@bg-base02))
+                             (diff-refine-changed (,@fmt-none ,@fg-blue   ,@bg-base02))
+                             (diff-refine-removed (,@fmt-none ,@fg-blue   ,@bg-base02)))))) ; sp-blue
                     (diff-header (,@fg-base1))
+                    ;; dired
+                    (dired-ignored (,@fg-orange))
+                    (dired-special (,@fg-violet))
                     ;; IDO
                     (ido-only-match (,@fg-green))
                     (ido-subdir (,@fg-blue))
@@ -400,14 +403,8 @@ Inspired by `org-combine-plists'."
                     ;; eshell
                     (eshell-ls-archive (,@fg-magenta))
                     (eshell-ls-backup (,@fg-yellow))
-                    (eshell-ls-clutter (,@fg-orange))
-                    (eshell-ls-directory (,@fmt-none ,@fg-blue ,@bg-none)) ; Directory
-                    (eshell-ls-executable (,@fg-green))
-                    (eshell-ls-missing (,@fg-red))
                     (eshell-ls-product (,@fg-yellow))
                     (eshell-ls-readonly (,@fg-base1))
-                    (eshell-ls-special (,@fg-violet))
-                    (eshell-ls-symlink (,@fg-cyan))
                     (eshell-ls-unreadable (,@fg-base00))
                     ;; font-lock
                     (font-lock-builtin-face           (,@fmt-none ,@fg-green  ,@bg-none)) ; Statement
@@ -531,6 +528,10 @@ Inspired by `org-combine-plists'."
                     (black (,@fg-base02))
                     (blue (,@fg-blue))
                     (cyan (,@fg-cyan))
+                    (fs-directory (,@fmt-none ,@fg-blue ,@bg-none)) ; Directory
+                    (fs-executable (,@fg-green))
+                    (fs-broken-symlink (,@fg-red))
+                    (fs-symlink (,@fg-cyan))
                     (green (,@fg-green))
                     (level-1  (,@fg-blue    ,@bg-none ,@fmt-none)) ; pandocBlockQuoteLeader1
                     (level-2  (,@fg-cyan    ,@bg-none ,@fmt-none)) ; pandocBlockQuoteLeader2
@@ -686,10 +687,10 @@ Inspired by `org-combine-plists'."
                     (minimap-semantic-type-face (,bg-base3))
                     (minimap-semantic-variable-face (,bg-base3))
                     ;; powerline
-                    (powerline-active1 (,@fg-base00 :inherit (mode-line)))
-                    (powerline-active2 (,@fg-base0 :inherit (mode-line)))
-                    (powerline-inactive1 (,@fg-base02 ,@bg-base1 :inherit (mode-line-inactive)))
-                    (powerline-inactive2 (,@fg-base01 :inherit (mode-line-inactive)))
+                    (powerline-active1 (,@fg-base00))
+                    (powerline-active2 (,@fg-base0))
+                    (powerline-inactive1 (,@fg-base02 ,@bg-base1))
+                    (powerline-inactive2 (,@fg-base01))
                     ;; slime
                     (slime-error-face (,@fmt-revr ,@fg-red ,@bg-none)) ; ErrorMsg
                     (slime-note-face (,@fg-yellow))
@@ -728,7 +729,6 @@ Inspired by `org-combine-plists'."
                     (rcirc-server (,@fg-base1))
                     (rcirc-timestamp (,@fg-base01))
                     ;;font-latex
-                    (font-latex-warning-face (,@fg-red))
                     (font-latex-sectioning-5-face (,@fg-violet))
                     ;;flyspell
                     ;; NB: kill inheritance here, to get rid of the overpowering
