@@ -14,6 +14,19 @@ Ported to Emacs by Greg Pfeil, http://ethanschoonover.com/solarized.")
   :group 'faces
   :prefix "solarized-")
 
+(defcustom solarized-termtrans '(:background :foreground)
+  "Whether to avoid specifying the background color in certain frames.
+Terminals which support less than 16 colors can sometimes set the default
+background and/or foreground to colors distinct from the 8 used otherwise,
+potentially expanding the palette to 9 or 10 colors.
+
+However, enabling this also means that you can’t switch to a background mode
+other than the one your terminal is set to. I.e., if the terminal background is
+dark, then you can only use the theme in dark mode, and if the terminal
+background is light, you can only use the theme in light mode."
+  :type '(set (const :background) (const :foreground))
+  :group 'solarized)
+
 (defcustom solarized-termcolors 16
   "The number of colors to use on 256-color terminals.
 This is set to 16 by default, meaning that Solarized will attempt to use the
@@ -140,9 +153,11 @@ LIGHT is non-nil."
                      ;;       user to have the right colors set for them.
                      (unless (and (= index 5)
                                   (or (and (eq property :background)
-                                           (eq color-name 'back))
+                                           (eq color-name 'back)
+                                           (member :background solarized-termtrans))
                                       (and (eq property :foreground)
-                                           (member color-name '(base0 base1)))))
+                                           (member color-name '(base0 base1))
+                                           (member :foreground solarized-termtrans))))
                        (nth index
                             (assoc color-name
                                    (solarized--current-colors light))))))))
