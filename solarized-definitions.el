@@ -144,7 +144,7 @@ If LIGHT is non-nil, invert the base faces."
 The colors are looked up in ‘solarized-colors’, and base colors are inverted if
 LIGHT is non-nil."
   (let ((new-fontspec (copy-sequence facespec)))
-    (dolist (property '(:foreground :background :color))
+    (dolist (property '(:background :box :color :foreground :overline :strike-through :underline))
       (let ((color-name (plist-get new-fontspec property)))
         (when (and color-name (symbolp color-name))
           (plist-put new-fontspec
