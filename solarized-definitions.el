@@ -195,6 +195,11 @@ contains Solarized symbols."
                              (cond (solarized-degrade     3)
                                    (solarized-broken-srgb 2)
                                    (t                     1)))
+	   ,@(dark-and-light '((min-colors 16777216))
+                             facespec
+                             (cond (solarized-degrade     3)
+                                   (solarized-broken-srgb 2)
+                                   (t                     1)))
            ;; only produce 256-color term-specific settings if ‘solarized-termcolors’ is 256
            ,@(when (= solarized-termcolors 256)
                (dark-and-light '((type tty) (min-colors 256)) facespec 3))
