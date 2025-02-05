@@ -190,7 +190,7 @@ LIGHT is non-nil."
   "Generate a full face-spec for face NAME from the Solarized FACESPEC.
 This generates the spec across a variety of displays from the FACESPEC, which
 contains Solarized symbols."
-  `(,name (,@(dark-and-light '((type graphic))
+  `(,name (,@(dark-and-light '((min-colors 16777216))
                              facespec
                              (cond (solarized-degrade     3)
                                    (solarized-broken-srgb 2)
