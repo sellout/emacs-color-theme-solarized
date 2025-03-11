@@ -36,6 +36,23 @@ Installation & Usage
 2. Add `(load-theme 'solarized t)` to your Emacs init file.
 3. Reload the init file, or restart Emacs.
 
+### Emacs 30+
+If you're using Emacs 30+ with `use-package`, you can fetch the repository directly:
+
+```emacs-lisp
+(use-package emacs-color-theme-solarized
+  :vc (:url "https://github.com/sellout/emacs-color-theme-solarized.git"
+	    :branch "master")
+  :config
+  (add-to-list 'custom-theme-load-path
+	       "~/.emacs.d/elpa/emacs-color-theme-solarized"))
+```
+#### After Installation
+Once you've cloned the repository locally, add the following to your Emacs init file:
+
+```emacs-lisp
+(load-theme 'solarized t)
+```
 ### all versions
 
 To switch between the light and dark variations of Solarized, set the frame’s `background-mode`. This can be accomplished globally using `M-x customize-variable frame-background-mode` or on a per-frame basis with `(set-frame-parameter nil 'background-mode 'light)` (or `'dark`).  If you're in a terminal, you must also set the terminal parameter with `(set-terminal-parameter nil 'background-mode 'light)` (or `'dark`). Remember to call `enable-theme` after changing the background mode to update the state of the theme.
